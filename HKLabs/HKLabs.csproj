@@ -120,6 +120,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\All.Data.SqlCe\All.Data.SqlCe.csproj">
+      <Project>{9408388a-7044-421b-a982-79ce0204284d}</Project>
+      <Name>All.Data.SqlCe</Name>
+    </ProjectReference>
     <ProjectReference Include="..\All\All.csproj">
       <Project>{003984f4-a872-41f4-a3e2-9950c99815f2}</Project>
       <Name>All</Name>

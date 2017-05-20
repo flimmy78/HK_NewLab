@@ -28,27 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.combobox1 = new HKLabs.combobox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.propertyGrid2 = new System.Windows.Forms.PropertyGrid();
             this.button1 = new All.Control.Metro.Button();
             this.SuspendLayout();
             // 
-            // combobox1
-            // 
-            this.combobox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.combobox1.BBB = null;
-            this.combobox1.FormattingEnabled = true;
-            this.combobox1.Location = new System.Drawing.Point(579, 43);
-            this.combobox1.Name = "combobox1";
-            this.combobox1.Size = new System.Drawing.Size(157, 20);
-            this.combobox1.TabIndex = 3;
-            // 
             // propertyGrid1
             // 
             this.propertyGrid1.Location = new System.Drawing.Point(579, 81);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.SelectedObject = this.combobox1;
             this.propertyGrid1.Size = new System.Drawing.Size(243, 505);
             this.propertyGrid1.TabIndex = 4;
             // 
@@ -77,27 +65,22 @@
             // 
             // Form4
             // 
-            this.AAA = typeof(HKLabs.Tabel);
+            this.AAA = typeof(HKLabs.AAA);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 624);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.propertyGrid2);
             this.Controls.Add(this.propertyGrid1);
-            this.Controls.Add(this.combobox1);
             this.Name = "Form4";
             this.Text = "Form4";
-            this.Controls.SetChildIndex(this.combobox1, 0);
-            this.Controls.SetChildIndex(this.propertyGrid1, 0);
-            this.Controls.SetChildIndex(this.propertyGrid2, 0);
-            this.Controls.SetChildIndex(this.button1, 0);
+            this.Load += new System.EventHandler(this.Form4_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private combobox combobox1;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.PropertyGrid propertyGrid2;
         private All.Control.Metro.Button button1;

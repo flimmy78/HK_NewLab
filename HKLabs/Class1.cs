@@ -21,8 +21,7 @@
 
         /// <internalonly/>
         /// <devdoc>
-        ///    <para>Gets a value indicating whether this converter can convert an object in the
-        ///       given source type to a reference object using the specified context.</para>
+        ///    <para>获取当前数据是否可以执行转换</para>
         /// </devdoc>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -35,7 +34,7 @@
 
         /// <internalonly/>
         /// <devdoc>
-        ///    <para>Converts the given object to the reference type.</para>
+        ///    <para>从字符串解析类型</para>
         /// </devdoc>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
@@ -65,8 +64,7 @@
 
         /// <internalonly/>
         /// <devdoc>
-        ///    <para>Converts the given value object to the reference type
-        ///       using the specified context and arguments.</para>
+        ///    <para>从类型转化为字符串</para>
         /// </devdoc>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
@@ -92,7 +90,7 @@
 
         /// <internalonly/>
         /// <devdoc>
-        ///    <para>Gets a collection of standard values for the reference data type.</para>
+        ///    <para>获取所有下拉列表项</para>
         /// </devdoc>
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {

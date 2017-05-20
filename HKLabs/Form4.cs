@@ -37,6 +37,13 @@ namespace HKLabs
                 }
             }
         }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+            All.Data.SqlCe sql = new All.Data.SqlCe();
+            All.Data.SqlCe.UpdateSqlCe(".\\SaveData.sdf");
+      bool result=      sql.Login(".\\SaveData.sdf", "", "");
+        }
     }
     [All.Attribute.Save(All.Attribute.Statue.AutoSave)]
     public class bbbbb

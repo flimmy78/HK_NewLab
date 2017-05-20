@@ -38,23 +38,23 @@ namespace All.Data
         /// </summary>
         private void CheckDllNeedCopy()
         {
-            for (int i = 0; i < allNeedFileName.Length; i++)
-            {
-                if (!System.IO.File.Exists(string.Format(".\\DllAndOcx\\Data\\SqlCe\\{0}", allNeedFileName[i])))
-                {
-                    continue;
-                }
-                if (System.IO.File.Exists(string.Format(".\\{0}", allNeedFileName[i])))
-                {
-                    if ((All.Class.FileIO.GetFileMD5(string.Format(".\\DllAndOcx\\Data\\SqlCe\\{0}", allNeedFileName[i]), "0") ==
-                        All.Class.FileIO.GetFileMD5(string.Format(".\\{0}", allNeedFileName[i]), "1")))
-                    {
-                        continue;
-                    }
-                }
-                System.IO.File.Copy(string.Format(".\\DllAndOcx\\Data\\SqlCe\\{0}", allNeedFileName[i]),
-                    string.Format(".\\{0}", allNeedFileName[i]), true);
-            }
+            //for (int i = 0; i < allNeedFileName.Length; i++)
+            //{
+            //    if (!System.IO.File.Exists(string.Format(".\\DllAndOcx\\Data\\SqlCe\\{0}", allNeedFileName[i])))
+            //    {
+            //        continue;
+            //    }
+            //    if (System.IO.File.Exists(string.Format(".\\{0}", allNeedFileName[i])))
+            //    {
+            //        if ((All.Class.FileIO.GetFileMD5(string.Format(".\\DllAndOcx\\Data\\SqlCe\\{0}", allNeedFileName[i]), "0") ==
+            //            All.Class.FileIO.GetFileMD5(string.Format(".\\{0}", allNeedFileName[i]), "1")))
+            //        {
+            //            continue;
+            //        }
+            //    }
+            //    System.IO.File.Copy(string.Format(".\\DllAndOcx\\Data\\SqlCe\\{0}", allNeedFileName[i]),
+            //        string.Format(".\\{0}", allNeedFileName[i]), true);
+            //}
         }
         public override int BlockCommand(DataTable dt)
         {
@@ -95,18 +95,44 @@ namespace All.Data
                 return result;
             }
         }
+        /// <summary>
+        /// 将数据格式升级到4.0版本
+        /// </summary>
+        /// <param name="fileName">要升级的文件</param>
+        /// <param name="UserName"></param>
+        /// <param name="passWord"></param>
+        public static void UpdateSqlCe(string fileName, string userName, string passWord)
+        {
+            try
+            {
+                SqlCeEngine sql = new SqlCeEngine(string.Format("Data Source={0};Max Database Size=4091;Persist Security Info=False;password='{1}';", fileName, passWord));
+                sql.Upgrade();
+            }
+            catch (Exception e)
+            {
+                All.Class.Error.Add(e);
+            }
+        }
+        /// <summary>
+        /// 将数据格式升级到4.0版本
+        /// </summary>
+        /// <param name="fileName"></param>
+        public static void UpdateSqlCe(string fileName)
+        {
+            UpdateSqlCe(fileName, "", "");
+        }
         public bool Login(string FileName, string UserName, string Password)
         {
             bool result = false;
             try
             {
-                conn = new SqlCeConnection(string.Format("Data Source={0};Max Database Size=4091;Persist Security Info=False;", FileName));
+                conn = new SqlCeConnection(string.Format("Data Source={0};Max Database Size=4091;Persist Security Info=False;password='{1}';", FileName,Password));
                 conn.Open();
                 result = (conn.State == ConnectionState.Open);
             }
             catch (Exception e)
             {
-                All.Class.Error.Add("连接字符", string.Format("Data Source={0};Max Database Size=4091;Persist Security Info=False;", FileName));
+                All.Class.Error.Add("连接字符", string.Format("Data Source={0};Max Database Size=4091;Persist Security Info=False;password='{1}';", FileName,Password));
                 All.Class.Error.Add(e);
             }
             return result;

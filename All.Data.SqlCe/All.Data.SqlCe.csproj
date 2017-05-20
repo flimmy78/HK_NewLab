@@ -54,33 +54,33 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SqlCe\sqlceca40.dll">
+    <EmbeddedResource Include="SqlCe\sqlceca40.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlCe\sqlcecompact40.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlCe\sqlcecompact40.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlCe\sqlceer40CN.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlCe\sqlceer40CN.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlCe\sqlceer40EN.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlCe\sqlceer40EN.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlCe\sqlceme40.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlCe\sqlceme40.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlCe\sqlceoledb40.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlCe\sqlceoledb40.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlCe\sqlceqp40.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlCe\sqlceqp40.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlCe\sqlcese40.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlCe\sqlcese40.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlCe\System.Data.SqlServerCe.dll">
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlCe\System.Data.SqlServerCe.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
