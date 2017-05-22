@@ -42,15 +42,6 @@ namespace All.Meter
         }
         public override void Init(Dictionary<string, string> initParm)
         {
-            InitParm = initParm;
-            if (InitParm.ContainsKey("Text"))
-            {
-                this.Text = InitParm["Text"];
-            }
-            if (initParm.ContainsKey("TimeOut"))
-            {
-                this.TimeOut = All.Class.Num.ToInt(initParm["TimeOut"]);
-            }
             if (initParm.ContainsKey("Cr"))
             {
                 this.cr = All.Class.Num.ToBool(initParm["Cr"]);
@@ -58,10 +49,6 @@ namespace All.Meter
             if (initParm.ContainsKey("Lf"))
             {
                 this.lf = All.Class.Num.ToBool(initParm["Lf"]);
-            }
-            if (initParm.ContainsKey("ErrorCount"))
-            {
-                this.ErrorCount = All.Class.Num.ToInt(initParm["ErrorCount"]);
             }
             if (!InitParm.ContainsKey("Address"))
             {

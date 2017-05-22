@@ -11,19 +11,21 @@ namespace All.Communicate
     /// </summary>
     public class AutoReadAndWrite
     {
+        List<Thread> AllThread = new List<Thread>();
         /// <summary>
         /// 所有读取数据
         /// </summary>
-        public Data.AllData Reads
+        public Data.AllData Datas
         { get; set; }
         /// <summary>
         /// 所有通讯类
         /// </summary>
         public List<Data.CommunicateStyle> Communicates
         { get; set; }
+        bool exit = false;
         public AutoReadAndWrite()
         {
-            this.Reads = new Data.AllData();
+            this.Datas = new Data.AllData();
             this.Communicates = new List<Data.CommunicateStyle>();
         }
         /// <summary>
@@ -44,6 +46,35 @@ namespace All.Communicate
             StartRead();
         }
         /// <summary>
+        /// 关闭所有读取数据
+        /// </summary>
+        public void Close()
+        {
+            if (AllThread == null || AllThread.Count <= 0)
+            {
+                return;
+            }
+            exit = true;
+            new Thread(() =>
+            {
+                Thread.CurrentThread.Join(1000);//等待1s后,强制关闭所有线程
+                AllThread.ForEach(t =>
+                {
+                    if (t != null || t.ThreadState != ThreadState.Stopped)
+                    {
+                        t.Abort();
+                    }
+                });
+            })
+            {
+                IsBackground = true
+            }.Start();
+        }
+        ~AutoReadAndWrite()
+        {
+            this.Close();
+        }
+        /// <summary>
         /// 开始自动读取数据
         /// </summary>
         private void StartRead()
@@ -55,10 +86,13 @@ namespace All.Communicate
             for (int i = 0; i < Communicates.Count; i++)
             {
                 int index = i;
-                new Thread(() => Loop(index))
-                {
-                    IsBackground = true
-                }.Start();
+                Thread tmp = new Thread(() => Loop(index));
+                AllThread.Add(tmp);
+            }
+            for (int i = 0; i < AllThread.Count; i++)
+            {
+                AllThread[i].IsBackground = true;
+                AllThread[i].Start();
             }
         }
         /// <summary>
@@ -71,23 +105,30 @@ namespace All.Communicate
             {
                 return;
             }
-            int start = Environment.TickCount;
-            while (true)
+            int[] start = new int[Communicates[index].Meters.Count];
+            for (int i = 0; i < start.Length; i++)
             {
-                Thread.Sleep(20);
-                if ((Environment.TickCount - start) < Communicates[index].Value.FlushTick)
-                {
-                    continue;
-                }
-                start = Environment.TickCount;
+                start[i] = Environment.TickCount;
+            }
+            while (!exit)
+            {
+                Thread.Sleep(25);
                 for (int i = 0; i < Communicates[index].Meters.Count; i++)
                 {
+                    //没东西可读的时间
                     if (Communicates[index].Meters[i].Reads == null | Communicates[index].Meters[i].Reads.Count <= 0)
                     {
                         continue;
                     }
+                    //刷新时间还没到
+                    if ((Environment.TickCount - start[i]) < Communicates[index].Meters[i].Value.FlushTick)
+                    {
+                        continue;
+                    }
+                    start[i] = Environment.TickCount;
                     for (int j = 0; j < Communicates[index].Meters[i].Reads.Count; j++)
                     {
+                        //Communicates[index].Meters[i].Value.Read<
                         //tmpType = All.Class.TypeUse.GetType(Communicates[index].Meters[i].Reads[j]["Data"]);
                         //tmpIndex = Data.XmlIndex.GetIndexFromSet(Communicates[index].Meters[i].Reads[j]["Index"], tmpType);
                         //switch (tmpType)
@@ -184,8 +225,6 @@ namespace All.Communicate
         /// <returns></returns>
         private void InitData()
         {
-            //int maxIndex = 0;
-            Dictionary<int,string> tmpIndexs;
             if (Communicates == null || Communicates.Count <= 0)
             {
                 All.Class.Error.Add("没有通讯类须要读取");
@@ -206,112 +245,9 @@ namespace All.Communicate
                     }
                     for (int k = 0; k < Communicates[i].Meters[j].Reads.Count; k++)
                     {
-                        //maxIndex = -1;
-                        if (!Communicates[i].Meters[j].Reads[k].Values.ContainsKey("Data") ||//不包含数据类型,则继续
-                            !Communicates[i].Meters[j].Reads[k].Values.ContainsKey("Index"))//没有数据序号,则继续
-                        {
-                            All.Class.Error.Add(string.Format("{0}.{1},没有数据类型或数据序号", 
-                                Communicates[i].Value.Text,
-                                Communicates[i].Meters[j].Value.Text));
-                            continue;
-                        }
-                        Communicates[i].Meters[j].Reads[k].ReadType = All.Class.TypeUse.GetType(Communicates[i].Meters[j].Reads[k].Values["Data"]);
-                        tmpIndexs = Data.ReadDataStyle<int>.GetIndexFromSet(
-                            Communicates[i].Meters[j].Reads[k].Values["Index"], Communicates[i].Meters[j].Reads[k].Values["Text"]);
-                        if (tmpIndexs == null || tmpIndexs.Count <= 0)//解析不出序号
-                        {
-                            All.Class.Error.Add(string.Format("{0}.{1},解析不出序号",
-                                Communicates[i].Value.Text,
-                                Communicates[i].Meters[j].Value.Text));
-                            continue;
-                        }
-                        switch (Communicates[i].Meters[j].Reads[k].ReadType)
-                        {
-                            case Class.TypeUse.TypeList.UnKnow:
-                                break;
-                            case Class.TypeUse.TypeList.Bytes:
-                                
-                                break;
-                        }
-                        for (int l = 0; l < tmpIndexs.Count; l++)
-                        {
-                           
-                        }
-                        //if (tmpIndexs.Min() < 0)
-                        //{
-                        //    Communicates[i].Meters[j].Reads[k].NeedToRead = false;
-                        //    All.Class.Error.Add(string.Format("{0}.{1},解析序号不正确,出现负数",
-                        //        Communicates[i].Value.Text,
-                        //        Communicates[i].Meters[j].Value.Text));
-                        //    continue;
-                        //}
-                        //maxIndex = tmpIndexs.Max();
-                        //switch (Communicates[i].Meters[j].Reads[k].ReadType)
-                        //{
-                        //    case Class.TypeUse.TypeList.UnKnow:
-                        //        Communicates[i].Meters[j].Reads[k].NeedToRead = false;
-                        //        break;
-                        //    case Class.TypeUse.TypeList.Bytes:
-                        //        for (int l = Reads.BytesValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.BytesValue.Value.Add(null);
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.Boolean:
-                        //        for (int l = Reads.BoolValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.BoolValue.Value.Add(false);
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.Byte:
-                        //        for (int l = Reads.ByteValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.ByteValue.Value.Add(0);
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.DateTime:
-                        //        for (int l = Reads.DateTimeValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.DateTimeValue.Value.Add(DateTime.Now);
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.Double:
-                        //        for (int l = Reads.DoubleValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.DoubleValue.Value.Add(0);
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.Float:
-                        //        for (int l = Reads.BytesValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.BytesValue.Value.Add(null);
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.Int:
-                        //        for (int l = Reads.IntValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.IntValue.Value.Add(0);
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.Long:
-                        //        for (int l = Reads.LongValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.LongValue.Value.Add(0);
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.String:
-                        //        for (int l = Reads.StringValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.StringValue.Value.Add("");
-                        //        }
-                        //        break;
-                        //    case Class.TypeUse.TypeList.UShort:
-                        //        for (int l = Reads.UshortValue.Value.Count; l <= maxIndex; l++)
-                        //        {
-                        //            Reads.UshortValue.Value.Add(0);
-                        //        }
-                        //        break;
-                        //}
+                        Communicates[i].Meters[j].Reads[k].Analysis();
+                        Datas.AddRange(Communicates[i].Meters[j].Reads[k].ReadType,
+                            Communicates[i].Meters[j].Reads[k].Datas);
                     }
                 }
             }
@@ -328,6 +264,7 @@ namespace All.Communicate
             }
             Data.CommunicateStyle tmpCommunicateStyle;
             Data.MeterStyle tmpMeterStyle;
+            All.Communicate.Data.ReadDetial tmpReadDetial;
             foreach (XmlNode tmpConnectNode in tmpXml.ChildNodes)//取所有Connect
             {
                 if (tmpConnectNode.NodeType != XmlNodeType.Element)
@@ -349,24 +286,33 @@ namespace All.Communicate
                     }
                     //反射设备类
                     tmpMeterStyle = new Data.MeterStyle();
-                    tmpMeterStyle.Value = All.Meter.Meter.Parse(Class.XmlHelp.GetAttribute(tmpMeterNode), tmpCommunicateStyle.Value);
-                    if (tmpMeterStyle.Value == null)
+                    tmpMeterStyle.Value = All.Meter.Meter.Parse(Class.XmlHelp.GetAttribute(tmpMeterNode));
+                    if (tmpMeterStyle.Value == null)//解析不出设备类型
                     {
                         continue;
                     }
+                    tmpMeterStyle.Value.Parent = tmpCommunicateStyle.Value;
                     foreach (XmlNode tmpReadAndWriteNode in tmpMeterNode.ChildNodes)
                     {
                         if (tmpReadAndWriteNode.NodeType != XmlNodeType.Element)//不是数据标签则继续
                         {
                             continue;
                         }
-                        foreach (XmlNode tmpValue in tmpReadAndWriteNode.ChildNodes)
+                        if (tmpReadAndWriteNode.InnerText.ToUpper() == "WRITE")//常写标签,暂时没有
+                        { 
+                        }
+                        if (tmpReadAndWriteNode.InnerText.ToUpper() == "READ")//获取所有读取节点
                         {
-                            if (tmpValue.NodeType != XmlNodeType.Element)//排除其他辅助标签
+                            foreach (XmlNode tmpValue in tmpReadAndWriteNode.ChildNodes)
                             {
-                                continue;
+                                if (tmpValue.NodeType != XmlNodeType.Element)//排除其他辅助标签
+                                {
+                                    continue;
+                                }
+                                tmpReadDetial = new All.Communicate.Data.ReadDetial(Class.XmlHelp.GetInner(tmpValue));
+                                tmpReadDetial.Parent = tmpMeterStyle;
+                                tmpMeterStyle.Reads.Add(tmpReadDetial);
                             }
-                            tmpMeterStyle.Reads.Add(new All.Communicate.Data.MeterStyle.ReadStyle(Class.XmlHelp.GetInner(tmpValue)));
                         }
                     }
                     tmpCommunicateStyle.Meters.Add(tmpMeterStyle);

@@ -11,7 +11,7 @@ namespace All.Communicate.Data
     public class CommunicateStyle
     {
         /// <summary>
-        /// 通讯值
+        /// 通讯方式
         /// </summary>
         public Communicate Value
         { get; set; }

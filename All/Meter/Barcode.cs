@@ -13,18 +13,6 @@ namespace All.Meter
             get { return initParm; }
             set { initParm = value; }
         }
-        public override void Init(Dictionary<string, string> initParm)
-        {
-            this.initParm = initParm;
-            if (InitParm.ContainsKey("Text"))
-            {
-                this.Text = InitParm["Text"];
-            }
-            if (initParm.ContainsKey("TimeOut"))
-            {
-                this.TimeOut = All.Class.Num.ToInt(initParm["TimeOut"]);
-            }
-        }
         public override bool Read<T>(out List<T> value, Dictionary<string, string> parm)
         {
             bool result = true;

@@ -24,19 +24,6 @@ namespace All.Meter
         }
         public override void Init(Dictionary<string, string> initParm)
         {
-            InitParm = initParm;
-            if (InitParm.ContainsKey("Text"))
-            {
-                this.Text = InitParm["Text"];
-            }
-            if (initParm.ContainsKey("TimeOut"))
-            {
-                this.TimeOut = All.Class.Num.ToInt(initParm["TimeOut"]);
-            }
-            if (initParm.ContainsKey("ErrorCount"))
-            {
-                this.ErrorCount = All.Class.Num.ToInt(initParm["ErrorCount"]);
-            }
             if (!InitParm.ContainsKey("Address"))
             {
                 All.Class.Error.Add("标准Modbus参数中没有地址", Environment.StackTrace);
@@ -45,6 +32,7 @@ namespace All.Meter
             {
                 address = All.Class.Num.ToByte(InitParm["Address"]);
             }
+            base.Init(initParm);
         }
         /// <summary>
         /// 按指令读取指定数据

@@ -5,111 +5,73 @@ using System.Text;
 
 namespace All.Communicate.Data
 {
-    /// <summary>
-    /// 读取数据内容
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class ReadDataStyle<T>
+    public class ReadDetial
     {
+        #region//属性
         /// <summary>
-        /// 读取数据
+        /// 解析后的读取内容值0:M0,1:M1,2:M2,4:M4这种东西
         /// </summary>
-        /// <param name="index">数据序列号</param>
-        /// <param name="lastValue">前一值</param>
-        /// <param name="value">当前值</param>
-        public delegate void ValueReadHandle(int index, T lastValue, T value);
-        /// <summary>
-        /// 当前值
-        /// </summary>
-        public List<T> Value
+        public Dictionary<int, string> Datas
         { get; set; }
         /// <summary>
-        /// 数据名称
+        /// 读取内容的原始buff,即<Index>1,2,3,4</Index>,<Text>M0,M1,M2</Text>这种东西
         /// </summary>
-        public List<string> Info
+        public Dictionary<string, string> Values
         { get; set; }
-        public event ValueReadHandle ValueChange;
         /// <summary>
-        /// 数据读取完毕事件
+        /// 包含此读取块的设备
         /// </summary>
-        public event ValueReadHandle ValueReadOver;
-        public ReadDataStyle()
+        public MeterStyle Parent
+        { get; set; }
+        All.Class.TypeUse.TypeList readType = All.Class.TypeUse.TypeList.UnKnow;
+        /// <summary>
+        /// 当前读取类型
+        /// </summary>
+        public All.Class.TypeUse.TypeList ReadType
         {
-            Value = new List<T>();
-            Info = new List<string>();
+            get { return readType; }
+        }
+        #endregion
+        #region//构造函数
+        /// <summary>
+        /// 读取数据buff
+        /// </summary>
+        public ReadDetial()
+            : this(new Dictionary<string, string>())
+        {
         }
         /// <summary>
-        /// 清空所有数据
+        /// 读取数据buff
         /// </summary>
-        public void Clear()
-        {
-            Value.Clear();
-            Info.Clear();
-        }
-        /// <summary>
-        /// 读取数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        public void SetValue(int index, T value)
+        public ReadDetial(Dictionary<string, string> value)
         {
-            if (Value == null || index < 0 || index >= Value.Count)
+            this.Values = value;
+            this.Datas = new Dictionary<int, string>();
+        }
+        #endregion
+        /// <summary>
+        /// 从初始化值中解析须要的数据类型,以及读取值
+        /// </summary>
+        public void Analysis()
+        {
+            if (Parent == null || Values == null || !Values.ContainsKey("Data"))
             {
                 return;
             }
-            if (ValueChange != null && !Value[index].Equals(value))
+            if (!Values.ContainsKey("Text") || !Values.ContainsKey("Index"))
             {
-                ValueChange(index, Value[index], value);
+                All.Class.Error.Add(string.Format("{0}.{1},没有数据类型或数据序号", Parent.Value.Parent.Text, Parent.Value.Text));
             }
-            if (ValueReadOver != null)
-            {
-                ValueReadOver(index, Value[index], value);
-            }
-        }
-        /// <summary>
-        /// 添加一组数据
-        /// </summary>
-        /// <param name="info"></param>
-        public void Add(string info)
-        {
-            switch (All.Class.TypeUse.GetType<T>())
-            {
-                case Class.TypeUse.TypeList.Boolean:
-                    Value.Add((T)(object)false);
-                    Info.Add(info);
-                    break;
-                case Class.TypeUse.TypeList.DateTime:
-                    Value.Add((T)(object)DateTime.Now);
-                    Info.Add(info);
-                    break;
-                case Class.TypeUse.TypeList.Long:
-                case Class.TypeUse.TypeList.Byte:
-                case Class.TypeUse.TypeList.Double:
-                case Class.TypeUse.TypeList.Float:
-                case Class.TypeUse.TypeList.Int:
-                case Class.TypeUse.TypeList.UShort:
-                    Value.Add((T)(object)0);
-                    Info.Add(info);
-                    break;
-                case Class.TypeUse.TypeList.String:
-                    Value.Add((T)(object)"");
-                    Info.Add(info);
-                    break;
-                case Class.TypeUse.TypeList.Bytes:
-                    Value.Add((T)(object)null);
-                    Info.Add(info);
-                    break;
-                case Class.TypeUse.TypeList.UnKnow:
-                    All.Class.Error.Add("未知类型", string.Format("DataStyle.Add出现未知数据类型,数据名为:{0}", info));
-                    break;
-            }
+            readType = All.Class.TypeUse.GetType(Values["Data"]);
+            this.Datas = GetIndexFromSet(Values["Index"], Values["Text"]);
         }
         /// <summary>
         /// 从字符串中,解析出下标,可以解析1,2,3,4这种以','号分隔,或者'数据名[0->9]'这种格式的数据名
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static Dictionary<int,string> GetIndexFromSet(string index, string text)
+        private Dictionary<int, string> GetIndexFromSet(string index, string text)
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
             List<int> indexs = new List<int>();
@@ -136,8 +98,8 @@ namespace All.Communicate.Data
                         indexs.Add(tmp[0].ToInt());
                         break;
                     case 2:
-                        if(!All.Class.Check.isFix(tmp[0],Class.Check.RegularList.整数) ||
-                            !All.Class.Check.isFix(tmp[1],Class.Check.RegularList.整数))
+                        if (!All.Class.Check.isFix(tmp[0], Class.Check.RegularList.整数) ||
+                            !All.Class.Check.isFix(tmp[1], Class.Check.RegularList.整数))
                         {
                             All.Class.Error.Add("数据量错", "DataStyle.GetIndexFromSet中序号中数值不能转化为整数");
                             All.Class.Error.Add("数据列值", index);

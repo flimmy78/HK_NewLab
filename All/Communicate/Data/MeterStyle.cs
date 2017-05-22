@@ -11,34 +11,9 @@ namespace All.Communicate.Data
     public class MeterStyle
     {
         /// <summary>
-        /// 读取类
-        /// </summary>
-        public class ReadStyle
-        {
-            /// <summary>
-            /// 读取内容
-            /// </summary>
-            public Dictionary<string, string> Values
-            { get; set; }
-            /// <summary>
-            /// 当前读取类型
-            /// </summary>
-            public All.Class.TypeUse.TypeList ReadType
-            { get; set; }
-            public ReadStyle()
-                : this(new Dictionary<string, string>())
-            {
-            }
-            public ReadStyle(Dictionary<string, string> value)
-            {
-                this.Values = value;
-                this.ReadType = All.Class.TypeUse.TypeList.UnKnow;
-            }
-        }
-        /// <summary>
         /// 所有读取信息
         /// </summary>
-        public List<ReadStyle> Reads
+        public List<ReadDetial> Reads
         { get; set; }
         /// <summary>
         /// 设备值
@@ -46,24 +21,27 @@ namespace All.Communicate.Data
         public Meter.Meter Value
         { get; set; }
 
-        List<byte> tmpByte;
-        List<bool> tmpBool;
-        List<DateTime> tmpDateTime;
-        List<int> tmpInt;
-        List<long> tmpLong;
-        List<float> tmpFloat;
-        List<double> tmpDouble;
-        List<ushort> tmpUshort;
-        List<string> tmpString;
-        Class.TypeUse.TypeList tmpType;
-        List<int> tmpIndex;
-
         public MeterStyle()
         {
-            Reads = new List<ReadStyle>();
+            Reads = new List<ReadDetial>();
             Value = null;
-            tmpByte = new List<byte>();
-            tmpBool = new List<bool>();
+        }
+        /// <summary>
+        /// 读取指定块的数据
+        /// </summary>
+        /// <param name="readDetialIndex"></param>
+        /// <returns></returns>
+        public bool Read(int readDetialIndex)
+        {
+            bool result = true;
+            switch (Reads[readDetialIndex].ReadType)
+            {
+                case Class.TypeUse.TypeList.Boolean:
+                    List<bool> tmpBool = new List<bool>();
+                    result = this.Value.Read<bool>(out tmpBool, Reads[readDetialIndex].Values);
+                    break;
+            }
+            return result;
         }
     }
 }

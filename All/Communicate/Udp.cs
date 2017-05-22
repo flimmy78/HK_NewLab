@@ -52,10 +52,6 @@ namespace All.Communicate
             {
                 this.Text = buff["Text"];
             }
-            if (buff.ContainsKey("FlushTick"))
-            {
-                this.FlushTick = buff["FlushTick"].ToInt();
-            }
             if (!buff.ContainsKey("LocalPort"))
             {
                 AddError(new Exception(string.Format("{0}:Udp.Init Error,parm<buff> need LocalPort values", this.Text)));

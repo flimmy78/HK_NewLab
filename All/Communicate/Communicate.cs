@@ -8,11 +8,6 @@ namespace All.Communicate
     public abstract class Communicate:Base.Base,IDisposable
     {
         /// <summary>
-        /// 刷新时间
-        /// </summary>
-        public int FlushTick
-        { get; set; }
-        /// <summary>
         /// 通讯名称
         /// </summary>
         public string Text

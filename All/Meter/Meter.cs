@@ -10,6 +10,15 @@ namespace All.Meter
     /// </summary>
     public abstract class Meter :IDisposable
     {
+        int flushTick = 1000;
+        /// <summary>
+        /// 刷新时间
+        /// </summary>
+        public int FlushTick
+        {
+            get { return flushTick; }
+            set { flushTick = value; }
+        }
         /// <summary>
         /// 故障事件
         /// </summary>
@@ -29,7 +38,7 @@ namespace All.Meter
         public string Text
         { get; set; }
         /// <summary>
-        /// 当前设备有通讯类
+        /// 当前设备的通讯类
         /// </summary>
         public Communicate.Communicate Parent
         { get; set; }
@@ -109,7 +118,26 @@ namespace All.Meter
         /// 初始化
         /// </summary>
         /// <param name="InitBuff"></param>
-        public abstract void Init(Dictionary<string, string> initParm);
+        public virtual void Init(Dictionary<string, string> initParm)
+        {
+            if (initParm.ContainsKey("FlushTick"))
+            {
+                this.FlushTick = initParm["FlushTick"].ToInt();
+            }
+            if (InitParm.ContainsKey("Text"))
+            {
+                this.Text = InitParm["Text"];
+            }
+            if (initParm.ContainsKey("TimeOut"))
+            {
+                this.TimeOut = All.Class.Num.ToInt(initParm["TimeOut"]);
+            }
+            if (initParm.ContainsKey("ErrorCount"))
+            {
+                this.ErrorCount = All.Class.Num.ToInt(initParm["ErrorCount"]);
+            }
+            this.InitParm = initParm;
+        }
         /// <summary>
         /// 初始化设备
         /// </summary>
@@ -404,21 +432,11 @@ namespace All.Meter
             return result;
         }
         /// <summary>
-        /// 从xml中解析出设备
-        /// </summary>
-        /// <param name="buff"></param>
-        /// <returns></returns>
-        public static Meter Parse(Dictionary<string, string> buff)
-        {
-            return Parse(buff, null);
-        }
-        /// <summary>
         /// 从xml中解析出设备,并初始化设备
         /// </summary>
         /// <param name="buff">xml字符</param>
-        /// <param name="comm">通讯类</param>
         /// <returns></returns>
-        public static Meter Parse(Dictionary<string, string> buff,Communicate.Communicate comm)
+        public static Meter Parse(Dictionary<string, string> buff)
         {
             if (!buff.ContainsKey("Class"))
             {
@@ -432,12 +450,7 @@ namespace All.Meter
                 All.Class.Error.Add(string.Format("从命令空间反射类失败，请检查反射名称：{0}是否正确", buff["Class"]));
                 return null;
             }
-            result.Parent = comm;
             result.InitParm = buff;
-            if (comm != null && (!buff.ContainsKey("Run") || buff["Run"].ToBool()))
-            {
-                result.Init(buff);
-            }
             return result;
         }
     }

@@ -18,23 +18,11 @@ namespace All.Meter
         public override void Init(Dictionary<string, string> initParm)
         {
             this.Address = 15;
-            this.InitParm = initParm;
-            if (initParm.ContainsKey("Text"))
-            {
-                this.Text = initParm["Text"];
-            }
-            if (initParm.ContainsKey("TimeOut"))
-            {
-                this.TimeOut = initParm["TimeOut"].ToInt();
-            }
-            if (initParm.ContainsKey("ErrorCount"))
-            {
-                this.ErrorCount = initParm["ErrorCount"].ToInt();
-            }
             if (initParm.ContainsKey("Address"))
             {
                 this.Address = initParm["Address"].ToInt();
             }
+            base.Init(initParm);
         }
         public override bool Read<T>(out List<T> value, Dictionary<string, string> parm)
         {

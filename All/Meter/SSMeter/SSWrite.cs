@@ -13,22 +13,6 @@ namespace All.Meter
             get { return initParm; }
             set { initParm = value; }
         }
-        public override void Init(Dictionary<string, string> initParm)
-        {
-            this.initParm = initParm;
-            if (InitParm.ContainsKey("Text"))
-            {
-                this.Text = InitParm["Text"];
-            }
-            if (initParm.ContainsKey("TimeOut"))
-            {
-                this.TimeOut = All.Class.Num.ToInt(initParm["TimeOut"]);
-            }
-            if (initParm.ContainsKey("ErrorCount"))
-            {
-                this.ErrorCount = All.Class.Num.ToInt(initParm["ErrorCount"]);
-            }
-        }
         public override bool Test()
         {
             return WriteInternal<string>(null, 0, 0);

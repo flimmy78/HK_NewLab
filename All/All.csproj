@@ -73,9 +73,9 @@
     <Compile Include="Communicate\Communicate.cs" />
     <Compile Include="Communicate\Data\CommunicateStyle.cs" />
     <Compile Include="Communicate\Data\AllReadData.cs" />
-    <Compile Include="Communicate\Data\ReadDataStyle.cs" />
+    <Compile Include="Communicate\Data\DataDetial.cs" />
     <Compile Include="Communicate\Data\MeterStyle.cs" />
-    <Compile Include="Communicate\Data\XmlIndex.cs" />
+    <Compile Include="Communicate\Data\ReadDetial.cs" />
     <Compile Include="Communicate\TcpClient.cs" />
     <Compile Include="Communicate\Udp.cs" />
     <Compile Include="Control\Interface\ControlExtension.cs" />

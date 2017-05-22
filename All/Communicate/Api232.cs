@@ -124,10 +124,6 @@ namespace All.Communicate
             {
                 this.Text = buff["Text"];
             }
-            if (buff.ContainsKey("FlushTick"))
-            {
-                this.FlushTick = buff["FlushTick"].ToInt();
-            }
             InitCommunite(buff);
         }
         public override void InitCommunite(Dictionary<string, string> buff)

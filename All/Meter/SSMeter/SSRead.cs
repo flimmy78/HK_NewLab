@@ -34,7 +34,6 @@ namespace All.Meter
         }
         public override void Init(Dictionary<string, string> initParm)
         {
-            InitParm = initParm;
             if (this.Parent == null)
             {
                 All.Class.Error.Add("SSMeter初始化前,必须先初始化设置Parent通讯类");
@@ -44,18 +43,6 @@ namespace All.Meter
             {
                 All.Class.Error.Add("SSMeter必须独占一个通讯类,如果有多组通讯类,请分开处理");
                 return;
-            }
-            if (InitParm.ContainsKey("Text"))
-            {
-                this.Text = InitParm["Text"];
-            }
-            if (initParm.ContainsKey("TimeOut"))
-            {
-                this.TimeOut = All.Class.Num.ToInt(initParm["TimeOut"]);
-            }
-            if (initParm.ContainsKey("ErrorCount"))
-            {
-                this.ErrorCount = All.Class.Num.ToInt(initParm["ErrorCount"]);
             }
             #region//缓存区初始化
             if (initParm.ContainsKey("Byte"))
@@ -162,6 +149,7 @@ namespace All.Meter
             }
             #endregion
             this.Parent.GetArgs += Parent_GetArgs;
+            base.Init(initParm);
         }
         private void Parent_GetArgs(object sender, Communicate.Base.Base.ReciveArgs reciveArgs)
         {
