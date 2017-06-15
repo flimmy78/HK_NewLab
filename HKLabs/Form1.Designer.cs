@@ -193,7 +193,7 @@
             this.dateTime1.Location = new System.Drawing.Point(195, 9);
             this.dateTime1.Name = "dateTime1";
             this.dateTime1.Shardow = false;
-            this.dateTime1.Size = new System.Drawing.Size(412, 53);
+            this.dateTime1.Size = new System.Drawing.Size(449, 53);
             this.dateTime1.TabIndex = 8;
             this.dateTime1.Text = "dateTime1";
             this.dateTime1.Value = new System.DateTime(2017, 4, 9, 22, 23, 8, 425);
@@ -235,7 +235,7 @@
             // 
             this.light1.BackColor = System.Drawing.SystemColors.Control;
             this.light1.LedColor = System.Drawing.Color.Red;
-            this.light1.Location = new System.Drawing.Point(383, 197);
+            this.light1.Location = new System.Drawing.Point(383, 244);
             this.light1.Name = "light1";
             this.light1.Size = new System.Drawing.Size(52, 41);
             this.light1.TabIndex = 11;
@@ -258,7 +258,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(363, 291);
+            this.progressBar1.Location = new System.Drawing.Point(363, 304);
             this.progressBar1.MaxiColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(0)))), ((int)(((byte)(115)))));
             this.progressBar1.Maximum = 10;
             this.progressBar1.MiniColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(204)))));
@@ -317,6 +317,7 @@
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(1);
             this.panel1.Size = new System.Drawing.Size(283, 66);
             this.panel1.TabIndex = 20;
             // 
@@ -339,6 +340,7 @@
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(1);
             this.panel2.Size = new System.Drawing.Size(283, 66);
             this.panel2.TabIndex = 21;
             // 
@@ -367,7 +369,7 @@
             // tabTitleButton1
             // 
             this.tabTitleButton1.Check = false;
-            this.tabTitleButton1.Location = new System.Drawing.Point(485, 317);
+            this.tabTitleButton1.Location = new System.Drawing.Point(484, 344);
             this.tabTitleButton1.MinimumSize = new System.Drawing.Size(9, 9);
             this.tabTitleButton1.Name = "tabTitleButton1";
             this.tabTitleButton1.Size = new System.Drawing.Size(136, 59);
@@ -406,7 +408,7 @@
             this.plate1.ColorPart3 = System.Drawing.Color.Red;
             this.plate1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.plate1.Format = "f1";
-            this.plate1.Location = new System.Drawing.Point(441, 86);
+            this.plate1.Location = new System.Drawing.Point(441, 96);
             this.plate1.Max = 400D;
             this.plate1.Min = 0D;
             this.plate1.Name = "plate1";
@@ -454,6 +456,7 @@
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.panel3.Location = new System.Drawing.Point(31, 408);
             this.panel3.Name = "panel3";
+            this.panel3.Padding = new System.Windows.Forms.Padding(1);
             this.panel3.Size = new System.Drawing.Size(164, 67);
             this.panel3.TabIndex = 26;
             // 

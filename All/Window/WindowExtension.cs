@@ -16,7 +16,7 @@ namespace System
         /// <param name="t"></param>
         public static void CrossThreadDo(this Form frm, Action t)
         {
-            if (t == null)
+            if (t == null || frm == null )
             {
                 return;
             }

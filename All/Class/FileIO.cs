@@ -106,6 +106,7 @@ namespace All.Class
                 using (FileStream fs = new FileStream(fileName, fileMode))
                 {
                     fs.Write(buff, 0, buff.Length);
+                    fs.Flush();
                     fs.Close();
                 }
             }

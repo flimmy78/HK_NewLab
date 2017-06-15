@@ -9,6 +9,107 @@ namespace All.Class.SingleFileSave
     public static class Excel
     {
         /// <summary>
+        /// 将指定表格写入到Excel表格
+        /// </summary>
+        /// <param name="fileName">写入的文件名称</param>
+        /// <param name="dt">表格</param>
+        public static bool Write(string fileName, System.Data.DataTable dt)
+        {
+            return Write(fileName, dt, string.Format("{0:yyyyMMddHHmmss", DateTime.Now));
+        }
+        /// <summary>
+        /// 将指定表格写入到Excel表格
+        /// </summary>
+        /// <param name="fileName">写入的文件名称</param>
+        /// <param name="dt">表格</param>
+        /// <param name="sheetName">Excel表sheet名称</param>
+        public static bool Write(string fileName, System.Data.DataTable dt,string sheetName)
+        {
+            bool result = true;
+            try
+            {
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    var workBook = new NPOI.HSSF.UserModel.HSSFWorkbook();
+                    var table = workBook.CreateSheet(sheetName);
+                    var row = table.CreateRow(0);
+                    NPOI.SS.UserModel.ICell cell;
+                    row = table.CreateRow(0);
+                    All.Class.TypeUse.TypeList[] columnType = new TypeUse.TypeList[dt.Columns.Count];
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        cell = row.CreateCell(i);
+                        if (dt.Columns[i].Caption == "")
+                        {
+                            cell.SetCellValue(dt.Columns[i].ColumnName);
+                        }
+                        else
+                        {
+                            cell.SetCellValue(dt.Columns[i].Caption);
+                        }
+                        columnType[i] = All.Class.TypeUse.GetType(dt.Columns[i].DataType.ToString());
+                    }
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        row = table.CreateRow(i + 1);
+                        for (int j = 0; j < dt.Columns.Count; j++)
+                        {
+                            cell = row.CreateCell(j);
+                            switch (columnType[j])
+                            {
+                                case TypeUse.TypeList.Boolean:
+                                    cell.SetCellValue((bool)dt.Rows[i][j]);
+                                    break;
+                                case TypeUse.TypeList.DateTime:
+                                    cell.SetCellValue((DateTime)dt.Rows[i][j]);
+                                    break;
+                                case TypeUse.TypeList.Byte:
+                                    cell.SetCellValue((byte)dt.Rows[i][j]);
+                                    break;
+                                case TypeUse.TypeList.Float:
+                                    cell.SetCellValue((float)dt.Rows[i][j]);
+                                    break;
+                                case TypeUse.TypeList.UShort:
+                                    cell.SetCellValue((ushort)dt.Rows[i][j]);
+                                    break;
+                                case TypeUse.TypeList.Int:
+                                    cell.SetCellValue((int)dt.Rows[i][j]);
+                                    break;
+                                case TypeUse.TypeList.Long:
+                                    cell.SetCellValue((long)dt.Rows[i][j]);
+                                    break;
+                                case TypeUse.TypeList.Double:
+                                    cell.SetCellValue((double)dt.Rows[i][j]);
+                                    break;
+                                case TypeUse.TypeList.String:
+                                    cell.SetCellValue(dt.Rows[i][j].ToString());
+                                    break;
+                                default:
+                                    cell.SetCellValue("");
+                                    break;
+                            }
+                        }
+                    }
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        if (dt.Rows.Count > 0)
+                        {
+                            table.SetColumnWidth(i, (dt.Rows[0][i].ToString().Length + 5) * 256);
+                        }
+                    }
+                    workBook.Write(fs);
+                    fs.Flush();
+                    fs.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                All.Class.Error.Add(e);
+                result = false;
+            }
+            return result;
+        }
+        /// <summary>
         /// 读取指定Excel数据
         /// </summary>
         /// <param name="fileName">文件名称</param>

@@ -54,6 +54,8 @@ namespace All.Meter
                         case Class.TypeUse.TypeList.Int:
                         case Class.TypeUse.TypeList.Long:
                         case Class.TypeUse.TypeList.Byte:
+                        case Class.TypeUse.TypeList.Float:
+                        case Class.TypeUse.TypeList.Double:
                             parm.Add("Code", "D");
                             break;
                     }
@@ -74,6 +76,8 @@ namespace All.Meter
                         case Class.TypeUse.TypeList.Int:
                         case Class.TypeUse.TypeList.Long:
                         case Class.TypeUse.TypeList.Byte:
+                        case Class.TypeUse.TypeList.Float:
+                        case Class.TypeUse.TypeList.Double:
                             if (parm["Code"].ToUpper() != "D")
                             {
                                 All.Class.Error.Add("读取参数中区域类型和返回数据类型不一致", Environment.StackTrace);
@@ -186,6 +190,28 @@ namespace All.Meter
                                     for (int i = 0; i < tmp.Length - 1; i = i + 2)
                                     {
                                         value.Add((T)(object)(long)(((tmp[i] << 8) + tmp[i + 1])));
+                                    }
+                                    break;
+                                case Class.TypeUse.TypeList.Float:
+                                    if ((tmp.Length % 4) != 0)
+                                    {
+                                        All.Class.Error.Add("Fxplc读取单精度浮点数时,必须一次读4个字节");
+                                        return false;
+                                    }
+                                    for (int i = 0; i < tmp.Length - 1; i = i + 4)
+                                    {
+                                        value.Add((T)(object)BitConverter.ToSingle(tmp, i));
+                                    }
+                                    break;
+                                case Class.TypeUse.TypeList.Double:
+                                    if ((tmp.Length % 8) != 0)
+                                    {
+                                        All.Class.Error.Add("Fxplc读取双精度浮点数时,必须一次读8个字节");
+                                        return false;
+                                    }
+                                    for (int i = 0; i < tmp.Length - 1; i = i + 8)
+                                    {
+                                        value.Add((T)(object)BitConverter.ToDouble(tmp, i));
                                     }
                                     break;
                                 case Class.TypeUse.TypeList.String:

@@ -11,13 +11,20 @@ namespace All.Window
 {
     public partial class AboutWindow : BestWindow
     {
+        int closeCount = 10;
 		bool isNeedRegion = true;
+        bool autoClose = false;
         delegate void GetLocalCodeHandle();
-        public AboutWindow(string SystemName,bool IsNeedRegion)
+        public AboutWindow(string systemName, bool isNeedRegion,bool autoClose)
         {
             InitializeComponent();
-            lblName.Text = SystemName;
-			isNeedRegion = IsNeedRegion;
+            lblName.Text = systemName;
+            this.isNeedRegion = isNeedRegion;
+            this.autoClose = autoClose;
+        }
+        public AboutWindow(string systemName, bool isNeedRegion)
+            : this(systemName, isNeedRegion, false)
+        {
         }
         private void GetLocalCode()
         {
@@ -32,13 +39,35 @@ namespace All.Window
             }
             txtCode.Text = lblCode.Text;
         }
-
+        string guid = All.Class.Num.CreateGUID();
         private void AboutWindow_Load(object sender, EventArgs e)
         {
             this.BeginInvoke(new GetLocalCodeHandle(GetLocalCode));
-
+            if (autoClose)
+            {
+                All.Class.Thread.CreateOrOpen(guid, () => FlushAutoClose(), 1000);
+            }
         }
-
+        private void FlushAutoClose()
+        {
+            this.CrossThreadDo(() =>
+                {
+                    if (closeCount <= 0)
+                    {
+                        this.Close();
+                    }
+                    this.Text = string.Format("{0}  自动关闭倒计时{1}秒", this.Text.Split(new string[] { "自动关闭倒计时" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim(), closeCount);
+                    closeCount--;
+                });
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (guid != "")
+            {
+                All.Class.Thread.Kill(guid);
+            }
+            base.OnClosing(e);
+        }
         private void lblCode_Click(object sender, EventArgs e)
         {
             txtCode.Left = lblCode.Location.X;

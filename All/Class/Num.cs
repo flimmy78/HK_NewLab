@@ -970,5 +970,36 @@ namespace All.Class
         {
             return System.Guid.NewGuid().ToString().ToUpper();
         }
+        /// <summary>
+        /// 二乘法计算线性回归
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="k"></param>
+        /// <param name="b"></param>
+        public static void CalcLiner(List<System.Drawing.PointF> point, out double k, out double b)
+        {
+            k = 1;
+            b = 0;
+            int len = point.Count;
+            float Sx = 0, Sy = 0, AvgX = 0, AvgY = 0;
+            for (int i = 0; i < len; i++)
+            {
+                Sx = Sx + point[i].X;
+                Sy = Sy + point[i].Y;
+            }
+            AvgX = Sx / (float)len;
+            AvgY = Sy / (float)len;
+            float S1 = 0, S2 = 0;
+            for (int i = 0; i < len; i++)
+            {
+                S1 = S1 + (AvgX - point[i].X) * (AvgX - point[i].X);
+                S2 = S2 + (AvgX - point[i].X) * (AvgY - point[i].Y);
+            }
+            if (S1 != 0)
+            {
+                k = S2 / S1;
+                b = AvgY - AvgX * k;
+            }
+        }
     }
 }

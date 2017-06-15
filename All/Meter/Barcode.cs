@@ -31,6 +31,46 @@ namespace All.Meter
             {
                 if (readBuff != null)
                 {
+                    //检查是否有重复
+                    bool sample = false;
+                    byte[] buff;
+                    if ((readBuff.Length % 2) == 0)
+                    {
+                        sample = true;
+                        for (int i = 0; i < readBuff.Length / 2; i++)
+                        {
+                            if (readBuff[i] != readBuff[readBuff.Length / 2 + i])
+                            {
+                                sample = false;
+                                break;
+                            }
+                        }
+                        if (sample)
+                        {
+                            buff = (byte[])readBuff.Clone();
+                            readBuff = new byte[buff.Length / 2];
+                            Array.Copy(buff, 0, readBuff, 0, readBuff.Length);
+                        }
+                    }
+                    if ((readBuff.Length % 3) == 0)
+                    {
+                        sample = true;
+                        for (int i = 0; i < readBuff.Length / 3; i++)
+                        {
+                            if (readBuff[i] != readBuff[readBuff.Length / 3 + i] &&
+                                readBuff[i] != readBuff[readBuff.Length * 2 / 3 + i])
+                            {
+                                sample = false;
+                                break;
+                            }
+                        }
+                        if (sample)
+                        {
+                            buff = (byte[])readBuff.Clone();
+                            readBuff = new byte[buff.Length * 2 / 3];
+                            Array.Copy(buff, 0, readBuff, 0, readBuff.Length);
+                        }
+                    }
                     switch (Class.TypeUse.GetType<T>())
                     {
                         case Class.TypeUse.TypeList.String:

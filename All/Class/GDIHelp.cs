@@ -9,6 +9,31 @@ namespace All.Class
     public class GDIHelp
     {
         /// <summary>
+        /// 根据字体大小来获取文字高度
+        /// </summary>
+        /// <param name="Font"></param>
+        /// <returns></returns>
+        public static int GetFontHeight(System.Drawing.Font Font)
+        {
+            return System.Windows.Forms.TextRenderer.MeasureText("Shuai", Font).Height;
+        }
+        /// <summary>
+        /// 根据字体大小来获取文字长度
+        /// </summary>
+        /// <param name="Font"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static int GetFontWidth(System.Drawing.Font Font, string value)
+        {
+            using (System.Drawing.Bitmap b = new System.Drawing.Bitmap(1, 1))
+            {
+                using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(b))
+                {
+                    return (int)g.MeasureString(value, Font).Width;
+                }
+            }
+        }
+        /// <summary>
         /// 初始化为高质量绘画,主要用于画直线
         /// </summary>
         /// <param name="g"></param>

@@ -82,22 +82,22 @@ namespace All.Meter.Elect
         public class ThreePhase
         {
             /// <summary>
-            /// 单相电压
+            /// 相电压
             /// </summary>
             public float[] Vol
             { get; set; }
             /// <summary>
-            /// 单相电流
+            /// 相电流
             /// </summary>
             public float[] Cur
             { get; set; }
             /// <summary>
-            /// 单相功率
+            /// 相功率
             /// </summary>
             public float[] Power
             { get; set; }
             /// <summary>
-            /// 单相功率因素
+            /// 相功率因素
             /// </summary>
             public float[] Factor
             { get; set; }
@@ -183,6 +183,9 @@ namespace All.Meter.Elect
                 return result;
             }
         }
+        /// <summary>
+        /// 全体数据表
+        /// </summary>
         public class ReadValue
         {
             /// <summary>

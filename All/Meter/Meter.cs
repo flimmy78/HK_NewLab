@@ -124,7 +124,7 @@ namespace All.Meter
             {
                 this.FlushTick = initParm["FlushTick"].ToInt();
             }
-            if (InitParm.ContainsKey("Text"))
+            if (initParm.ContainsKey("Text"))
             {
                 this.Text = InitParm["Text"];
             }
@@ -252,7 +252,7 @@ namespace All.Meter
         /// <typeparam name="T"></typeparam>
         /// <param name="sendBuff"></param>
         /// <returns></returns>
-        public bool Write<T>(T sendBuff)
+        protected bool Write<T>(T sendBuff)
         {
             bool result = true;
             try
@@ -279,7 +279,7 @@ namespace All.Meter
             }
             return result;
         }
-        public bool Read<T>(int len, out T readBuff)
+        protected bool Read<T>(int len, out T readBuff)
         {
             int readLen = 0;
             bool result = true;
@@ -424,7 +424,7 @@ namespace All.Meter
         /// <param name="len"></param>
         /// <param name="readBuff"></param>
         /// <returns></returns>
-        public bool WriteAndRead<T, U>(T sendBuff, int len, out U readBuff)
+        protected bool WriteAndRead<T, U>(T sendBuff, int len, out U readBuff)
         {
             bool result = Write<T>(sendBuff);
             readBuff = default(U);

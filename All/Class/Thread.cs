@@ -21,10 +21,13 @@ namespace All.Class
         /// </summary>
         public void Close()
         {
-            AllThread.Values.ToList().ForEach(thread =>
-                {
-                    thread.Abort();
-                });
+            lock (AllThread)
+            {
+                AllThread.Values.ToList().ForEach(thread =>
+                    {
+                        thread.Abort();
+                    });
+            }
         }
         /// <summary>
         /// 关闭一个线程
@@ -32,10 +35,13 @@ namespace All.Class
         /// <param name="id"></param>
         public void Close(string id)
         {
-            if (AllThread.ContainsKey(id))
+            lock (AllThread)
             {
-                AllThread[id].Abort();
-                AllThread.Remove(id);
+                if (AllThread.ContainsKey(id))
+                {
+                    AllThread[id].Abort();
+                    AllThread.Remove(id);
+                }
             }
         }
         /// <summary>
@@ -46,12 +52,15 @@ namespace All.Class
         /// <param name="delay"></param>
         public void Create(string id, Action action, int delay)
         {
-            if (!AllThread.ContainsKey(id))
+            lock (AllThread)
             {
-                System.Threading.Thread t = new System.Threading.Thread(() => Flush(action, delay));
-                t.IsBackground = true;
-                t.Start();
-                AllThread.Add(id, t);
+                if (!AllThread.ContainsKey(id))
+                {
+                    System.Threading.Thread t = new System.Threading.Thread(() => Flush(action, delay));
+                    t.IsBackground = true;
+                    t.Start();
+                    AllThread.Add(id, t);
+                }
             }
         }
         ~Thread()
@@ -124,6 +133,25 @@ namespace All.Class
         public static void CreateOrOpen(Action action)
         {
             CreateOrOpen(Num.CreateGUID(), action);
+        }
+        /// <summary>
+        /// 关闭指定名称的线程
+        /// </summary>
+        /// <param name="threadID"></param>
+        public static void Kill(string threadID)
+        {
+            if (threadID == null || threadID == "")
+            {
+                return;
+            }
+            thManager.Close(threadID);
+        }
+        /// <summary>
+        /// 关闭所有线程
+        /// </summary>
+        public static void Kill()
+        {
+            thManager.Close();
         }
     }
 }

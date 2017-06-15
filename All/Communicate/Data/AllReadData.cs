@@ -92,6 +92,57 @@ namespace All.Communicate.Data
                         this.BoolValue.SetValue(i, (bool)buff[i]);
                     }
                     break;
+                case Class.TypeUse.TypeList.Byte:
+                    foreach (int i in buff.Keys)
+                    {
+                        this.ByteValue.SetValue(i, (byte)buff[i]);
+                    }
+                    break;
+                case Class.TypeUse.TypeList.Bytes:
+                case Class.TypeUse.TypeList.UnKnow:
+                    break;
+                case Class.TypeUse.TypeList.DateTime:
+                    foreach (int i in buff.Keys)
+                    {
+                        this.DateTimeValue.SetValue(i, (DateTime)buff[i]);
+                    }
+                    break;
+                case Class.TypeUse.TypeList.Double:
+                    foreach (int i in buff.Keys)
+                    {
+                        this.DoubleValue.SetValue(i, (double)buff[i]);
+                    }
+                    break;
+                case Class.TypeUse.TypeList.Float:
+                    foreach (int i in buff.Keys)
+                    {
+                        this.FloatValue.SetValue(i, (float)buff[i]);
+                    }
+                    break;
+                case Class.TypeUse.TypeList.Int:
+                    foreach (int i in buff.Keys)
+                    {
+                        this.IntValue.SetValue(i, (int)buff[i]);
+                    }
+                    break;
+                case Class.TypeUse.TypeList.Long:
+                    foreach (int i in buff.Keys)
+                    {
+                        this.LongValue.SetValue(i, (long)buff[i]);
+                    }
+                    break;
+                case Class.TypeUse.TypeList.String:
+                    foreach (int i in buff.Keys)
+                    {
+                        this.StringValue.SetValue(i, (string)buff[i]);
+                    }
+                    break;
+                case Class.TypeUse.TypeList.UShort:
+                    foreach (int i in buff.Keys)
+                    {
+                        this.UshortValue.SetValue(i, (ushort)buff[i]);
+                    }
+                    break;
             }
         }
         /// <summary>

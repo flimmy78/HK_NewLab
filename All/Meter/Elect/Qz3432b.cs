@@ -50,7 +50,7 @@ namespace All.Meter
                 value = new List<T>();
                 try
                 {
-                    int Phase = 0;//单相
+                    int Phase = 0;//全体数据
                     if (parm.ContainsKey("Code"))
                     {
                         switch (parm["Code"].ToUpper())

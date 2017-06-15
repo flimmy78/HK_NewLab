@@ -51,32 +51,41 @@ namespace All.Class
                     result = TypeList.Bytes;
                     break;
                 case "LONG":
+                case "SYSTEM.LONG":
                     result = TypeList.Long;
                     break;
                 case "BYTE":
+                case "SYSTEM.BYTE":
                     result = TypeList.Byte;
                     break;
                 case "STRING":
+                case "SYSTEM.STRING":
                     result = TypeList.String;
                     break;
                 case "DOUBLE":
+                case "SYSTEM.DOUBLE":
                     result = TypeList.Double;
                     break;
                 case "USHORT":
+                case "SYSTEM.UINT16":
                     result = TypeList.UShort;
                     break;
                 case "INT":
+                case "SYSTEM.INT32":
                     result = TypeList.Int;
                     break;
                 case "SINGLE":
                 case "FLOAT":
+                case "SYSTEM.SINGLE":
                     result = TypeList.Float;
                     break;
                 case "BOOL":
                 case "BOOLEAN":
+                case "SYSTEM.BOOLEAN":
                     result = TypeList.Boolean;
                     break;
                 case "DATETIME":
+                case "SYSTEM.DATETIME":
                     result = TypeList.DateTime;
                     break;
             }
