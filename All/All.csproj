@@ -53,6 +53,7 @@
     <Compile Include="Class\GDIHelp.cs" />
     <Compile Include="Class\HardInfo.cs" />
     <Compile Include="Class\InfoAttribute.cs" />
+    <Compile Include="Class\LocalFile.cs" />
     <Compile Include="Class\Log.cs" />
     <Compile Include="Class\Net.cs" />
     <Compile Include="Class\Num.cs" />
@@ -233,7 +234,7 @@
     <Compile Include="Meter\Elect\Elect.cs" />
     <Compile Include="Meter\Elect\Qz3432b.cs" />
     <Compile Include="Meter\HKBoard\HaierRemoteControl.cs" />
-    <Compile Include="Meter\MCGSModbusRtu.cs" />
+    <Compile Include="Meter\McgsModbusRtu.cs" />
     <Compile Include="Meter\Meter.cs" />
     <Compile Include="Meter\AnGui\Mn42xx.cs" />
     <Compile Include="Meter\Plc\MitsubishiFx.cs" />

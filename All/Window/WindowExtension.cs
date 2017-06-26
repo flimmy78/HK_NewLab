@@ -83,6 +83,24 @@ namespace System
         {
             return All.Window.MessageWindow.Show(text);
         }
+        /// <summary>
+        /// 显示保存成功的提示
+        /// </summary>
+        /// <param name="window"></param>
+        /// <returns></returns>
+        public static DialogResult ShowSaveOK(this All.Window.BestWindow window)
+        {
+            return All.Window.MessageWindow.Show("当前数据已成功保存到数据库", "保存成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        /// <summary>
+        /// 显示保存失败的提示
+        /// </summary>
+        /// <param name="window"></param>
+        /// <returns></returns>
+        public static DialogResult ShowSaveNG(this All.Window.BestWindow window)
+        {
+            return All.Window.MessageWindow.Show("当前数据保存到数据库失败", "保存失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         #endregion
         #region//BaseWindow
         /// <summary>
@@ -136,6 +154,24 @@ namespace System
         public static DialogResult Show(this All.Window.BaseWindow window, string text)
         {
             return All.Window.MessageWindow.Show(text);
+        }
+        /// <summary>
+        /// 显示保存成功的提示
+        /// </summary>
+        /// <param name="window"></param>
+        /// <returns></returns>
+        public static DialogResult ShowSaveOK(this All.Window.BaseWindow window)
+        {
+            return All.Window.MessageWindow.Show("当前数据已成功保存到数据库", "保存成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        /// <summary>
+        /// 显示保存失败的提示
+        /// </summary>
+        /// <param name="window"></param>
+        /// <returns></returns>
+        public static DialogResult ShowSaveNG(this All.Window.BaseWindow window)
+        {
+            return All.Window.MessageWindow.Show("当前数据保存到数据库失败", "保存失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #endregion
     }

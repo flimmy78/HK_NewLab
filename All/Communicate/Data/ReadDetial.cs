@@ -201,7 +201,7 @@ namespace All.Communicate.Data
             {
                 for (int i = 0; i < indexs.Count; i++)
                 {
-                    if (result.ContainsKey(i))
+                    if (result.ContainsKey(indexs[i]))
                     {
                         All.Class.Error.Add("数据量错", "DataStyle.GetIndexFromSet中序号列出现重复的数据列值");
                         All.Class.Error.Add("数据列值", index);

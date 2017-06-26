@@ -24,16 +24,17 @@ namespace All.Class
     public static class XmlHelp
     {
         /// <summary>
-        /// 读取xml文档
+        /// 从流中读取xml文档
         /// </summary>
-        /// <param name="filePath">文档位置</param>
-        public static XmlNode GetXmlNode(string filePath)
+        /// <param name="fileStream"></param>
+        /// <returns></returns>
+        public static XmlNode GetXmlNode(FileStream fileStream)
         {
             XmlDocument tmp = new XmlDocument();
             XmlNode tmpNode = null;
             try
             {
-                tmp.Load(filePath);
+                tmp.Load(fileStream);
                 if (tmp.ChildNodes.Count >= 2)
                 {
                     if (tmp.ChildNodes[0].Value.ToUpper() == "VERSION=\"1.0\" ENCODING=\"GB2312\"" ||
@@ -52,6 +53,17 @@ namespace All.Class
                 Error.Add(e);
             }
             return tmpNode;
+        }
+        /// <summary>
+        /// 读取xml文档
+        /// </summary>
+        /// <param name="filePath">文档位置</param>
+        public static XmlNode GetXmlNode(string filePath)
+        {
+            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            {
+                return GetXmlNode(fs);
+            }
         }
         /// <summary>
         /// 获取父节点下所有子节点名

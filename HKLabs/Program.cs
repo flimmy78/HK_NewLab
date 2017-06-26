@@ -16,7 +16,8 @@ namespace HKLabs
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new form3());
+            Application.Run(new Form1());
         }
+
     }
 }

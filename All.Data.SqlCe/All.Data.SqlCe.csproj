@@ -7,7 +7,7 @@
     <ProjectGuid>{9408388A-7044-421B-A982-79CE0204284D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>All.Data.SqlCe</RootNamespace>
+    <RootNamespace>All.Data</RootNamespace>
     <AssemblyName>All.Data.SqlCe</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

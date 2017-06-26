@@ -235,7 +235,7 @@
             // 
             this.light1.BackColor = System.Drawing.SystemColors.Control;
             this.light1.LedColor = System.Drawing.Color.Red;
-            this.light1.Location = new System.Drawing.Point(383, 244);
+            this.light1.Location = new System.Drawing.Point(326, 315);
             this.light1.Name = "light1";
             this.light1.Size = new System.Drawing.Size(52, 41);
             this.light1.TabIndex = 11;

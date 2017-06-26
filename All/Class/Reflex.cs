@@ -29,6 +29,10 @@ namespace All.Class
                 return null;
             }
             T tmp = (System.Reflection.Assembly.Load(fileName).CreateInstance(className)) as T;
+            if (tmp == null)
+            {
+                tmp = (System.Reflection.Assembly.Load(className).CreateInstance(className)) as T;
+            }
             return tmp;
         }
     }
