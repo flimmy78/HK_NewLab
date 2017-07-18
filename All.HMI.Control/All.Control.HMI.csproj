@@ -122,10 +122,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Circle.bmp" />
+    <EmbeddedResource Include="Corner.bmp" />
+    <EmbeddedResource Include="Fan.bmp" />
+    <EmbeddedResource Include="Hexagon.bmp" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Quadrilateral.bmp" />
+    <EmbeddedResource Include="Square.bmp" />
+    <EmbeddedResource Include="Triangle.bmp" />
     <EmbeddedResource Include="小车.resx">
       <DependentUpon>小车.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,29 +147,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Corner.bmp" />
-    <EmbeddedResource Include="Fan.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Circle.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Hexagon.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Triangle.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\All\All.csproj">
       <Project>{003984f4-a872-41f4-a3e2-9950c99815f2}</Project>
       <Name>All</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Quadrilateral.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Square.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pipe.bmp" />
