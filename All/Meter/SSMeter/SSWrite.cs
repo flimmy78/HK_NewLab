@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace All.Meter
 {
-    public class SSWrite:Meter
+    public class SSWrite : Meter
     {
         Dictionary<string, string> initParm = new Dictionary<string, string>();
         public override Dictionary<string, string> InitParm
@@ -21,6 +20,7 @@ namespace All.Meter
         {
             throw new Exception("只写数据类,不能进行读取接收,接收类请使用SSRead");
         }
+
         public override bool WriteInternal<T>(List<T> value, Dictionary<string, string> parm)
         {
             lock (lockObject)
@@ -44,7 +44,7 @@ namespace All.Meter
                     SSMeter.SSMeter.DataStyle ds = new SSMeter.SSMeter.DataStyle(
                         All.Class.TypeUse.GetType<T>(), address, value);
                     byte[] readBuff;
-                    if (WriteAndRead<byte[], byte[]>(ds.GetBytes(), 6, out readBuff))
+                    if (WriteAndRead<byte[], byte[]>(ds.GetBytes<T>(), 6, out readBuff))
                     {
                         SSMeter.SSMeter.ResultStyle rs = SSMeter.SSMeter.ResultStyle.Parse(readBuff);
                         if (rs == null || rs.Random != ds.Random || !rs.Result)

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7CF678AB-7923-44E9-8B52-FF78542AA519}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>All.Control.HMI</RootNamespace>
+    <AssemblyName>All.Control.HMI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Circle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Circle.Designer.cs">
+      <DependentUpon>Circle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Corner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Corner.Designer.cs">
+      <DependentUpon>Corner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Fan.Designer.cs">
+      <DependentUpon>Fan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hexagon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hexagon.Designer.cs">
+      <DependentUpon>Hexagon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IControl.cs" />
+    <Compile Include="Pipe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pipe.Designer.cs">
+      <DependentUpon>Pipe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Quadrilateral.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quadrilateral.Designer.cs">
+      <DependentUpon>Quadrilateral.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Square.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Square.Designer.cs">
+      <DependentUpon>Square.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Triangle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Triangle.Designer.cs">
+      <DependentUpon>Triangle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小车.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="小车.Designer.cs">
+      <DependentUpon>小车.cs</DependentUpon>
+    </Compile>
+    <Compile Include="泵.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="泵.Designer.cs">
+      <DependentUpon>泵.cs</DependentUpon>
+    </Compile>
+    <Compile Include="调试.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="调试.Designer.cs">
+      <DependentUpon>调试.cs</DependentUpon>
+    </Compile>
+    <Compile Include="阀.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="阀.Designer.cs">
+      <DependentUpon>阀.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小车.resx">
+      <DependentUpon>小车.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="泵.resx">
+      <DependentUpon>泵.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="调试.resx">
+      <DependentUpon>调试.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="阀.resx">
+      <DependentUpon>阀.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Corner.bmp" />
+    <EmbeddedResource Include="Fan.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Circle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Hexagon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Triangle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\All\All.csproj">
+      <Project>{003984f4-a872-41f4-a3e2-9950c99815f2}</Project>
+      <Name>All</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Quadrilateral.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Square.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pipe.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

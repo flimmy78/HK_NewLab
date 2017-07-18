@@ -55,7 +55,7 @@ namespace All.Control.Metro
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
             All.Class.GDIHelp.Init(e.Graphics);
-            e.Graphics.Clear(this.BackColor);
+            e.Graphics.Clear(All.Class.Style.BackColor);
             e.Graphics.DrawString(this.Text.Replace("&", ""), this.Font, All.Class.Style.FontBrush,
                 new Rectangle(4 + boxSize, 1, this.Width - 4, this.Height), All.Class.GDIHelp.StringFormat(this.TextAlign));
             e.Graphics.DrawRectangle(All.Class.Style.BoardPen,

@@ -59,6 +59,7 @@
     <Compile Include="Class\Num.cs" />
     <Compile Include="Class\Reflex.cs" />
     <Compile Include="Class\Region.cs" />
+    <Compile Include="Class\SingleFileSave\Serialization.cs" />
     <Compile Include="Class\Style.cs" />
     <Compile Include="Class\Thread.cs" />
     <Compile Include="Class\TypeUse.cs" />

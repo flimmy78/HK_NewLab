@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace All.Meter
 {
-    public class SSRead:Meter
+    public class SSRead : Meter
     {
         ushort[] ushortValue = new ushort[0];
         int[] intValue = new int[0];
@@ -265,18 +264,18 @@ namespace All.Meter
             value = new List<T>();
             if (!parm.ContainsKey("Start"))
             {
-                All.Class.Error.Add(string.Format("{0}:读取数据不包含起始点", this.Text), Environment.StackTrace);
+                All.Class.Error.Add(string.Format("{0}:读取数据不包含起始点", this.Text));
                 return false;
             }
             start = All.Class.Num.ToInt(parm["Start"]);
             if (start < 0)
             {
-                All.Class.Error.Add(string.Format("{0}:读取数据点不能从小于0的点开始", this.Text), Environment.StackTrace);
+                All.Class.Error.Add(string.Format("{0}:读取数据点不能从小于0的点开始", this.Text));
                 return false;
             }
             if (!parm.ContainsKey("End"))
             {
-                All.Class.Error.Add(string.Format("{0}:读取数据不包含结束点", this.Text), Environment.StackTrace);
+                All.Class.Error.Add(string.Format("{0}:读取数据不包含结束点", this.Text));
                 return false;
             }
             end = All.Class.Num.ToInt(parm["End"]);

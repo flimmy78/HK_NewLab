@@ -199,17 +199,18 @@ namespace All.Communicate.Base
             if (udp == null)
             {
                 All.Class.Error.Add("本地端口", this.LocalPort.ToString());
-                All.Class.Error.Add("UDP为Null,不能发送数据",Environment.StackTrace);
+                All.Class.Error.Add("UDP为Null,不能发送数据");
                 return false;
             }
             if (!isOpen)
             {
-                All.Class.Error.Add("UDP端口没有打开,不能发送数据", Environment.StackTrace);
+                All.Class.Error.Add("UDP端口没有打开,不能发送数据");
                 return false;
             }
             try
             {
-                udp.Send(buff, buff.Length, remotIP, remotPort);
+                IPEndPoint ie = new IPEndPoint(IPAddress.Parse(remotIP), remotPort);
+                udp.Send(buff, buff.Length, ie);
             }
             catch (Exception e)
             {
@@ -235,7 +236,7 @@ namespace All.Communicate.Base
         /// <returns></returns>
         public bool Write(string value, string remotIP, int remotPort)
         {
-            return Write(Encoding.ASCII.GetBytes(value), remotIP, remotPort);
+            return Write(Encoding.Default.GetBytes(value), remotIP, remotPort);
         }
     }
 

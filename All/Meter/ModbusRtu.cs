@@ -318,6 +318,10 @@ namespace All.Meter
                             return false;
                         }
                     }
+                    else
+                    {
+                        result = false;
+                    }
                 }
                 catch (Exception e)
                 {

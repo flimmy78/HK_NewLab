@@ -43,5 +43,21 @@ namespace System.Windows.Forms
                 sender.Text = value;
             }
         }
+        /// <summary>
+        /// 跨线程设置控件背景颜色
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="value"></param>
+        public static void SetBackColor(this System.Windows.Forms.Control sender, System.Drawing.Color value)
+        {
+            if (sender.InvokeRequired)
+            {
+                sender.Invoke(new Action<System.Windows.Forms.Control, System.Drawing.Color>(SetBackColor), sender, value);
+            }
+            else
+            {
+                sender.BackColor = value;
+            }
+        }
     }
 }

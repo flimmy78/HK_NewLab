@@ -65,14 +65,14 @@ namespace All.Meter
                 else
                 {
                     tmpErrorCount++;
-                    if (tmpErrorCount > errorCount)
+                    if (tmpErrorCount >= errorCount)
                     {
-                        conn = false;
                         tmpErrorCount = errorCount;
                         if (ConnChange != null && conn != value)
                         {
                             ConnChange(value);
                         }
+                        conn = false;
                     }
                 }
             }

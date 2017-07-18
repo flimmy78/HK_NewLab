@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "All.Class.SingleFileSave.Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "All.Data.SqlCe", "All.Data.SqlCe\All.Data.SqlCe.csproj", "{9408388A-7044-421B-A982-79CE0204284D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "All.Control.HMI", "All.HMI.Control\All.Control.HMI.csproj", "{7CF678AB-7923-44E9-8B52-FF78542AA519}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9408388A-7044-421B-A982-79CE0204284D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9408388A-7044-421B-A982-79CE0204284D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9408388A-7044-421B-A982-79CE0204284D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CF678AB-7923-44E9-8B52-FF78542AA519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF678AB-7923-44E9-8B52-FF78542AA519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF678AB-7923-44E9-8B52-FF78542AA519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF678AB-7923-44E9-8B52-FF78542AA519}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

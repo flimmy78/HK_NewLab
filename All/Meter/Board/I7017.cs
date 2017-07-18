@@ -50,13 +50,13 @@ namespace All.Meter
             {
                 this.lf = All.Class.Num.ToBool(initParm["Lf"]);
             }
-            if (!InitParm.ContainsKey("Address"))
+            if (!initParm.ContainsKey("Address"))
             {
                 All.Class.Error.Add("参数中没有地址", Environment.StackTrace);
             }
             else
             {
-                address = All.Class.Num.ToByte(InitParm["Address"]);
+                address = All.Class.Num.ToByte(initParm["Address"]);
             }
 
         }

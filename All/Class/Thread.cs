@@ -82,7 +82,7 @@ namespace All.Class
                         }
                         start = System.Environment.TickCount;
                     }
-                    System.Threading.Thread.Sleep(50);
+                    System.Threading.Thread.Sleep(30);
                 }
                 else
                 {
@@ -133,6 +133,14 @@ namespace All.Class
         public static void CreateOrOpen(Action action)
         {
             CreateOrOpen(Num.CreateGUID(), action);
+        }
+        /// <summary>
+        /// 新建或找开一个新的多线程
+        /// </summary>
+        /// <param name="action"></param>
+        public static void CreateOrOpen(Action action, int delay)
+        {
+            CreateOrOpen(Num.CreateGUID(), action,delay); 
         }
         /// <summary>
         /// 关闭指定名称的线程

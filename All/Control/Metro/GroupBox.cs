@@ -10,6 +10,25 @@ namespace All.Control.Metro
 {
     public partial class GroupBox : System.Windows.Forms.GroupBox,All.Class.Style.ChangeTheme
     {
+
+        [Description("当鼠标指针位于控件上并按下鼠标键时发生。")]
+        [Category("鼠标")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        public new event System.Windows.Forms.MouseEventHandler MouseDown;
+
+        [Description("在鼠标指针在控件上并释放鼠标键时发生。")]
+        [Category("鼠标")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        public new event System.Windows.Forms.MouseEventHandler MouseUp;
+
+        [Description("在鼠标指针移到控件上时发生。")]
+        [Category("鼠标")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        public new event System.Windows.Forms.MouseEventHandler MouseMove;
+
         float fontHeight = 10;
         /// <summary>
         /// 获取或设置控件显示的文字的字体
@@ -50,6 +69,30 @@ namespace All.Control.Metro
             this.BackColor = All.Class.Style.BackColor;
             this.ForeColor = All.Class.Style.FontColor;
             this.Invalidate();
+        }
+        protected override void OnMouseDown(System.Windows.Forms.MouseEventArgs e)
+        {
+            if (MouseDown != null)
+            {
+                MouseDown(this, e);
+            }
+            //base.OnMouseDown(e);
+        }
+        protected override void OnMouseUp(System.Windows.Forms.MouseEventArgs e)
+        {
+            if (MouseUp != null)
+            {
+                MouseUp(this, e);
+            }
+            //base.OnMouseUp(e);
+        }
+        protected override void OnMouseMove(System.Windows.Forms.MouseEventArgs e)
+        {
+            if (MouseMove != null)
+            {
+                MouseMove(this, e);
+            }
+            //base.OnMouseMove(e);
         }
         protected override void OnSizeChanged(EventArgs e)
         {

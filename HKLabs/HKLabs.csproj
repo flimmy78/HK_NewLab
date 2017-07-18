@@ -83,6 +83,12 @@
     <Compile Include="Form5.Designer.cs">
       <DependentUpon>Form5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form6.Designer.cs">
+      <DependentUpon>Form6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form5.resx">
       <DependentUpon>Form5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form6.resx">
+      <DependentUpon>Form6.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -123,6 +132,10 @@
     <ProjectReference Include="..\All.Data.SqlCe\All.Data.SqlCe.csproj">
       <Project>{9408388a-7044-421b-a982-79ce0204284d}</Project>
       <Name>All.Data.SqlCe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\All.HMI.Control\All.Control.HMI.csproj">
+      <Project>{7CF678AB-7923-44E9-8B52-FF78542AA519}</Project>
+      <Name>All.Control.HMI</Name>
     </ProjectReference>
     <ProjectReference Include="..\All\All.csproj">
       <Project>{003984f4-a872-41f4-a3e2-9950c99815f2}</Project>

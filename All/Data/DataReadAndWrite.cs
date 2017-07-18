@@ -114,13 +114,24 @@ namespace All.Data
         /// <returns></returns>
         public abstract int Insert(string tableName, string[] columns, ArrayList value);
         /// <summary>
+        /// 指定列插入指定数据
+        /// </summary>
+        /// <param name="tableName">数据表名</param>
+        /// <param name="columns"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public int Insert(string tableName, List<string> columns, ArrayList value)
+        {
+            return Insert(tableName, columns.ToArray(), value);
+        }
+        /// <summary>
         /// 所有列插入指定数据
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public int Insert(string tableName, ArrayList value)
         {
-            return Insert(tableName, null, value);
+            return Insert(tableName, (string[])null, value);
         }
         /// <summary>
         /// 从数据库读取数据
