@@ -179,35 +179,71 @@ namespace All.Control.Metro
                 g.Clear(All.Class.Style.BackColor);
                 for (int i = 0; i < this.TabCount; i++)
                 {
-                    rect = this.GetTabRect(i);
+                    rect = new Rectangle(this.GetTabRect(i).X + 1, this.GetTabRect(i).Y, this.GetTabRect(i).Width - 2, this.GetTabRect(i).Height);
                     tmpfontColor = (this.SelectedIndex == i ? (
                         All.Class.Style.Back == Class.Style.BackColors.Black ?
                         All.Class.Style.TitleColor : All.Class.Style.BoardColor) : All.Class.Style.FontColor);
-                    tmpFont = (this.SelectedIndex == i ? tabSelectFont:tabOtherFont);
+                    tmpFont = (this.SelectedIndex == i ? tabSelectFont : tabOtherFont);
                     switch (i)
                     {
                         case 0:
                             if (normal)
                             {
                                 g.FillRectangle(new SolidBrush(All.Class.Style.BackColor), rect);
+                                if (this.SelectedIndex == i)
+                                {
+                                    g.DrawLine(All.Class.Style.BoardPen, rect.X, rect.Y, rect.X + rect.Width - 1, rect.Y);
+                                    g.DrawLine(All.Class.Style.BoardPen, rect.X, rect.Y, rect.X, rect.Y + rect.Height);
+                                    g.DrawLine(All.Class.Style.BoardPen, rect.X + rect.Width - 1, rect.Y, rect.X + rect.Width - 1, rect.Y + rect.Height);
+                                }
                                 g.DrawString(this.TabPages[i].Text, tmpFont, new SolidBrush(tmpfontColor), rect, sf);
                             }
                             else
                             {
-                                g.FillRectangle(new SolidBrush(All.Class.Style.TitleColor), rect);
+                                g.FillRectangle(new SolidBrush(All.Class.Style.BoardColor), rect);
                                 g.DrawString(this.TabPages[i].Text, tabOneFont, new SolidBrush(All.Class.Style.BackColor), rect, sf);
                             }
                             break;
                         default:
                             g.FillRectangle(new SolidBrush(All.Class.Style.BackColor), rect);
+                            if (this.SelectedIndex == i)
+                            {
+                                g.DrawLine(All.Class.Style.BoardPen, rect.X, rect.Y, rect.X + rect.Width - 1, rect.Y);
+                                g.DrawLine(All.Class.Style.BoardPen, rect.X, rect.Y, rect.X, rect.Y + rect.Height);
+                                g.DrawLine(All.Class.Style.BoardPen, rect.X + rect.Width - 1, rect.Y, rect.X + rect.Width - 1, rect.Y + rect.Height);
+                            }
                             g.DrawString(this.TabPages[i].Text, tmpFont, new SolidBrush(tmpfontColor), rect, sf);
                             break;
                     }
-                    if (((!normal && i > 0) || normal) && rect.Contains(this.PointToClient(MousePosition)))
+                    if (((!normal && i > 0) || normal) && i != this.SelectedIndex && rect.Contains(this.PointToClient(MousePosition)))
                     {
-                        g.FillRectangle(new SolidBrush(All.Class.Style.BoardColor), new Rectangle(rect.X + (int)(rect.Width * 0.1f), rect.Y + rect.Height - 2, (int)(rect.Width * 0.8f), 2));
+                        g.FillRectangle(new SolidBrush(All.Class.Style.BoardColor), new Rectangle(rect.X + (int)(rect.Width * 0.1f), rect.Y + rect.Height - 3, (int)(rect.Width * 0.8f), 2));
                     }
                 }
+                //画标签的框
+                Rectangle rect0 = new Rectangle(this.GetTabRect(0).X, this.GetTabRect(0).Y, this.GetTabRect(0).Width - 1, this.GetTabRect(0).Height);
+                rect = new Rectangle(this.GetTabRect(this.SelectedIndex).X + 1, this.GetTabRect(this.SelectedIndex).Y, this.GetTabRect(this.SelectedIndex).Width - 2, this.GetTabRect(this.SelectedIndex).Height);
+                //if (normal)
+                //{
+                //    if (this.TabCount > 0)
+                //    {
+                g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, rect0.Y + rect.Height, rect.X, rect.Y + rect.Height);
+                g.DrawLine(All.Class.Style.BoardPen, rect.X + rect.Width, rect.Height + rect.Y, this.Width - rect0.X * 2, rect.Height + rect.Y);
+                //    }
+                //}
+                //else
+                //{
+                //    if (this.TabCount > 1)
+                //    {
+                        //g.DrawLine(All.Class.Style.BoardPen, rect0.X + rect0.Width, rect0.Y + rect0.Height, rect.X, rect.Y + rect.Height);
+                        //g.DrawLine(All.Class.Style.BoardPen, rect.X + rect.Width, rect.Height + rect.Y, this.Width - rect0.X * 2, rect.Height + rect.Y);
+                //    }
+                //}
+                g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, rect0.Y + rect.Height,
+                    rect0.X + 1, this.Height - rect0.Y * 2 );
+                g.DrawLine(All.Class.Style.BoardPen, this.Width - rect0.X * 2, rect0.Y + rect0.Height, 
+                    this.Width - rect0.X * 2, this.Height - rect.Y * 2);
+                g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, this.Height - rect0.Y-1, this.Width - rect0.X * 2, this.Height - rect.Y-1);
             }
             e.Graphics.DrawImageUnscaled(backImage, 0, 0);
             base.OnPaint(e);
@@ -225,7 +261,7 @@ namespace All.Control.Metro
             sf = new StringFormat();
             sf.Alignment = StringAlignment.Center;
             sf.LineAlignment = StringAlignment.Center;
-            tabSelectFont = new System.Drawing.Font(this.Font.FontFamily, this.Font.Size + 1, FontStyle.Bold);
+            tabSelectFont = new System.Drawing.Font(this.Font.FontFamily, this.Font.Size, FontStyle.Regular);
             tabOneFont = new Font(this.Font.FontFamily, this.Font.Size + 1, FontStyle.Bold);
             tabOtherFont = new Font(this.Font.FontFamily, this.Font.Size, FontStyle.Regular);
         }

@@ -36,10 +36,10 @@
             this.txtPasswordAgain = new System.Windows.Forms.TextBox();
             this.label2 = new All.Control.Metro.Label();
             this.label1 = new All.Control.Metro.Label();
-            this.cbbName = new All.Control.Metro.ComboBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label4 = new All.Control.Metro.Label();
             this.cbbLevel = new System.Windows.Forms.ComboBox();
+            this.txtName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,41 +58,41 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(223)))), ((int)(((byte)(222)))));
             this.btnCancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCancel.BackgroundImage")));
             this.btnCancel.Boarder = true;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(32)))), ((int)(((byte)(33)))));
             this.btnCancel.Location = new System.Drawing.Point(319, 159);
             this.btnCancel.MinimumSize = new System.Drawing.Size(10, 10);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.btnCancel.Size = new System.Drawing.Size(83, 26);
-            this.btnCancel.TabIndex = 49;
-            this.btnCancel.Text = "取消";
+            this.btnCancel.TabIndex = 5;
+            this.btnCancel.Text = "关闭";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOk
             // 
-            this.btnOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(223)))), ((int)(((byte)(222)))));
             this.btnOk.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnOk.BackgroundImage")));
             this.btnOk.Boarder = true;
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.btnOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(32)))), ((int)(((byte)(33)))));
             this.btnOk.Location = new System.Drawing.Point(198, 159);
             this.btnOk.MinimumSize = new System.Drawing.Size(10, 10);
             this.btnOk.Name = "btnOk";
             this.btnOk.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.btnOk.Size = new System.Drawing.Size(83, 26);
-            this.btnOk.TabIndex = 48;
+            this.btnOk.TabIndex = 4;
             this.btnOk.Text = "确定";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(223)))), ((int)(((byte)(222)))));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(32)))), ((int)(((byte)(33)))));
             this.label3.Location = new System.Drawing.Point(134, 104);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 12);
@@ -109,13 +109,13 @@
             this.txtPasswordAgain.Name = "txtPasswordAgain";
             this.txtPasswordAgain.PasswordChar = '*';
             this.txtPasswordAgain.Size = new System.Drawing.Size(227, 21);
-            this.txtPasswordAgain.TabIndex = 44;
+            this.txtPasswordAgain.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(223)))), ((int)(((byte)(222)))));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(32)))), ((int)(((byte)(33)))));
             this.label2.Location = new System.Drawing.Point(158, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 12);
@@ -125,25 +125,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(223)))), ((int)(((byte)(222)))));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(32)))), ((int)(((byte)(33)))));
             this.label1.Location = new System.Drawing.Point(146, 50);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 12);
             this.label1.TabIndex = 45;
             this.label1.Text = "用户名:";
-            // 
-            // cbbName
-            // 
-            this.cbbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbbName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(240)))));
-            this.cbbName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.cbbName.ForeColor = System.Drawing.Color.Black;
-            this.cbbName.Location = new System.Drawing.Point(198, 47);
-            this.cbbName.Name = "cbbName";
-            this.cbbName.Size = new System.Drawing.Size(227, 20);
-            this.cbbName.TabIndex = 42;
             // 
             // txtPassword
             // 
@@ -155,13 +143,13 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(227, 21);
-            this.txtPassword.TabIndex = 43;
+            this.txtPassword.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(223)))), ((int)(((byte)(222)))));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(32)))), ((int)(((byte)(33)))));
             this.label4.Location = new System.Drawing.Point(134, 131);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 12);
@@ -178,13 +166,25 @@
             this.cbbLevel.Location = new System.Drawing.Point(198, 127);
             this.cbbLevel.Name = "cbbLevel";
             this.cbbLevel.Size = new System.Drawing.Size(227, 20);
-            this.cbbLevel.TabIndex = 52;
+            this.cbbLevel.TabIndex = 3;
+            // 
+            // txtName
+            // 
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.BackColor = System.Drawing.Color.White;
+            this.txtName.ForeColor = System.Drawing.Color.Black;
+            this.txtName.Location = new System.Drawing.Point(198, 45);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(228, 21);
+            this.txtName.TabIndex = 0;
             // 
             // AddUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 198);
+            this.Controls.Add(this.txtName);
             this.Controls.Add(this.cbbLevel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.pictureBox2);
@@ -194,7 +194,6 @@
             this.Controls.Add(this.txtPasswordAgain);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbbName);
             this.Controls.Add(this.txtPassword);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -203,17 +202,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "添加用户";
             this.Load += new System.EventHandler(this.AddUser_Load);
-            this.Controls.SetChildIndex(this.txtPassword, 0);
-            this.Controls.SetChildIndex(this.cbbName, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.txtPasswordAgain, 0);
-            this.Controls.SetChildIndex(this.label3, 0);
-            this.Controls.SetChildIndex(this.btnOk, 0);
-            this.Controls.SetChildIndex(this.btnCancel, 0);
-            this.Controls.SetChildIndex(this.pictureBox2, 0);
-            this.Controls.SetChildIndex(this.label4, 0);
-            this.Controls.SetChildIndex(this.cbbLevel, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -229,9 +217,9 @@
         private System.Windows.Forms.TextBox txtPasswordAgain;
         private All.Control.Metro.Label label2;
         private All.Control.Metro.Label label1;
-        private All.Control.Metro.ComboBox cbbName;
         private System.Windows.Forms.TextBox txtPassword;
         private All.Control.Metro.Label label4;
         private System.Windows.Forms.ComboBox cbbLevel;
+        private System.Windows.Forms.TextBox txtName;
     }
 }

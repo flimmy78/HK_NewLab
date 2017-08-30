@@ -12,6 +12,17 @@ namespace All.Control
 {
     public partial class Light : System.Windows.Forms.Control
     {
+        bool halo = true;
+        /// <summary>
+        /// 是否有光晕
+        /// </summary>
+        [Description("是否有光晕")]
+        [Category("Shuai")]
+        public bool Halo
+        {
+            get { return halo; }
+            set { halo = value; this.Invalidate(); }
+        }
         Color ledColor = Color.Red;
         /// <summary>
         /// 图形颜色
@@ -68,7 +79,14 @@ namespace All.Control
 
             gp.AddEllipse(left, 0, Height, Height);
             pgb = new PathGradientBrush(gp);
-            pgb.CenterColor = Color.White;// System.Windows.Forms.ControlPaint.LightLight(BackColor);
+            if (halo)
+            {
+                pgb.CenterColor = Color.White;// System.Windows.Forms.ControlPaint.LightLight(BackColor);
+            }
+            else
+            {
+                pgb.CenterColor = ledColor;
+            }
             pgb.SurroundColors = new Color[] { ledColor };
             pgb.CenterPoint = new PointF(left + Height * 1 / 3.0f, Height * 1 / 3.0f);
             e.Graphics.FillEllipse(pgb, left + 2, 2, Height - 4, Height - 4);

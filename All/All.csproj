@@ -47,6 +47,7 @@
     <Compile Include="Class\Api.cs" />
     <Compile Include="Class\Check.cs" />
     <Compile Include="Class\Code.cs" />
+    <Compile Include="Class\Email.cs" />
     <Compile Include="Class\Environment.cs" />
     <Compile Include="Class\Error.cs" />
     <Compile Include="Class\FileIO.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Communicate\Data\DataDetial.cs" />
     <Compile Include="Communicate\Data\MeterStyle.cs" />
     <Compile Include="Communicate\Data\ReadDetial.cs" />
+    <Compile Include="Communicate\Nothing.cs" />
     <Compile Include="Communicate\TcpClient.cs" />
     <Compile Include="Communicate\Udp.cs" />
     <Compile Include="Control\Interface\ControlExtension.cs" />
@@ -116,7 +118,9 @@
     <Compile Include="Control\Metro\ListBox.Designer.cs">
       <DependentUpon>ListBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Control\Metro\MetroControl.cs" />
+    <Compile Include="Control\Metro\MetroControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Control\Metro\MetroControl.Designer.cs">
       <DependentUpon>MetroControl.cs</DependentUpon>
     </Compile>
@@ -237,6 +241,7 @@
     <Compile Include="Factory\Boss\Boss.cs" />
     <Compile Include="Factory\Factory.cs" />
     <Compile Include="Factory\Midea\水利模块机.cs" />
+    <Compile Include="Meter\AnGui\An9632.cs" />
     <Compile Include="Meter\AnGui\An9651.cs" />
     <Compile Include="Meter\AnGui\AnGui.cs" />
     <Compile Include="Meter\Barcode.cs" />
@@ -301,6 +306,12 @@
     </Compile>
     <Compile Include="Window\Normal\BaseWindowNormal.designer.cs">
       <DependentUpon>BaseWindowNormal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Window\User\DelUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Window\User\DelUser.Designer.cs">
+      <DependentUpon>DelUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Window\User\frmChangeUser.cs">
       <SubType>Form</SubType>
@@ -386,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Window\User\AddUser.resx">
       <DependentUpon>AddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Window\User\DelUser.resx">
+      <DependentUpon>DelUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Window\User\frmChangeUser.resx">
       <DependentUpon>frmChangeUser.cs</DependentUpon>

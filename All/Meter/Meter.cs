@@ -152,6 +152,12 @@ namespace All.Meter
         { 
         }
         /// <summary>
+        /// 打开当前设备
+        /// </summary>
+        public virtual void Open()
+        { 
+        }
+        /// <summary>
         /// 关闭当前设备
         /// </summary>
         public virtual void Close()
@@ -216,6 +222,19 @@ namespace All.Meter
             List<T> buff = new List<T>();
             buff.Add(value);
             return WriteInternal<T>(buff, start, start);
+        }
+        /// <summary>
+        /// 写入数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="parm"></param>
+        /// <returns></returns>
+        public virtual bool WriteInternal<T>(T value, Dictionary<string, string> parm)
+        {
+            List<T> buff = new List<T>();
+            buff.Add(value);
+            return WriteInternal<T>(buff, parm);
         }
         /// <summary>
         /// 写入数据
@@ -342,10 +361,7 @@ namespace All.Meter
                 if (timeOut && !getData)//超时
                 {
                     result = false;
-                    //if (mostLog)
-                    //{
-                    //    All.Class.Log.Add(string.Format("{0}读取数据超时,要求长度:{1},实际长度:{2}", Text, len, this.Parent.DataRecive));
-                    //}
+                     All.Class.Log.Add(string.Format("{0}读取数据超时,要求长度:{1},实际长度:{2}", Text, len, this.Parent.DataRecive));
                 }
                 else//读取数据OK
                 {
@@ -355,10 +371,7 @@ namespace All.Meter
                         this.Parent.Read<byte[]>(out readTmpBuff);
                         if (readTmpBuff.Length < len)
                         {
-                            //if (mostLog)
-                            //{
-                            //    All.Class.Log.Add(string.Format("{0}实际读取的参数和要求参数长度不一致,要求长度:{1},实际长度:{2}", Text, len, readTmpBuff.Length));
-                            //}
+                            All.Class.Log.Add(string.Format("{0}实际读取的参数和要求参数长度不一致,要求长度:{1},实际长度:{2}", Text, len, readTmpBuff.Length));
                             result = false;
                         }
                         else

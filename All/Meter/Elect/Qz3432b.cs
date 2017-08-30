@@ -25,13 +25,13 @@ namespace All.Meter
         }
         public override void Init(Dictionary<string, string> initParm)
         {
-            if (!InitParm.ContainsKey("Address"))
+            if (!initParm.ContainsKey("Address"))
             {
                 All.Class.Error.Add("参数中没有地址", Environment.StackTrace);
             }
             else
             {
-                address = All.Class.Num.ToByte(InitParm["Address"]);
+                address = All.Class.Num.ToByte(initParm["Address"]);
             }
             base.Init(initParm);
         }
@@ -51,7 +51,7 @@ namespace All.Meter
                 try
                 {
                     int Phase = 0;//全体数据
-                    if (parm.ContainsKey("Code"))
+                    if (parm!=null && parm.ContainsKey("Code"))
                     {
                         switch (parm["Code"].ToUpper())
                         {
@@ -75,11 +75,16 @@ namespace All.Meter
                     sendBuff[2] = 0x01;
                     sendBuff[3] = 0x00;
                     sendBuff[4] = 0x00;
-                    sendBuff[5] = 0x78;
+                    sendBuff[5] = 0x68;
                     All.Class.Check.Crc16(sendBuff, 6, out sendBuff[6], out sendBuff[7]);
                     byte[] readBuff;
-                    if (WriteAndRead<byte[], byte[]>(sendBuff, 245, out readBuff))
+                    if (WriteAndRead<byte[], byte[]>(sendBuff, 213, out readBuff))
                     {
+                        if (readBuff[0] != sendBuff[0] || readBuff[1] != sendBuff[1])
+                        {
+                            All.Class.Error.Add("Qz3432b校验错误", string.Format("发送字符:{0}\r\n接收字符:{1}", All.Class.Num.Hex2Str(sendBuff), All.Class.Num.Hex2Str(readBuff)));
+                            return false;
+                        }
                         switch (All.Class.TypeUse.GetType<T>())
                         {
                             case Class.TypeUse.TypeList.Float:
@@ -122,7 +127,7 @@ namespace All.Meter
                                         value.Add((T)(object)0f);
                                         value.Add((T)(object)0f);
                                         //频率
-                                        value.Add((T)(object)(float)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
+                                        //value.Add((T)(object)(float)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
                                         break;
                                     case 3://只取三相数据
                                         //相电压
@@ -145,7 +150,7 @@ namespace All.Meter
                                         value.Add((T)(object)0f);
                                         value.Add((T)(object)0f);
                                         //频率
-                                        value.Add((T)(object)(float)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
+                                        //value.Add((T)(object)(float)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
                                         break;
                                     case 1://只取单相数据
                                         //相电压
@@ -157,7 +162,7 @@ namespace All.Meter
                                         //功率因素,因为暂时没有用到,所以暂时不读取,以后补齐
                                         value.Add((T)(object)0f);
                                         //频率
-                                        value.Add((T)(object)(float)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
+                                        //value.Add((T)(object)(float)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
                                         break;
                                 }
                                 break;
@@ -201,7 +206,7 @@ namespace All.Meter
                                         value.Add((T)(object)(double)0);
                                         value.Add((T)(object)(double)0);
                                         //频率
-                                        value.Add((T)(object)(double)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
+                                        //value.Add((T)(object)(double)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
                                         break;
                                     case 3:
                                         //相电压
@@ -224,7 +229,7 @@ namespace All.Meter
                                         value.Add((T)(object)(double)0);
                                         value.Add((T)(object)(double)0);
                                         //频率
-                                        value.Add((T)(object)(double)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
+                                        //value.Add((T)(object)(double)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
                                         break;
                                     case 1:
                                         //相电压
@@ -236,13 +241,43 @@ namespace All.Meter
                                         //功率因素,因为暂时没有用到,所以暂时不读取,以后补齐
                                         value.Add((T)(object)(double)0);
                                         //频率
-                                        value.Add((T)(object)(double)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
+                                        //value.Add((T)(object)(double)(((readBuff[104 + 3] << 24) + (readBuff[105 + 3] << 16) + (readBuff[106 + 3] << 8) + (readBuff[107 + 3] << 0)) * 0.01f));
                                         break;
                                 }
                                 break;
                             default:
                                 All.Class.Error.Add("读取参数中返回数据类型不正确", Environment.StackTrace);
                                 return false;
+                        }
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+
+                    sendBuff[0] = address;
+                    sendBuff[1] = 0x03;
+                    sendBuff[2] = 0x01;
+                    sendBuff[3] = 0xB0;
+                    sendBuff[4] = 0x00;
+                    sendBuff[5] = 0x02;
+                    All.Class.Check.Crc16(sendBuff, 6, out sendBuff[6], out sendBuff[7]);
+                    if (result && WriteAndRead<byte[], byte[]>(sendBuff, 9, out readBuff))
+                    {
+                        if (readBuff[0] != sendBuff[0] || readBuff[1] != sendBuff[1])
+                        {
+                            All.Class.Error.Add("Qz3432b校验错误", string.Format("发送字符:{0}\r\n接收字符:{1}", All.Class.Num.Hex2Str(sendBuff), All.Class.Num.Hex2Str(readBuff)));
+                            return false;
+                        }
+                        switch (All.Class.TypeUse.GetType<T>())
+                        {
+                            case Class.TypeUse.TypeList.Float:
+                                value.Add((T)(object)(float)(((readBuff[3] << 24) + (readBuff[4] << 16) + (readBuff[5] << 8) + readBuff[6]) * 0.01));
+                                break;
+                            case Class.TypeUse.TypeList.Double:
+                                value.Add((T)(object)(double)(((readBuff[3] << 24) + (readBuff[4] << 16) + (readBuff[5] << 8) + readBuff[6]) * 0.01));
+                                break;
                         }
                         result = true;
                     }
@@ -261,8 +296,8 @@ namespace All.Meter
         }
         public override bool Test()
         {
-            ushort value = 0;
-            return Read<ushort>(out value, 0);
+            float value = 0;
+            return Read<float>(out value, 0);
         }
         public override bool WriteInternal<T>(List<T> value, Dictionary<string, string> parm)
         {

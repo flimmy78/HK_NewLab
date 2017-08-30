@@ -23,7 +23,7 @@ namespace All.Class
             /// <summary>
             /// 灰色
             /// </summary>
-            Gray=0xFFDEDFDE
+            Gray = 0xFFDEDFDE
         }
         /// <summary>
         /// 前景色
@@ -69,11 +69,7 @@ namespace All.Class
             /// <summary>
             /// 绿色
             /// </summary>
-            Green = 0xFF339933,
-            /// <summary>
-            /// 海蓝色
-            /// </summary>
-            Marine = 0xFF00ABA9
+            Green = 0xFF339933
         }
         static List<ChangeTheme> allStyle = new List<ChangeTheme>();
         /// <summary>

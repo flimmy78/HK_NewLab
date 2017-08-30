@@ -71,12 +71,18 @@ namespace All.Window
                 themeBack = value;
             }
         }
-        const int iconHeight = 21;
-        const int TitleHeight = 28;
+        int iconHeight = 21;
+        int TitleHeight = 32;
         protected override void OnTextChanged(EventArgs e)
         {
             this.Invalidate();
             base.OnTextChanged(e);
+        }
+        protected override void OnFontChanged(EventArgs e)
+        {
+            iconHeight = (int)(2 * Font.Size);
+            TitleHeight = (int)(2.5f * Font.Size);
+            base.OnFontChanged(e);
         }
         [Browsable(false)]
         public override Color BackColor
@@ -122,6 +128,7 @@ namespace All.Window
         }
         private void NormalWindow_Load(object sender, EventArgs e)
         {
+            this.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size;
             ChangeBack(All.Class.Style.Back);
             menuTheme.Items.Clear();
             ToolStripMenuItem tsi;
@@ -174,8 +181,8 @@ namespace All.Window
             int top = (TitleHeight - iconHeight) / 2 + 1;
             if (closeBox)
             {
-                rClose = new Rectangle(tmpRight - iconHeight, top, iconHeight, iconHeight);
-                tmpRight = tmpRight - iconHeight - 5;
+                rClose = new Rectangle((int)(tmpRight - iconHeight * 1.5f), top, (int)(iconHeight * 1.5f), iconHeight);
+                tmpRight = (int)(tmpRight - iconHeight * 1.5f - 5);
             }
             else
             {
@@ -183,8 +190,8 @@ namespace All.Window
             }
             if (MaximizeBox)
             {
-                rMax = new Rectangle(tmpRight - iconHeight, top, iconHeight, iconHeight);
-                tmpRight = tmpRight - iconHeight - 5;
+                rMax = new Rectangle((int)(tmpRight - iconHeight * 1.6f), top, (int)(iconHeight * 1.6f), iconHeight);
+                tmpRight = (int)(tmpRight - iconHeight * 1.6f - 5);
             }
             else
             {
@@ -192,8 +199,8 @@ namespace All.Window
             }
             if (MinimizeBox)
             {
-                rMin = new Rectangle(tmpRight - iconHeight, top, iconHeight, iconHeight);
-                tmpRight = tmpRight - iconHeight - 5;
+                rMin = new Rectangle((int)(tmpRight - iconHeight * 1.6f), top, (int)(iconHeight * 1.6f), iconHeight);
+                tmpRight = (int)(tmpRight - iconHeight * 1.6f - 5);
             }
             else
             {
@@ -450,7 +457,7 @@ namespace All.Window
                 //标题
                 if (rText != Rectangle.Empty)
                 {
-                    g.DrawString(this.Text, new Font("新宋体", 10, FontStyle.Bold), new SolidBrush(All.Class.Style.FontColor), rText, sf2);
+                    g.DrawString(this.Text, new Font("新宋体", Font.Size, FontStyle.Bold), new SolidBrush(All.Class.Style.FontColor), rText, sf2);
                 }
                 g.DrawRectangle(new Pen(new SolidBrush(SystemColors.ControlDark)), 0, 0, this.Width - 1, this.Height - 1);
                 g.DrawRectangle(new Pen(new SolidBrush(SystemColors.Control)), 1, 1, this.Width - 3, this.Height - 3);

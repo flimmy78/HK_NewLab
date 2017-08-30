@@ -16,24 +16,52 @@ namespace All.Window
         {
             this.User = user;
             InitializeComponent();
+            SetLevel(typeof(All.Class.cUser.LevelList));
         }
-
-        private void AddUser_Load(object sender, EventArgs e)
+        /// <summary>
+        /// 设置权限选项
+        /// </summary>
+        /// <param name="values"></param>
+        public void SetLevel(string[] values)
         {
-            Enum.GetNames(typeof(All.Class.cUser.LevelList)).ToList().ForEach(
+            cbbLevel.Items.Clear();
+            if (values == null)
+            {
+                return;
+            }
+            for (int i = 0; i < values.Length; i++)
+            {
+                cbbLevel.Items.Add(values[i]);
+            }
+            if (cbbLevel.Items.Count > 0)
+            {
+                cbbLevel.SelectedIndex = cbbLevel.Items.Count - 1;
+            }
+        }
+        /// <summary>
+        /// 设置权限选项
+        /// </summary>
+        /// <param name="levelEnumType"></param>
+        public void SetLevel(Type levelEnumType)
+        {
+            cbbLevel.Items.Clear();
+            Enum.GetNames(levelEnumType).ToList().ForEach(
                 level => cbbLevel.Items.Add(level));
             if (cbbLevel.Items.Count > 0)
             {
                 cbbLevel.SelectedIndex = cbbLevel.Items.Count - 1;
             }
         }
+        private void AddUser_Load(object sender, EventArgs e)
+        {
+        }
        
         private void btnOk_Click(object sender, EventArgs e)
         {
             MessageWindow mw;
-            if (User.AllUser.FindIndex(user => user.UserName == cbbName.Text) >= 0)
+            if (User.AllUser.FindIndex(user => user.UserName == txtName.Text) >= 0)
             {
-                cbbName.Focus();
+                txtName.Focus();
                 mw = new MessageWindow("当前要添加的用户已存在,不能添加", "错误!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 mw.ShowDialog();
                 return;
@@ -47,7 +75,7 @@ namespace All.Window
                 return;
             }
             All.Class.cUser.UserSet us = new Class.cUser.UserSet();
-            us.UserName = cbbName.Text;
+            us.UserName = txtName.Text;
             us.PassWord = txtPassword.Text;
             us.Level = cbbLevel.Text;
             us.Save();

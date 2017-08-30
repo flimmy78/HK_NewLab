@@ -15,7 +15,7 @@ namespace All.Class.SingleFileSave
         /// <param name="dt">表格</param>
         public static bool Write(string fileName, System.Data.DataTable dt)
         {
-            return Write(fileName, dt, string.Format("{0:yyyyMMddHHmmss", DateTime.Now));
+            return Write(fileName, dt, string.Format("{0:yyyyMMddHHmmss}", DateTime.Now));
         }
         /// <summary>
         /// 将指定表格写入到Excel表格
@@ -55,6 +55,10 @@ namespace All.Class.SingleFileSave
                         for (int j = 0; j < dt.Columns.Count; j++)
                         {
                             cell = row.CreateCell(j);
+                            if(dt.Rows[i][j].ToString() == "")
+                            {
+                                continue;
+                            }
                             switch (columnType[j])
                             {
                                 case TypeUse.TypeList.Boolean:

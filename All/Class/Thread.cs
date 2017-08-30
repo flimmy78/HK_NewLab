@@ -130,17 +130,21 @@ namespace All.Class
         /// 新建或找开一个新的多线程
         /// </summary>
         /// <param name="action"></param>
-        public static void CreateOrOpen(Action action)
+        public static string CreateOrOpen(Action action)
         {
-            CreateOrOpen(Num.CreateGUID(), action);
+            string guid = Num.CreateGUID();
+            CreateOrOpen(guid, action);
+            return guid;
         }
         /// <summary>
         /// 新建或找开一个新的多线程
         /// </summary>
         /// <param name="action"></param>
-        public static void CreateOrOpen(Action action, int delay)
+        public static string CreateOrOpen(Action action, int delay)
         {
-            CreateOrOpen(Num.CreateGUID(), action,delay); 
+            string guid = Num.CreateGUID();
+            CreateOrOpen(guid, action,delay);
+            return guid;
         }
         /// <summary>
         /// 关闭指定名称的线程
@@ -160,6 +164,14 @@ namespace All.Class
         public static void Kill()
         {
             thManager.Close();
+        }
+        /// <summary>
+        /// 直接多线程运行
+        /// </summary>
+        /// <param name="action"></param>
+        public static void Run(Action action)
+        {
+            new System.Threading.Thread(()=>action()) { IsBackground = true }.Start();
         }
     }
 }

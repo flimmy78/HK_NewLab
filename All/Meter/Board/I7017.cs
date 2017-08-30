@@ -58,7 +58,7 @@ namespace All.Meter
             {
                 address = All.Class.Num.ToByte(initParm["Address"]);
             }
-
+            base.Init(initParm);
         }
         /// <summary>
         /// 按指令读取指定数据
