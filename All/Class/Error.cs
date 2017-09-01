@@ -120,6 +120,7 @@ namespace All.Class
                 }
             }
         }
+
         /// <summary>
         /// 将消息写入Log
         /// </summary>

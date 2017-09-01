@@ -226,6 +226,15 @@ namespace All.Meter
         /// <summary>
         /// 写入数据
         /// </summary>
+        /// <param name="parm"></param>
+        /// <returns></returns>
+        public virtual bool WriteInternal(Dictionary<string, string> parm)
+        {
+            return WriteInternal<string>("", parm);
+        }
+        /// <summary>
+        /// 写入数据
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="parm"></param>

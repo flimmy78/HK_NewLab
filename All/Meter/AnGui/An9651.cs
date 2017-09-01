@@ -32,11 +32,6 @@ namespace All.Meter
                 value = new List<T>();
                 try
                 {
-                    if (!parm.ContainsKey("Code"))
-                    {
-                        All.Class.Error.Add("数据读取参数中不包含命令", Environment.StackTrace);
-                        return false;
-                    }
                     string sendValue = string.Format("{0}{1:D3}000{2}", "{", Address, "}");
                     byte[] readBuff;
                     if (WriteAndRead<string, byte[]>(sendValue, 193, out readBuff))
@@ -247,66 +242,67 @@ namespace All.Meter
                             }
                             sendValue = string.Format("{0}{1:D3}7", "{", Address);
                             int steps = 0;
-                            for (int i = 0, j = 0; i < value.Count && j < 8; i = i + members, j++)
+                            int maxSteps = 8;
+                            for (int i = 0, j = 0; i < value.Count && j < maxSteps; i = i + members, j++)
                             {
                                 steps++;
                                 switch ((AnGui.AnGui.Projects)(int)(object)value[i])//步骤
                                 {
                                     case Projects.接地:
                                         sendValue += string.Format("1{0}{1}{2}{3}{4}",
-                                            Format((int)(100 * (float)(object)value[i + 1])),//设置输出值
-                                            Format((int)((float)(object)value[i + 2])),//最小值
-                                            Format((int)((float)(object)value[i + 3])),//最大值
-                                            Format((int)(10 * (float)(object)value[i + 4])),//测试时间
-                                            (int)((float)(object)value[i + 5]));//静态或动态
+                                            Format((int)(100 * Convert.ToSingle(value[i + 1]))),//设置输出值
+                                            Format((int)Convert.ToSingle(value[i + 2])),//最小值
+                                            Format((int)Convert.ToSingle(value[i + 3])),//最大值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 4]))),//测试时间
+                                            (int)Convert.ToSingle(value[i + 5]));//静态或动态
                                         break;
                                     case Projects.绝缘:
                                         sendValue += string.Format("2{0}{1}{2}{3}{4}",
-                                            Format((int)((float)(object)value[i + 1])),//设置输出值
-                                            Format((int)(10 * (float)(object)value[i + 2])),//最小值
-                                            Format((int)(10 * (float)(object)value[i + 3])),//最大值
-                                            Format((int)(10 * (float)(object)value[i + 4])),//测试时间
-                                            (int)((float)(object)value[i + 5]));//静态或动态
+                                            Format((int)Convert.ToSingle(value[i + 1])),//设置输出值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 2]))),//最小值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 3]))),//最大值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 4]))),//测试时间
+                                            (int)Convert.ToSingle(value[i + 5]));//静态或动态
                                         break;
                                     case Projects.耐压:
                                         sendValue += string.Format("3{0}{1}{2}{3}{4}",
-                                            Format((int)((float)(object)value[i + 1])),//设置输出值
-                                            Format((int)(100 * (float)(object)value[i + 2])),//最小值
-                                            Format((int)(100 * (float)(object)value[i + 3])),//最大值
-                                            Format((int)(10 * (float)(object)value[i + 4])),//测试时间
-                                            (int)((float)(object)value[i + 5]));//静态或动态
+                                            Format((int)Convert.ToSingle(value[i + 1])),//设置输出值
+                                            Format((int)(100 * Convert.ToSingle(value[i + 2]))),//最小值
+                                            Format((int)(100 * Convert.ToSingle(value[i + 3]))),//最大值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 4]))),//测试时间
+                                            (int)Convert.ToSingle(value[i + 5]));//静态或动态
                                         break;
                                     case Projects.泄漏:
                                         sendValue += string.Format("4{0}{1}{2}{3}{4}",
-                                            Format((int)(10 * (float)(object)value[i + 1])),//设置输出值
-                                            Format((int)((float)(object)value[i + 2])),//最小值
-                                            Format((int)((float)(object)value[i + 3])),//最大值
-                                            Format((int)(10 * (float)(object)value[i + 4])),//测试时间
-                                            (int)((float)(object)value[i + 5]));//静态或动态
+                                            Format((int)(10 * Convert.ToSingle(value[i + 1]))),//设置输出值
+                                            Format((int)Convert.ToSingle(value[i + 2])),//最小值
+                                            Format((int)Convert.ToSingle(value[i + 3])),//最大值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 4]))),//测试时间
+                                            (int)Convert.ToSingle(value[i + 5]));//静态或动态
                                         break;
                                     case Projects.功率:
                                         sendValue += string.Format("5{0}{1}{2}{3}{4}",
-                                            Format((int)(10 * (float)(object)value[i + 1])),//设置输出值
-                                            Format((int)(10 * (float)(object)value[i + 2])),//最小值
-                                            Format((int)(10 * (float)(object)value[i + 3])),//最大值
-                                            Format((int)(10 * (float)(object)value[i + 4])),//测试时间
-                                            (int)((float)(object)value[i + 5]));//静态或动态
+                                            Format((int)(10 * Convert.ToSingle(value[i + 1]))),//设置输出值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 2]))),//最小值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 3]))),//最大值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 4]))),//测试时间
+                                            (int)Convert.ToSingle(value[i + 5]));//静态或动态
                                         break;
                                     case Projects.启动:
                                         sendValue += string.Format("6{0}{1}{2}{3}{4}",
-                                            Format((int)(10 * (float)(object)value[i + 1])),//设置输出值
-                                            Format((int)(100 * (float)(object)value[i + 2])),//最小值
-                                            Format((int)(100 * (float)(object)value[i + 3])),//最大值
-                                            Format((int)(10 * (float)(object)value[i + 4])),//测试时间
-                                            (int)((float)(object)value[i + 5]));//静态或动态
+                                            Format((int)(10 * Convert.ToSingle(value[i + 1]))),//设置输出值
+                                            Format((int)(100 * Convert.ToSingle(value[i + 2]))),//最小值
+                                            Format((int)(100 * Convert.ToSingle(value[i + 3]))),//最大值
+                                            Format((int)(10 * Convert.ToSingle(value[i + 4]))),//测试时间
+                                            (int)Convert.ToSingle(value[i + 5]));//静态或动态
                                         break;
                                     case Projects.直耐:
                                         sendValue += string.Format("7{0}{1}{2}{3}{4}",
-                                            Format((int)((float)(object)value[i + 1])),//设置输出值
-                                            Format((int)((float)(object)value[i + 2])),//最小值
-                                            Format((int)((float)(object)value[i + 3])),//最大值
-                                            Format((int)(10 * (float)(object)value[i + 4])),//测试时间
-                                            (int)((float)(object)value[i + 5]));//静态或动态
+                                            Format((int)Convert.ToSingle(value[i + 1])),//设置输出值
+                                            Format((int)Convert.ToSingle(value[i + 2])),//最小值
+                                            Format((int)Convert.ToSingle(value[i + 3])),//最大值
+                                            Format((int)(10 * (Convert.ToSingle(value[i + 4])))),//测试时间
+                                            (int)Convert.ToSingle(value[i + 5]));//静态或动态
                                         break;
                                     default:
                                         All.Class.Error.Add(string.Format("出现未知的测试序号,错误序号为{0}", (int)(object)value[i]), Environment.StackTrace);

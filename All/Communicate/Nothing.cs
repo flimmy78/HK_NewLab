@@ -5,6 +5,9 @@ using System.Text;
 
 namespace All.Communicate
 {
+    /// <summary>
+    /// 空通讯类,因为部分设备,压根不须要通讯类,它自带通讯驱动,如USB通讯等
+    /// </summary>
     public class Nothing:Communicate
     {
         public override void Read<T>(out T value)

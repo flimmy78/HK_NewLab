@@ -32,123 +32,50 @@ namespace All.Meter
                 value = new List<T>();
                 try
                 {
-                    if (!parm.ContainsKey("Code"))
-                    {
-                        All.Class.Error.Add("数据读取参数中不包含命令", Environment.StackTrace);
-                        return false;
-                    }
-                    string sendValue = string.Format("{0}{1:D3}000{2}", "{", Address, "}");
+                    byte[] sendBuff = new byte[] { 0x7B, 0x06, (byte)Address, 00, (byte)(0x06 + Address), 0x7D };
                     byte[] readBuff;
-                    if (WriteAndRead<string, byte[]>(sendValue, 193, out readBuff))
+                    int len = 20;
+                    if (WriteAndRead<byte[], byte[]>(sendBuff, len,out readBuff))
                     {
-                        List<byte> buff = readBuff.ToList();
-                        for (int i = buff.Count - 1; i >= 0; i--)
-                        {
-                            if (buff[i] != 0x7D)
-                            {
-                                buff.RemoveAt(i);
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        buff.Reverse();
-                        for (int i = buff.Count - 1; i >= 0; i--)
-                        {
-                            if (buff[i] != 0x7B)
-                            {
-                                buff.RemoveAt(i);
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        buff.Reverse();
-                        readBuff = buff.ToArray();
-
-                        if (sendValue.Substring(0, 4) != Encoding.ASCII.GetString(readBuff, 0, 4))
+                        if (sendBuff[0] != readBuff[0] || len != readBuff[1] ||
+                            sendBuff[2] != readBuff[2] || sendBuff[3] != readBuff[3] ||
+                            sendBuff[5] != readBuff[len - 1])
                         {
                             All.Class.Error.Add("返回数据校验失败", Environment.StackTrace);
-                            All.Class.Error.Add("发送数据", sendValue);
-                            All.Class.Error.Add("返回数据", Encoding.ASCII.GetString(readBuff));
+                            All.Class.Error.Add("发送数据", All.Class.Num.Hex2Str(sendBuff));
+                            All.Class.Error.Add("返回数据", All.Class.Num.Hex2Str(readBuff));
                             return false;
                         }
                         switch (All.Class.TypeUse.GetType<T>())
                         {
                             case Class.TypeUse.TypeList.Float:
                             case Class.TypeUse.TypeList.Double:
-                                for (int i = 5; i < readBuff.Length - 9; i = i + 23)
-                                {
-                                    switch (readBuff[i])//项目
-                                    {
-                                        case 0x31:
-                                            value.Add((T)(object)(float)AnGui.AnGui.Projects.接地);
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 1, 4)) / 100f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 5, 4)) / 10f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 9, 4)) / 1f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 13, 4)) / 1f));
-                                            break;
-                                        case 0x32:
-                                            value.Add((T)(object)(float)AnGui.AnGui.Projects.绝缘);
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 1, 4)) / 1f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 5, 4)) / 10f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 9, 4)) / 1f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 13, 4)) / 1f));
-                                            break;
-                                        case 0x33:
-                                            value.Add((T)(object)(float)AnGui.AnGui.Projects.耐压);
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 1, 4)) / 1f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 5, 4)) / 100f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 9, 4)) / 1f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 13, 4)) / 1f));
-                                            break;
-                                        case 0x34:
-                                            value.Add((T)(object)(float)AnGui.AnGui.Projects.泄漏);
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 1, 4)) / 10f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 5, 4)) / 1f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 9, 4)) / 1f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 13, 4)) / 1f));
-                                            break;
-                                        case 0x35:
-                                            value.Add((T)(object)(float)AnGui.AnGui.Projects.功率);
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 1, 4)) / 10f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 5, 4)) / 100f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 9, 4)) / 10f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 13, 4)) / 1f));
-                                            break;
-                                        case 0x36:
-                                            value.Add((T)(object)(float)AnGui.AnGui.Projects.启动);
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 1, 4)) / 10f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 5, 4)) / 100f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 9, 4)) / 100f));
-                                            value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 13, 4)) / 1f));
-                                            break;
-                                        default://空白测试步骤,要补上
-                                            value.Add((T)(object)(float)AnGui.AnGui.Projects.空白);
-                                            value.Add((T)(object)0f);
-                                            value.Add((T)(object)0f);
-                                            value.Add((T)(object)0f);
-                                            value.Add((T)(object)0f);
-                                            break;
-                                    }
-                                    value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 17, 4)) / 10f));//时间
-                                    value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 21, 1)) / 1f));//动静
-                                    value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, i + 22, 1)) / 1f));//结果
-                                }
-                                //
-                                value.Add((T)(object)(Format(Encoding.ASCII.GetString(readBuff, 189, 1)) == 2 ? 1f : 0f));//完成状态
-                                bool testResult = true;
-                                for (int i = 27; i < readBuff.Length - 9; i = i + 23)
-                                {
-                                    testResult = testResult && (readBuff[i] == 0x31 || readBuff[i] == 0x30);
-                                }
-                                value.Add((T)(object)(testResult ? 1f : 0f));//总结果
+                                bool[] tmpResult = All.Class.Num.Byte2Bool(readBuff[17]);
+
+                                value.Add((T)(object)(float)AnGui.AnGui.Projects.耐压);
+                                value.Add((T)(object)(float)(readBuff[4] * 256 + readBuff[5]));
+                                value.Add((T)(object)(float)(0.001f * (readBuff[6] * 256 + readBuff[7])));
+                                value.Add((T)(object)(float)0);
+                                value.Add((T)(object)(float)0);
+                                value.Add((T)(object)(float)0);
+                                value.Add((T)(object)(float)0);
+                                value.Add((T)(object)(float)(tmpResult[0] ? 1 : 0));
+
+                                value.Add((T)(object)(float)AnGui.AnGui.Projects.绝缘);
+                                value.Add((T)(object)(float)(readBuff[10]*256+readBuff[11]));
+                                value.Add((T)(object)(float)(0.01f * (readBuff[12] * 65536 + readBuff[13] * 256 + readBuff[14])));
+                                value.Add((T)(object)(float)0);
+                                value.Add((T)(object)(float)0);
+                                value.Add((T)(object)(float)0);
+                                value.Add((T)(object)(float)0);
+                                value.Add((T)(object)(float)(tmpResult[3] ? 1 : 0));
+
+                                value.Add((T)(object)(float)((tmpResult[6] == tmpResult[7]) ? 1 : 0));
+                                value.Add((T)(object)(float)((tmpResult[0] && tmpResult[3]) ? 1 : 0));
                                 result = true;
                                 break;
                             case Class.TypeUse.TypeList.Byte:
-                                for (int i = 5; i < readBuff.Length - 9; i++)
+                                for (int i = 4; i < 18; i++)
                                 {
                                     value.Add((T)(object)(readBuff[i]));
                                 }
@@ -221,11 +148,18 @@ namespace All.Meter
                     int len = 6;
                     switch (parm["Code"].ToUpper())
                     {
+                            //7B+数据长度+地址+命令+数据+校验+7D
                         case "START":
-                            sendValue = string.Format("7B06{0:D2}01{1:X2}7D", Address, 7 + Address);
+                            sendValue = string.Format("06{0:D2}01", Address);
                             break;
                         case "STOP":
-                            sendValue = string.Format("7B06{0:D2}02{1:X2}7D", Address, 7 + Address);
+                            sendValue = string.Format("06{0:D2}02", Address);
+                            break;
+                        case "ACW":
+                            sendValue = string.Format("07{0:D2}0300", Address);//使用耐压模式
+                            break;
+                        case "IR":
+                            sendValue = string.Format("07{0:D2}0301", Address);//绝缘模式
                             break;
                         case "SETTING":
                             Type t = typeof(AnGui.AnGui.SendValue.StepValue);
@@ -235,41 +169,92 @@ namespace All.Meter
                                 All.Class.Error.Add("写入的数据量不正确,不能识别的数据", Environment.StackTrace);
                                 return false;
                             }
-                            sendValue = string.Format("{0}{1:D3}7", "{", Address);
-                            int steps = 0;
-                            for (int i = 0, j = 0; i < value.Count && j < 8; i = i + members, j++)
+                            sendValue = "";
+                            for (int i = 0; i < value.Count; i = i + members)
                             {
-                                steps++;
                                 switch ((AnGui.AnGui.Projects)(int)(object)value[i])//步骤
                                 {
+                                    case Projects.耐压:
+                                        if (!WriteInternal(new Dictionary<string, string>() { {"Code", "ACW"} }))
+                                        {
+                                            All.Class.Error.Add("9632切换为耐压模式失败");
+                                            return false;
+                                        }
+                                        sendValue = string.Format("15{0:D2}06{1:X4}{2:X4}{3:X4}{4:X4}{5:X2}{6:X4}{7:X4}{8:X4}",
+                                            Address,
+                                            (int)(Convert.ToSingle(value[i + 1])),//输出
+                                            (int)(1000 * Convert.ToSingle(value[i + 3])),//最大值
+                                            (int)(1000 * Convert.ToSingle(value[i + 2])),//最小值
+                                            (int)(10 * Convert.ToSingle(value[i + 4])),//时间
+                                            (int)(Convert.ToSingle(value[i + 6])),//频率
+                                            (int)(10 * Convert.ToSingle(value[i + 7])),//缓升
+                                            (int)(10 * Convert.ToSingle(value[i + 8])),//缓降
+                                            0);
+                                        break;
                                     case Projects.绝缘:
-                                        sendValue += string.Format("2{0}{1}{2}{3}{4}",
-                                            Format((int)((float)(object)value[i + 1])),//设置输出值
-                                            Format((int)(10 * (float)(object)value[i + 2])),//最小值
-                                            Format((int)(10 * (float)(object)value[i + 3])),//最大值
-                                            Format((int)(10 * (float)(object)value[i + 4])),//测试时间
-                                            (int)((float)(object)value[i + 5]));//静态或动态
+                                        if (!WriteInternal(new Dictionary<string, string>() { { "Code", "IR" } }))
+                                        {
+                                            All.Class.Error.Add("9632切换为耐压模式失败");
+                                            return false;
+                                        }
+                                        sendValue = string.Format("10{0:D2}06{1:X4}{2:X6}{3:X6}{4:X2}",
+                                            Address,
+                                            (int)(Convert.ToSingle(value[i + 1])),//设置输出值
+                                            (int)(100 * Convert.ToSingle(value[i + 2])),//最小值
+                                            (int)(100 * Convert.ToSingle(value[i + 3])),//最大值
+                                            (int)(10 * Convert.ToSingle(value[i + 4])));//测试时间
                                         break;
                                     default:
                                         All.Class.Error.Add(string.Format("出现未知的测试序号,错误序号为{0}", (int)(object)value[i]), Environment.StackTrace);
                                         return false;
                                 }
+                                if (sendValue != "")
+                                {
+                                    break;
+                                }
                             }
                             break;
                         default:
                             All.Class.Error.Add(string.Format("数据写入参数命令不正确,不能识别的指令,{0}", parm["Code"]), Environment.StackTrace);
-                            break;
+                            return false;
                     }
-                    string readValue = "";
-                    if (WriteAndRead<string, string>(sendValue, len, out readValue))
+                    if (sendValue == "")//添加校验
                     {
-                        if (sendValue.Substring(0, 4) == readValue.Substring(0, 4))
+                        All.Class.Error.Add("不能发送", "An9632发送空指令字符,无法完成写入操作");
+                        return false;
+                    }
+                    sendValue = string.Format("7B{0}{1:X2}7D", sendValue, All.Class.Check.SumCheck(All.Class.Num.Str2Hex(sendValue)));
+                    byte[] readValue;
+                    if (WriteAndRead<byte[], byte[]>(All.Class.Num.Str2Hex(sendValue), len, out readValue))
+                    {
+                        if (readValue[0] != 0x7B || readValue[5] != 0x7D)
                         {
-                            result = true;
+                            All.Class.Error.Add("识别码错误", string.Format("AN9632的返回字符头码或结束码不正确:{0}", All.Class.Num.Hex2Str(readValue)));
+                            return false;
                         }
-                        else
+                        if (readValue[1] != Address)
                         {
-                            result = false;
+                            All.Class.Error.Add("地址码错误", string.Format("An9632返回字符地址码不正确:{0}", All.Class.Num.Hex2Str(readValue)));
+                            return false;
+                        }
+                        if (readValue[4] != All.Class.Check.SumCheck(readValue, 1, 3))
+                        {
+                            All.Class.Error.Add("校验码错误", string.Format("An9632返回字符校验错误:{0}", All.Class.Num.Hex2Str(readValue)));
+                            return false;
+                        }
+                        switch (Encoding.ASCII.GetString(readValue, 2, 2))
+                        {
+                            case "OK":
+                                return true;
+                            case "NO":
+                                All.Class.Error.Add("应答错误", "AN9632应答错误,不符合输入要求或者当前不能执行");
+                                return false;
+                            case "??":
+                                All.Class.Error.Add("应答错误", "未知命令");
+                                return false;
+                            default:
+                                All.Class.Error.Add("出现异常", All.Class.Num.Hex2Str(readValue));
+                                return false;
                         }
                     }
                 }

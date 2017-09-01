@@ -118,7 +118,7 @@ namespace All.Meter.AnGui
         public class SendValue
         {
             /// <summary>
-            /// 设置值
+            /// 设置值,部分项目没有时,可以不填或随便填
             /// </summary>
             public class StepValue
             {
@@ -148,9 +148,24 @@ namespace All.Meter.AnGui
                 public float Time
                 { get; set; }
                 /// <summary>
-                /// 动态
+                /// 动态,部分项目没有
                 /// </summary>
                 public bool Active
+                { get; set; }
+                /// <summary>
+                /// 频率,部分项目没有
+                /// </summary>
+                public int Hz
+                { get; set; }
+                /// <summary>
+                /// 缓降,部分项目没有
+                /// </summary>
+                public int SlowDown
+                { get; set; }
+                /// <summary>
+                /// 缓升,部分项目没有
+                /// </summary>
+                public int SlowUp
                 { get; set; }
                 public StepValue()
                 {
@@ -160,6 +175,9 @@ namespace All.Meter.AnGui
                     Up = 0;
                     Time = 0;
                     Active = false;
+                    this.Hz = 50;
+                    this.SlowDown = 0;
+                    this.SlowUp = 0;
                 }
             }
             /// <summary>
@@ -224,30 +242,31 @@ namespace All.Meter.AnGui
             parm.Add("Code", "Reading");
             bool result = Read<float>(out value, parm);
             reading = new ReadValue();
-            //[Project,OutValue,Value,ValueTwo,ValueOther,Time,Active,Result]*8+Result,Over,.....固定格式
-            if (result && value != null && value.Count >= 66)
+            int index = 0;
+            //[Project,OutValue,Value,ValueTwo,ValueOther,Time,Active,Result]*N+Result,Over,.....固定格式
+            if (result && value != null && value.Count >= 2)
             {
                 ReadValue.StepValue tmp;
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 8 && index < value.Count - 2; i++, index = index + 8)
                 {
-                    if (value[i * 8] == 0 && value[i * 8 + 1] == 0 && value[i * 8 + 2] == 0 && value[i * 8 + 3] == 0
-                        && value[i * 8 + 4] == 0 && value[i * 8 + 5] == 0 && value[i * 8 + 6] == 0 && value[i * 8 + 7] == 0)
+                    if (value[index] == 0 && value[index + 1] == 0 && value[index + 2] == 0 && value[index + 3] == 0
+                        && value[index + 4] == 0 && value[index + 5] == 0 && value[index + 6] == 0 && value[index + 7] == 0)
                     {
                         continue;
                     }
                     tmp = new ReadValue.StepValue();
-                    tmp.Project = (Projects)(((int)(float)(object)value[i * 8]) % Enum.GetNames(typeof(Projects)).Length);
-                    tmp.OutValue = (float)(object)value[i * 8 + 1];
-                    tmp.Value = (float)(object)value[i * 8 + 2];
-                    tmp.ValueTwo = (float)(object)value[i * 8 + 3];
-                    tmp.ValueOther = (float)(object)value[i * 8 + 4];
-                    tmp.Time = (float)(object)value[i * 8 + 5];
-                    tmp.Active = (1 == (int)(float)(object)value[i * 8 + 6]);
-                    tmp.Result = (1 == (int)(float)(object)value[i * 8 + 7]);
+                    tmp.Project = (Projects)(((int)(float)(object)value[index]) % Enum.GetNames(typeof(Projects)).Length);
+                    tmp.OutValue = (float)(object)value[index + 1];
+                    tmp.Value = (float)(object)value[index + 2];
+                    tmp.ValueTwo = (float)(object)value[index + 3];
+                    tmp.ValueOther = (float)(object)value[index + 4];
+                    tmp.Time = (float)(object)value[index + 5];
+                    tmp.Active = (1 == (int)(float)(object)value[index + 6]);
+                    tmp.Result = (1 == (int)(float)(object)value[index + 7]);
                     reading.Value.Add(tmp);
                 }
-                reading.Over = (1 == (int)(float)(object)value[64]);
-                reading.Result = (1 == (int)(float)(object)value[65]);
+                reading.Over = (1 == (int)(float)(object)value[index]);
+                reading.Result = (1 == (int)(float)(object)value[index + 1]);
             }
             return result;
         }
@@ -265,7 +284,7 @@ namespace All.Meter.AnGui
             Dictionary<string, string> parm = new Dictionary<string, string>();
             parm.Add("Goon", setting.Goon.ToString());
             parm.Add("Group", setting.Group.ToString());
-            parm.Add("Code","Setting");
+            parm.Add("Code","Setting");//Start=>开始,Stop=>停止,Setting=>设置
             List<float> value = new List<float>();
             for (int i = 0; i < setting.Value.Count; i++)
             {
@@ -275,6 +294,9 @@ namespace All.Meter.AnGui
                 value.Add(setting.Value[i].Up);
                 value.Add(setting.Value[i].Time);
                 value.Add(setting.Value[i].Active ? 1 : 0);
+                value.Add(setting.Value[i].Hz);
+                value.Add(setting.Value[i].SlowUp);
+                value.Add(setting.Value[i].SlowDown);
             }
             return WriteInternal<float>(value, parm);
         }
