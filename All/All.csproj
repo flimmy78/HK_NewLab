@@ -47,6 +47,7 @@
     <Compile Include="Class\Api.cs" />
     <Compile Include="Class\Check.cs" />
     <Compile Include="Class\Code.cs" />
+    <Compile Include="Class\DataExtenSion.cs" />
     <Compile Include="Class\Email.cs" />
     <Compile Include="Class\Environment.cs" />
     <Compile Include="Class\Error.cs" />
@@ -234,7 +235,9 @@
     </Compile>
     <Compile Include="Data\Access.cs" />
     <Compile Include="Data\Conditions.cs" />
-    <Compile Include="Data\DataExtension.cs" />
+    <Compile Include="Data\DataExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Data\DataReadAndWrite.cs" />
     <Compile Include="Data\Excel.cs" />
     <Compile Include="Data\SqlServer.cs" />
@@ -271,6 +274,13 @@
     <Compile Include="Window\Best\BestWindow.Designer.cs">
       <DependentUpon>BestWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Window\DataBase\frmReportBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Window\DataBase\frmReportBackup.Designer.cs">
+      <DependentUpon>frmReportBackup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Window\DataExtension.cs" />
     <Compile Include="Window\Metro\MessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -379,6 +389,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Window\Best\BestWindow.resx">
       <DependentUpon>BestWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Window\DataBase\frmReportBackup.resx">
+      <DependentUpon>frmReportBackup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Window\Metro\MessageBox.resx">
       <DependentUpon>MessageBox.cs</DependentUpon>

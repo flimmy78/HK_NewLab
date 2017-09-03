@@ -195,11 +195,17 @@ namespace All.Meter.AnGui
             /// </summary>
             public int Group
             { get; set; }
+            /// <summary>
+            /// 频率
+            /// </summary>
+            public int Hz
+            { get; set; }
             public SendValue()
             {
                 Value = new List<StepValue>();
                 Goon = true;
                 Group = 1;
+                Hz = 50;
             }
         }
         /// <summary>
@@ -285,6 +291,7 @@ namespace All.Meter.AnGui
             parm.Add("Goon", setting.Goon.ToString());
             parm.Add("Group", setting.Group.ToString());
             parm.Add("Code","Setting");//Start=>开始,Stop=>停止,Setting=>设置
+            parm.Add("Hz", setting.Hz.ToString());
             List<float> value = new List<float>();
             for (int i = 0; i < setting.Value.Count; i++)
             {

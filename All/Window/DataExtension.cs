@@ -2,27 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data;
 using System.Windows.Forms;
 namespace System
 {
-    /// <summary>
-    /// 直接取各种数据结构中的数据
-    /// </summary>
     public static partial class DataExtension
     {
-        #region//DataRow
+        #region//DataGridView
         /// <summary>
         /// 将行指定列的数据转化为Bool类型
         /// </summary>
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static bool ToBool(this DataRow dr, int colIndex)
+        public static bool ToBool(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToBoolean(dr[colIndex]);
+                return All.Class.Num.ToBool(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return false;
         }
@@ -32,11 +28,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static bool ToBool(this DataRow dr, string colName)
+        public static bool ToBool(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToBoolean(dr[colName]);
+                return All.Class.Num.ToBool(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return false;
         }
@@ -46,11 +42,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static float ToFloat(this DataRow dr, int colIndex)
+        public static float ToFloat(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToSingle(dr[colIndex]);
+                return All.Class.Num.ToSingle(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return 0;
         }
@@ -60,11 +56,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static float ToFloat(this DataRow dr, string colName)
+        public static float ToFloat(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToSingle(dr[colName]);
+                return All.Class.Num.ToSingle(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return 0;
         }
@@ -74,11 +70,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static double ToDouble(this DataRow dr, int colIndex)
+        public static double ToDouble(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToDouble(dr[colIndex]);
+                return All.Class.Num.ToDouble(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return 0;
         }
@@ -88,11 +84,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static double ToDouble(this DataRow dr, string colName)
+        public static double ToDouble(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToDouble(dr[colName]);
+                return All.Class.Num.ToDouble(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return 0;
         }
@@ -102,11 +98,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static byte ToByte(this DataRow dr, int colIndex)
+        public static byte ToByte(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToByte(dr[colIndex]);
+                return All.Class.Num.ToByte(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return 0;
         }
@@ -116,11 +112,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static byte ToByte(this DataRow dr, string colName)
+        public static byte ToByte(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToByte(dr[colName]);
+                return All.Class.Num.ToByte(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return 0;
         }
@@ -130,11 +126,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static int ToInt(this DataRow dr, int colIndex)
+        public static int ToInt(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToInt32(dr[colIndex]);
+                return All.Class.Num.ToInt(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return 0;
         }
@@ -144,11 +140,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static int ToInt(this DataRow dr, string colName)
+        public static int ToInt(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToInt32(dr[colName]);
+                return All.Class.Num.ToInt(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return 0;
         }
@@ -158,11 +154,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static ushort ToUshort(this DataRow dr, int colIndex)
+        public static ushort ToUshort(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToUInt16(dr[colIndex]);
+                return All.Class.Num.ToUshort(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return 0;
         }
@@ -172,11 +168,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static ushort ToUshort(this DataRow dr, string colName)
+        public static ushort ToUshort(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToUInt16(dr[colName]);
+                return All.Class.Num.ToUshort(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return 0;
         }
@@ -186,11 +182,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static long ToLong(this DataRow dr, int colIndex)
+        public static long ToLong(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToInt64(dr[colIndex]);
+                return All.Class.Num.ToLong(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return 0;
         }
@@ -200,11 +196,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static long ToLong(this DataRow dr, string colName)
+        public static long ToLong(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToInt64(dr[colName]);
+                return All.Class.Num.ToLong(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return 0;
         }
@@ -214,11 +210,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static string ToString(this DataRow dr, int colIndex)
+        public static string ToString(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToString(dr[colIndex]);
+                return All.Class.Num.ToString(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return "";
         }
@@ -228,11 +224,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static string ToString(this DataRow dr, string colName)
+        public static string ToString(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToString(dr[colName]);
+                return All.Class.Num.ToString(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return "";
         }
@@ -243,11 +239,11 @@ namespace System
         /// <param name="rowIndex"></param>
         /// <param name="colIndex"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this DataRow dr, int rowIndex, int colIndex)
+        public static DateTime ToDateTime(this DataGridView dg, int rowIndex, int colIndex)
         {
-            if (dr[colIndex] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colIndex].Value != DBNull.Value)
             {
-                return Convert.ToDateTime(dr[colIndex]);
+                return All.Class.Num.ToDateTime(dg.Rows[rowIndex].Cells[colIndex].Value);
             }
             return DateTime.Now;
         }
@@ -259,27 +255,27 @@ namespace System
         /// <param name="rowIndex"></param>
         /// <param name="colIndex"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this DataRow dr, int rowIndex, string colName)
+        public static DateTime ToDateTime(this DataGridView dg, int rowIndex, string colName)
         {
-            if (dr[colName] != DBNull.Value)
+            if (dg.Rows[rowIndex].Cells[colName].Value != DBNull.Value)
             {
-                return Convert.ToDateTime(dr[colName]);
+                return All.Class.Num.ToDateTime(dg.Rows[rowIndex].Cells[colName].Value);
             }
             return DateTime.Now;
         }
         #endregion
-        #region//DataTable
+        #region//DataGridViewRow
         /// <summary>
         /// 将行指定列的数据转化为Bool类型
         /// </summary>
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static bool ToBool(this DataTable dt,int rowIndex, int colIndex)
+        public static bool ToBool(this DataGridViewRow dr, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToBool(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToBoolean(dr.Cells[colIndex].Value);
             }
             return false;
         }
@@ -289,11 +285,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static bool ToBool(this DataTable dt,int rowIndex, string colName)
+        public static bool ToBool(this DataGridViewRow dr, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToBool(dt.Rows[rowIndex][colName]);
+                return Convert.ToBoolean(dr.Cells[colName].Value);
             }
             return false;
         }
@@ -303,11 +299,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static float ToFloat(this DataTable dt,int rowIndex, int colIndex)
+        public static float ToFloat(this DataGridViewRow dr, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToSingle(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToSingle(dr.Cells[colIndex].Value);
             }
             return 0;
         }
@@ -317,41 +313,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static float ToFloat(this DataTable dt,int rowIndex, string colName)
+        public static float ToFloat(this DataGridViewRow dr, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToSingle(dt.Rows[rowIndex][colName]);
-            }
-            return 0;
-        }
-        /// <summary>
-        /// 转换数据类型
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="rowIndex"></param>
-        /// <param name="colIndex"></param>
-        /// <returns></returns>
-        public static short ToShort(this DataTable dt, int rowIndex, int colIndex)
-        {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
-            {
-                return All.Class.Num.ToShort(dt.Rows[rowIndex][colIndex]);
-            }
-            return 0;
-        }
-        /// <summary>
-        /// 转换数据类型
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="rowIndex"></param>
-        /// <param name="colIndex"></param>
-        /// <returns></returns>
-        public static short ToShort(this DataTable dt, int rowIndex, string colName)
-        {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
-            {
-                return All.Class.Num.ToShort(dt.Rows[rowIndex][colName]);
+                return Convert.ToSingle(dr.Cells[colName].Value);
             }
             return 0;
         }
@@ -361,11 +327,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static double ToDouble(this DataTable dt,int rowIndex, int colIndex)
+        public static double ToDouble(this DataGridViewRow dr, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToDouble(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToDouble(dr.Cells[colIndex].Value);
             }
             return 0;
         }
@@ -375,11 +341,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static double ToDouble(this DataTable dt,int rowIndex, string colName)
+        public static double ToDouble(this DataGridViewRow dr, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToDouble(dt.Rows[rowIndex][colName]);
+                return Convert.ToDouble(dr.Cells[colName].Value);
             }
             return 0;
         }
@@ -389,11 +355,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static byte ToByte(this DataTable dt,int rowIndex, int colIndex)
+        public static byte ToByte(this DataGridViewRow dr, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToByte(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToByte(dr.Cells[colIndex].Value);
             }
             return 0;
         }
@@ -403,11 +369,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static byte ToByte(this DataTable dt,int rowIndex, string colName)
+        public static byte ToByte(this DataGridViewRow dr, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToByte(dt.Rows[rowIndex][colName]);
+                return Convert.ToByte(dr.Cells[colName].Value);
             }
             return 0;
         }
@@ -417,11 +383,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static int ToInt(this DataTable dt,int rowIndex, int colIndex)
+        public static int ToInt(this DataGridViewRow dr, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToInt(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToInt32(dr.Cells[colIndex].Value);
             }
             return 0;
         }
@@ -431,11 +397,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static int ToInt(this DataTable dt,int rowIndex, string colName)
+        public static int ToInt(this DataGridViewRow dr, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToInt(dt.Rows[rowIndex][colName]);
+                return Convert.ToInt32(dr.Cells[colName].Value);
             }
             return 0;
         }
@@ -445,11 +411,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static ushort ToUshort(this DataTable dt,int rowIndex, int colIndex)
+        public static ushort ToUshort(this DataGridViewRow dr, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToUshort(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToUInt16(dr.Cells[colIndex].Value);
             }
             return 0;
         }
@@ -459,11 +425,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static ushort ToUshort(this DataTable dt, int rowIndex, string colName)
+        public static ushort ToUshort(this DataGridViewRow dr, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToUshort(dt.Rows[rowIndex][colName]);
+                return Convert.ToUInt16(dr.Cells[colName].Value);
             }
             return 0;
         }
@@ -473,11 +439,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static long ToLong(this DataTable dt,int rowIndex, int colIndex)
+        public static long ToLong(this DataGridViewRow dr, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToLong(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToInt64(dr.Cells[colIndex].Value);
             }
             return 0;
         }
@@ -487,11 +453,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static long ToLong(this DataTable dt,int rowIndex, string colName)
+        public static long ToLong(this DataGridViewRow dr, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToLong(dt.Rows[rowIndex][colName]);
+                return Convert.ToInt64(dr.Cells[colName].Value);
             }
             return 0;
         }
@@ -501,11 +467,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colIndex">指定列</param>
         /// <returns></returns>
-        public static string ToString(this DataTable dt,int rowIndex, int colIndex)
+        public static string ToString(this DataGridViewRow dr, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToString(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToString(dr.Cells[colIndex].Value);
             }
             return "";
         }
@@ -515,11 +481,11 @@ namespace System
         /// <param name="dr">指定行</param>
         /// <param name="colName">指定列</param>
         /// <returns></returns>
-        public static string ToString(this DataTable dt, int rowIndex, string colName)
+        public static string ToString(this DataGridViewRow dr, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToString(dt.Rows[rowIndex][colName]);
+                return Convert.ToString(dr.Cells[colName].Value);
             }
             return "";
         }
@@ -530,11 +496,11 @@ namespace System
         /// <param name="rowIndex"></param>
         /// <param name="colIndex"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this DataTable dt, int rowIndex, int colIndex)
+        public static DateTime ToDateTime(this DataGridViewRow dr, int rowIndex, int colIndex)
         {
-            if (dt.Rows[rowIndex][colIndex] != DBNull.Value)
+            if (dr.Cells[colIndex].Value != DBNull.Value)
             {
-                return All.Class.Num.ToDateTime(dt.Rows[rowIndex][colIndex]);
+                return Convert.ToDateTime(dr.Cells[colIndex].Value);
             }
             return DateTime.Now;
         }
@@ -546,15 +512,14 @@ namespace System
         /// <param name="rowIndex"></param>
         /// <param name="colIndex"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this DataTable dt, int rowIndex, string colName)
+        public static DateTime ToDateTime(this DataGridViewRow dr, int rowIndex, string colName)
         {
-            if (dt.Rows[rowIndex][colName] != DBNull.Value)
+            if (dr.Cells[colName].Value != DBNull.Value)
             {
-                return All.Class.Num.ToDateTime(dt.Rows[rowIndex][colName]);
+                return Convert.ToDateTime(dr.Cells[colName].Value);
             }
             return DateTime.Now;
         }
-
         #endregion
     }
 }

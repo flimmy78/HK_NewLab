@@ -7,7 +7,6 @@ namespace System
 {
     public static class WindowExtension
     {
-
         #region//Form
         /// <summary>
         /// 跨线程调用

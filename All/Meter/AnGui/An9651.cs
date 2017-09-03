@@ -212,16 +212,6 @@ namespace All.Meter
                         All.Class.Error.Add("数据写入参数中不包含命令", Environment.StackTrace);
                         return false;
                     }
-                    bool goon = false;
-                    if (parm.ContainsKey("Goon"))
-                    {
-                        goon = parm["Goon"].ToBool();
-                    }
-                    int group = 1;
-                    if (parm.ContainsKey("Group"))
-                    {
-                        group = parm["Group"].ToInt();
-                    }
                     string sendValue = "";
                     int len = 9;
                     switch (parm["Code"].ToUpper())
@@ -308,6 +298,16 @@ namespace All.Meter
                                         All.Class.Error.Add(string.Format("出现未知的测试序号,错误序号为{0}", (int)(object)value[i]), Environment.StackTrace);
                                         return false;
                                 }
+                            }
+                            bool goon = false;
+                            if (parm.ContainsKey("Goon"))
+                            {
+                                goon = parm["Goon"].ToBool();
+                            }
+                            int group = 1;
+                            if (parm.ContainsKey("Group"))
+                            {
+                                group = parm["Group"].ToInt();
                             }
                             for (int i = steps; i < 8; i++)
                             {
