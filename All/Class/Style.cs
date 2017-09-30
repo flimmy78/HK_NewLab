@@ -81,7 +81,7 @@ namespace All.Class
             set { allStyle = value; }
         }
         #region//主体颜色
-        static BackColors back = 0;
+        static BackColors back = BackColors.White;
         /// <summary>
         /// 背景色
         /// </summary>
@@ -116,7 +116,7 @@ namespace All.Class
                 return System.Drawing.Color.FromArgb((int)tmp);
             }
         }
-        static FrontColors board = 0;
+        static FrontColors board = FrontColors.Green;
         /// <summary>
         /// 前景色
         /// </summary>

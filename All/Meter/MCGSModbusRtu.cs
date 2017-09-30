@@ -22,13 +22,13 @@ namespace All.Meter
         byte address = 0;
         public override void Init(Dictionary<string, string> initParm)
         {
-            if (!InitParm.ContainsKey("Address"))
+            if (!initParm.ContainsKey("Address"))
             {
                 All.Class.Error.Add("标准Modbus参数中没有地址", Environment.StackTrace);
             }
             else
             {
-                address = All.Class.Num.ToByte(InitParm["Address"]);
+                address = All.Class.Num.ToByte(initParm["Address"]);
             }
             base.Init(initParm);
         }

@@ -232,6 +232,7 @@ namespace All.Meter
                             }
                             break;
                         default:
+                            throw new Exception("Error");
                             break;
                     }
                 }

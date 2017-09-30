@@ -741,14 +741,6 @@ namespace All.Class
         /// <returns></returns>
         public static string TrimOnlyNum(string value)
         {
-            //string result = "";
-            //for (int i = 0; i < value.Length; i++)
-            //{
-            //    if (Check.isFix(value.Substring(i, 1), Check.RegularList.非负整数))
-            //    {
-            //        result = string.Format("{0}{1}", result, value.Substring(i, 1));
-            //    }
-            //}
             if (value == null)
             {
                 throw new ArgumentNullException();
@@ -1000,6 +992,50 @@ namespace All.Class
                 k = S2 / S1;
                 b = AvgY - AvgX * k;
             }
+        }
+        /// <summary>
+        /// 将模拟量换算成数据值,如输入 0->10 V 对应 0->5 MPa 时,那么2V对应 Scale(2,0,10,0,5) Mpa
+        /// </summary>
+        /// <param name="value">当前读取模拟量</param>
+        /// <param name="minX">模拟量最小值</param>
+        /// <param name="maxX">模拟最大值</param>
+        /// <param name="minY">数据量最小值</param>
+        /// <param name="maxY">数据量最大值</param>
+        /// <returns></returns>
+        public static float Scale(double value, double minX, double maxX, double minY, double maxY)
+        {
+            return Scale(value, minX, maxX, minY, maxY, false);
+        }
+        /// <summary>
+        /// 将模拟量换算成数据值,如输入 0->10 V 对应 0->5 MPa 时,那么2V对应 Scale(2,0,10,0,5) Mpa
+        /// </summary>
+        /// <param name="value">当前读取模拟量</param>
+        /// <param name="minX">模拟量最小值</param>
+        /// <param name="maxX">模拟最大值</param>
+        /// <param name="minY">数据量最小值</param>
+        /// <param name="maxY">数据量最大值</param>
+        /// <param name="cutOff">是否截断,当value值超出X范围时,是否端点值,如0->10V,当Value=11V时,是否显示10V值</param>
+        /// <returns></returns>
+        public static float Scale(double value, double minX, double maxX, double minY, double maxY, bool cutOff)
+        {
+            if (minX == maxX)
+            {
+                throw new Exception("模拟量最小值和最大值一样,请修改");
+            }
+            if (cutOff)
+            {
+                if (value > maxX)
+                {
+                    value = maxX;
+                }
+                if (value < minX)
+                {
+                    value = minX;
+                }
+            }
+            double k = (maxY - minY) / (maxX - minX);
+            double b = minY - minX * k;
+            return (float)(k * value + b);
         }
     }
 }

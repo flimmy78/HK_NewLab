@@ -50,7 +50,14 @@ namespace All.Meter
         /// </summary>
         public bool Conn
         {
-            get { return conn; }
+            get
+            {
+                if (this.Parent == null || !this.Parent.IsOpen)
+                {
+                    return false;
+                }
+                return conn;
+            }
             set
             {
                 if (value)
@@ -282,6 +289,17 @@ namespace All.Meter
         /// <returns></returns>
         protected bool Write<T>(T sendBuff)
         {
+            return Write<T>(sendBuff, null);
+        }
+        /// <summary>
+        /// 直接写入数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sendBuff"></param>
+        /// <param name="parm"></param>
+        /// <returns></returns>
+        protected bool Write<T>(T sendBuff, Dictionary<string, string> parm)
+        {
             bool result = true;
             try
             {
@@ -291,9 +309,9 @@ namespace All.Meter
                     return false;
                 }
                 if ((this.Parent is Communicate.Udp || this.Parent is Communicate.TcpClient)
-                    && InitParm.ContainsKey("RemotHost") && InitParm.ContainsKey("RemotPort"))
+                    && (parm.ContainsKey("RemotHost") || parm.ContainsKey("RemotPort") || parm.ContainsKey("RemotIP")))
                 {
-                    this.Parent.Send<T>(sendBuff, InitParm);
+                    this.Parent.Send<T>(sendBuff, parm);
                 }
                 else
                 {
@@ -448,7 +466,21 @@ namespace All.Meter
         /// <returns></returns>
         protected bool WriteAndRead<T, U>(T sendBuff, int len, out U readBuff)
         {
-            bool result = Write<T>(sendBuff);
+            return WriteAndRead<T, U>(sendBuff, len, out readBuff, null);
+        }
+        /// <summary>
+        /// 将数据写入通讯并延时读取返回
+        /// </summary>
+        /// <typeparam name="T">发送数据类型</typeparam>
+        /// <typeparam name="U">接收数据类型</typeparam>
+        /// <param name="sendBuff">发送内容</param>
+        /// <param name="len">接收数据长度</param>
+        /// <param name="readBuff">接收内容</param>
+        /// <param name="parm">附带初始化父通讯类参数,如果不须要要修改父通讯类,则为null</param>
+        /// <returns>发送与接收状态</returns>
+        protected bool WriteAndRead<T, U>(T sendBuff, int len, out U readBuff,Dictionary<string,string> parm)
+        {
+            bool result = Write<T>(sendBuff,parm);
             readBuff = default(U);
             result = result && Read<U>(len, out readBuff);
             return result;

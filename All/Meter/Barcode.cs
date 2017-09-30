@@ -134,4 +134,6 @@ namespace All.Meter
             throw new NotImplementedException();
         }
     }
+    public class Barcode : BarCode
+    { }
 }

@@ -127,6 +127,15 @@ namespace System
             }
             All.Class.FileIO.Write(fileName, All.Class.SingleFileSave.SSFile.Dictionary2Text(buff));
         }
+        /// <summary>
+        /// 将数组转化为对应的16进制字符串
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <returns></returns>
+        public static string ToHexString(this byte[] buff)
+        {
+            return All.Class.Num.Hex2Str(buff);
+        }
         #endregion
     }
 }

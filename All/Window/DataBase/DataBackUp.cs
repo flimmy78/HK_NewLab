@@ -9,10 +9,10 @@ using System.Windows.Forms;
 
 namespace All.Window
 {
-    public partial class frmReportBackup : All.Window.BestWindow
+    public partial class DataBackUp : All.Window.BestWindow
     {
         All.Data.DataReadAndWrite conn;
-        public frmReportBackup(All.Data.DataReadAndWrite conn)
+        public DataBackUp(All.Data.DataReadAndWrite conn)
         {
             this.conn = conn;
             InitializeComponent();

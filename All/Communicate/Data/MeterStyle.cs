@@ -42,7 +42,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<bool>(out tmpBool, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpBool.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpBool.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}", 
@@ -60,7 +60,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<byte>(out tmpByte, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpByte.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpByte.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}",
@@ -82,7 +82,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<DateTime>(out tmpDateTime, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpDateTime.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpDateTime.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}",
@@ -100,7 +100,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<double>(out tmpDouble, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpDouble.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpDouble.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}",
@@ -118,7 +118,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<float>(out tmpFloat, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpFloat.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpFloat.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}",
@@ -136,7 +136,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<int>(out tmpInt, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpInt.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpInt.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}",
@@ -154,7 +154,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<long>(out tmpLong, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpLong.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpLong.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}",
@@ -172,7 +172,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<string>(out tmpString, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpString.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpString.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}",
@@ -190,7 +190,7 @@ namespace All.Communicate.Data
                     result = this.Value.Read<ushort>(out tmpUshort, Reads[readDetialIndex].Values);
                     if (result)
                     {
-                        if (tmpUshort.Count != Reads[readDetialIndex].Datas.Count)
+                        if (tmpUshort.Count < Reads[readDetialIndex].Datas.Count)
                         {
                             All.Class.Error.Add("读取设备的返回数据量和设置要求返回的数据量不一致", Environment.StackTrace);
                             All.Class.Error.Add("错误数量", string.Format("要求数量:{0},实际数量:{1}",

@@ -17,7 +17,6 @@ namespace All.Control.Metro
         }
         protected override void WndProc(ref Message m)
         {//TextBox是由系统进程绘制，重载OnPaint方法将不起作用
-
             base.WndProc(ref m);
             if (m.Msg == All.Class.Api.WM_PAINT || m.Msg == All.Class.Api.WM_CTLCOLOREDIT)
             {
@@ -27,7 +26,7 @@ namespace All.Control.Metro
         private void WmPaint(ref Message m)
         {
             //Graphics g = Graphics.FromHwnd(base.Handle);
-            //g.DrawRectangle(All.Class.Style.BoardPen, this.ClientRectangle.X, this.ClientRectangle.Y, this.ClientRectangle.Width - 1, this.ClientRectangle.Height - 1);
+            //g.DrawRectangle(All.Class.Style.BoardPen, -2, -1, this.ClientRectangle.Width - 1, this.ClientRectangle.Height - 1);
         }
     }
 }

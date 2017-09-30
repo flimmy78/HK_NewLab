@@ -1,6 +1,6 @@
 ﻿namespace All.Window
 {
-    partial class frmReportBackup
+    partial class DataBackUp
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReportBackup));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataBackUp));
             this.groupBox1 = new All.Control.Metro.GroupBox(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button2 = new All.Control.Metro.Button();
@@ -141,10 +141,10 @@
             this.btnClearLog.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.btnClearLog.Size = new System.Drawing.Size(87, 27);
             this.btnClearLog.TabIndex = 103;
-            this.btnClearLog.Text = "清空日志";
+            this.btnClearLog.Text = "收缩数据";
             this.btnClearLog.Click += new System.EventHandler(this.btnClearLog_Click);
             // 
-            // frmReportBackup
+            // DataBackUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -155,7 +155,7 @@
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1440, 860);
-            this.Name = "frmReportBackup";
+            this.Name = "DataBackUp";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "数据备份";

@@ -44,11 +44,17 @@ namespace All.Meter
         {
             if (initParm.ContainsKey("Cr"))
             {
-                this.cr = All.Class.Num.ToBool(initParm["Cr"]);
+                if (initParm["Cr"].ToUpper() == "FALSE" || initParm["Cr"] == "0")
+                {
+                    this.cr = false;
+                }
             }
             if (initParm.ContainsKey("Lf"))
             {
-                this.lf = All.Class.Num.ToBool(initParm["Lf"]);
+                if (initParm["Lf"].ToUpper() == "FALSE" || initParm["Lf"] == "0")
+                {
+                    this.lf = false;
+                }
             }
             if (!initParm.ContainsKey("Address"))
             {

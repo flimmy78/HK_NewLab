@@ -13,11 +13,19 @@ namespace All.Window
     {
         All.Class.cUser alluser;
         public frmChangeUser(All.Class.cUser user)
+            :this(user,true)
+        {
+        }
+        public frmChangeUser(All.Class.cUser user, bool showDelete)
         {
             alluser = user;
             InitializeComponent();
+            btnDel.Visible = showDelete;
+            if (!showDelete)
+            {
+                btnOk.Location = btnDel.Location;
+            }
         }
-
         private void frmChangeUser_Load(object sender, EventArgs e)
         {
             Init();

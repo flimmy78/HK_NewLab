@@ -50,8 +50,8 @@ namespace All.Meter
                 value = new List<T>();
                 try
                 {
-                    int Phase = 0;//全体数据
-                    if (parm!=null && parm.ContainsKey("Code"))
+                    int Phase = 1;//全体数据
+                    if (parm != null && parm.ContainsKey("Code"))
                     {
                         switch (parm["Code"].ToUpper())
                         {

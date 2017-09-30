@@ -140,6 +140,7 @@ namespace All.Data
         /// <returns></returns>
         public abstract DataTable Read(string sql);
 
+
         public void Dispose()
         {
             this.Close();

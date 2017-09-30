@@ -70,7 +70,14 @@ namespace All.Control.Metro
         {
             Graphics g = Graphics.FromHwnd(m.HWnd);
             All.Class.GDIHelp.Init(g);
-            g.Clear(this.BackColor);
+            if (this.Enabled)
+            {
+                g.Clear(All.Class.Style.BackColor);
+            }
+            else
+            {
+                g.Clear(All.Class.Style.UEnableColor);
+            }
             switch (this.DropDownStyle)
             {
                 case ComboBoxStyle.DropDown:
@@ -86,7 +93,7 @@ namespace All.Control.Metro
                         g.DrawString(this.Text, this.Font, All.Class.Style.FontBrush, this.ClientRectangle, All.Class.GDIHelp.StringFormat(ContentAlignment.MiddleLeft));
                     }
                     break;
-                case ComboBoxStyle.Simple:
+                case ComboBoxStyle.Simple: 
                     break;
             }
             g.DrawRectangle(All.Class.Style.BoardPen, this.ClientRectangle.X, this.ClientRectangle.Y, this.ClientRectangle.Width - 1, this.ClientRectangle.Height - 1);

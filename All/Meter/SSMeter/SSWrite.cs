@@ -44,7 +44,7 @@ namespace All.Meter
                     SSMeter.SSMeter.DataStyle ds = new SSMeter.SSMeter.DataStyle(
                         All.Class.TypeUse.GetType<T>(), address, value);
                     byte[] readBuff;
-                    if (WriteAndRead<byte[], byte[]>(ds.GetBytes<T>(), 6, out readBuff))
+                    if (WriteAndRead<byte[], byte[]>(ds.GetBytes<T>(), 6, out readBuff, parm))
                     {
                         SSMeter.SSMeter.ResultStyle rs = SSMeter.SSMeter.ResultStyle.Parse(readBuff);
                         if (rs == null || rs.Random != ds.Random || !rs.Result)

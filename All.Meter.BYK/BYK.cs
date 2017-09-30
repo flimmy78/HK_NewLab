@@ -50,7 +50,7 @@ namespace All.Meter
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value">读取返回数据</param>
-        /// <param name="parm">读取参数,必须包含Code,Address,Len三个参数</param>
+        /// <param name="parm">读取参数</param>
         /// <returns></returns>
         public override bool Read<T>(out List<T> value, Dictionary<string, string> parm)
         {
@@ -100,6 +100,7 @@ namespace All.Meter
                                     break;
                             }
                         }
+                        result = true;
                     }
                     else
                     {
@@ -111,6 +112,7 @@ namespace All.Meter
                     All.Class.Error.Add(e);
                     result = false;
                 }
+                this.Conn = result;
                 return result;
             }
         }

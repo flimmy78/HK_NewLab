@@ -20,7 +20,7 @@ namespace HKLabs
         {
             All.Data.SqlServer sql = new All.Data.SqlServer();
             sql.Login("192.168.0.100", "HaiXinIndoor", "sa", "");
-            All.Window.frmReportBackup back = new All.Window.frmReportBackup(sql);
+            All.Window.DataBackUp back = new All.Window.DataBackUp(sql);
             back.Show();
         }
     }

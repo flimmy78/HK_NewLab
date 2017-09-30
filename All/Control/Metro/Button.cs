@@ -205,7 +205,7 @@ namespace All.Control.Metro
                             {
                                 g.DrawImage(this.BackgroundImage, new Rectangle((int)((this.Width - len) / 2), (int)((this.Height * 2 / 3 - len) * 2f / 3), (int)len, (int)len), new Rectangle(new Point(0, 0), this.BackgroundImage.Size), GraphicsUnit.Pixel);
                             }
-                            sf.LineAlignment = StringAlignment.Near;
+                            sf.LineAlignment = StringAlignment.Center;
                             g.DrawString(this.Text, this.Font, All.Class.Style.FontBrush, new Rectangle(0, Height * 2 / 3, Width, Height / 3), sf);
                             break;
                         case System.Windows.Forms.Orientation.Horizontal:

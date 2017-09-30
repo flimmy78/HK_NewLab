@@ -51,6 +51,10 @@
             this.square74 = new All.Control.HMI.Square();
             this.square73 = new All.Control.HMI.Square();
             this.square72 = new All.Control.HMI.Square();
+            this.circle1 = new All.Control.HMI.Circle();
+            this.corner1 = new All.Control.HMI.Corner();
+            this.corner2 = new All.Control.HMI.Corner();
+            this.corner3 = new All.Control.HMI.Corner();
             this.SuspendLayout();
             // 
             // square62
@@ -394,11 +398,70 @@
             this.square72.Size = new System.Drawing.Size(18, 47);
             this.square72.TabIndex = 178;
             // 
+            // circle1
+            // 
+            this.circle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.circle1.BorderColor = System.Drawing.Color.Black;
+            this.circle1.BorderThickness = 0;
+            this.circle1.Halo = true;
+            this.circle1.IsRegion = true;
+            this.circle1.Location = new System.Drawing.Point(103, 170);
+            this.circle1.Name = "circle1";
+            this.circle1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.circle1.Size = new System.Drawing.Size(98, 88);
+            this.circle1.TabIndex = 183;
+            // 
+            // corner1
+            // 
+            this.corner1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.corner1.BorderColor = System.Drawing.Color.Black;
+            this.corner1.BorderThickness = 0;
+            this.corner1.Conrners = All.Control.HMI.Corner.CornerList.上;
+            this.corner1.Halo = true;
+            this.corner1.IsRegion = false;
+            this.corner1.Location = new System.Drawing.Point(267, 285);
+            this.corner1.Name = "corner1";
+            this.corner1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.corner1.Size = new System.Drawing.Size(117, 87);
+            this.corner1.TabIndex = 184;
+            // 
+            // corner2
+            // 
+            this.corner2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.corner2.BorderColor = System.Drawing.Color.Black;
+            this.corner2.BorderThickness = 0;
+            this.corner2.Conrners = All.Control.HMI.Corner.CornerList.上;
+            this.corner2.Halo = true;
+            this.corner2.IsRegion = false;
+            this.corner2.Location = new System.Drawing.Point(405, 295);
+            this.corner2.Name = "corner2";
+            this.corner2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.corner2.Size = new System.Drawing.Size(117, 87);
+            this.corner2.TabIndex = 185;
+            // 
+            // corner3
+            // 
+            this.corner3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.corner3.BorderColor = System.Drawing.Color.Black;
+            this.corner3.BorderThickness = 0;
+            this.corner3.Conrners = All.Control.HMI.Corner.CornerList.上;
+            this.corner3.Halo = true;
+            this.corner3.IsRegion = false;
+            this.corner3.Location = new System.Drawing.Point(241, 205);
+            this.corner3.Name = "corner3";
+            this.corner3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.corner3.Size = new System.Drawing.Size(117, 87);
+            this.corner3.TabIndex = 186;
+            // 
             // 阀
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(769, 569);
+            this.Controls.Add(this.corner3);
+            this.Controls.Add(this.corner2);
+            this.Controls.Add(this.corner1);
+            this.Controls.Add(this.circle1);
             this.Controls.Add(this.square76);
             this.Controls.Add(this.square75);
             this.Controls.Add(this.square74);
@@ -453,5 +516,9 @@
         private Square square74;
         private Square square73;
         private Square square72;
+        private Circle circle1;
+        private Corner corner1;
+        private Corner corner2;
+        private Corner corner3;
     }
 }
