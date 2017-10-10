@@ -266,7 +266,9 @@
     <Compile Include="Meter\McgsModbusRtu.cs" />
     <Compile Include="Meter\Meter.cs" />
     <Compile Include="Meter\AnGui\Mn42xx.cs" />
-    <Compile Include="Meter\PID\SR90Series.cs" />
+    <Compile Include="Meter\PID\SR90Series.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Meter\Plc\MitsubishiFx.cs" />
     <Compile Include="Meter\ModbusRtu.cs" />
     <Compile Include="Meter\Plc\MitsubishiFxCom.cs">
