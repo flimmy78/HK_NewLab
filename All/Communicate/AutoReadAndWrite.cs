@@ -48,13 +48,13 @@ namespace All.Communicate
         /// <summary>
         /// 所有通讯类
         /// </summary>
-        public List<Data.CommunicateStyle> Communicates
+        public Data.CommunicateStyleCollection Communicates
         { get; set; }
         bool exit = false;
         public AutoReadAndWrite()
         {
             this.Datas = new Data.AllData();
-            this.Communicates = new List<Data.CommunicateStyle>();
+            this.Communicates = new Data.CommunicateStyleCollection();
         }
         /// <summary>
         /// 加载默认位置文件,从中反射类

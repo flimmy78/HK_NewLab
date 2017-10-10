@@ -240,6 +240,8 @@
       <DependentUpon>TextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Access.cs" />
+    <Compile Include="Data\AutoTable.cs" />
+    <Compile Include="Data\Column.cs" />
     <Compile Include="Data\Conditions.cs" />
     <Compile Include="Data\DataExtension.cs">
       <SubType>Code</SubType>

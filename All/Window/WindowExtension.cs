@@ -21,6 +21,7 @@ namespace System
             }
             if (frm.InvokeRequired)
             {
+                
                 frm.Invoke(new Action(() => t()));
             }
             else

@@ -259,5 +259,9 @@ namespace All.Data
                 return result;
             }
         }
+        public override bool CreateTable(string tableName, List<ColumnType> columns)
+        {
+            return base.CreateTable(tableName, columns);
+        }
     }
 }

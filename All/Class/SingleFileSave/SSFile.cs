@@ -164,7 +164,8 @@ namespace All.Class.SingleFileSave
             BinaryFormatter bf = new BinaryFormatter();
             using (MemoryStream ms = new MemoryStream())
             {
-                ms.Write(buff, start, len);
+                bf.Serialize(ms, buff);
+                ms.Flush();
                 ms.Position = 0;
                 return bf.Deserialize(ms);
             }

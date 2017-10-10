@@ -139,8 +139,15 @@ namespace All.Data
         /// <param name="sql"></param>
         /// <returns></returns>
         public abstract DataTable Read(string sql);
-
-
+        /// <summary>
+        /// 用指定的字段设置,来创建一个表
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="columns"></param>
+        public virtual bool CreateTable(string tableName, List<ColumnType> columns)
+        {
+            return true;
+        }
         public void Dispose()
         {
             this.Close();

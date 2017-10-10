@@ -207,4 +207,30 @@ namespace All.Communicate.Data
             return result;
         }
     }
+    public class MeterStyleCollection : List<MeterStyle>
+    {
+        Dictionary<string, MeterStyle> buff = new Dictionary<string, MeterStyle>();
+        /// <summary>
+        /// 根据设备名称Text找到对应的设备节点
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public MeterStyle this[string item]
+        {
+            get
+            {
+                if (buff.ContainsKey(item))
+                {
+                    return buff[item];
+                }
+                int index = base.FindIndex(tmp => tmp.Value.Text == item);
+                if (index < 0)
+                {
+                    throw new Exception(string.Format("没有找到名称为:{0}的设备节点", item));
+                }
+                buff.Add(item, base[index]);
+                return buff[item];
+            }
+        }
+    }
 }

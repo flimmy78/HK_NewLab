@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 namespace System
 {
     public static partial class DataExtension
@@ -135,6 +136,24 @@ namespace System
         public static string ToHexString(this byte[] buff)
         {
             return All.Class.Num.Hex2Str(buff);
+        }
+        #endregion
+        #region//类
+        /// <summary>
+        /// 获取当前类型的深度副本
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static object DeepClone(this object value)
+        {
+            try
+            {
+                return All.Class.SingleFileSave.SSFile.Byte2Object(All.Class.SingleFileSave.SSFile.Object2Byte(value));
+            }
+            catch
+            {
+                throw new Exception("请将要克隆的类标记为[Serializable]");
+            }
         }
         #endregion
     }

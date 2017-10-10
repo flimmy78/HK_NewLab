@@ -181,7 +181,7 @@
             // 
             this.corner1.BackColor = System.Drawing.Color.Teal;
             this.corner1.BorderColor = System.Drawing.Color.Black;
-            this.corner1.BorderThickness = 2;
+            this.corner1.BorderThickness = 0;
             this.corner1.Conrners = All.Control.HMI.Corner.CornerList.右;
             this.corner1.Halo = true;
             this.corner1.IsRegion = false;
@@ -195,7 +195,7 @@
             // 
             this.corner2.BackColor = System.Drawing.Color.Teal;
             this.corner2.BorderColor = System.Drawing.Color.Black;
-            this.corner2.BorderThickness = 2;
+            this.corner2.BorderThickness = 0;
             this.corner2.Conrners = All.Control.HMI.Corner.CornerList.上;
             this.corner2.Halo = true;
             this.corner2.IsRegion = false;
@@ -209,7 +209,7 @@
             // 
             this.corner3.BackColor = System.Drawing.Color.Teal;
             this.corner3.BorderColor = System.Drawing.Color.Black;
-            this.corner3.BorderThickness = 2;
+            this.corner3.BorderThickness = 0;
             this.corner3.Conrners = All.Control.HMI.Corner.CornerList.左;
             this.corner3.Halo = true;
             this.corner3.IsRegion = false;
@@ -223,7 +223,7 @@
             // 
             this.corner4.BackColor = System.Drawing.Color.Teal;
             this.corner4.BorderColor = System.Drawing.Color.Black;
-            this.corner4.BorderThickness = 2;
+            this.corner4.BorderThickness = 0;
             this.corner4.Conrners = All.Control.HMI.Corner.CornerList.下;
             this.corner4.Halo = true;
             this.corner4.IsRegion = false;

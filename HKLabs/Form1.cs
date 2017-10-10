@@ -25,7 +25,7 @@ namespace HKLabs
         All.Meter.SSWrite write1 = new All.Meter.SSWrite();
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
 
             Dictionary<string, string> buff = new Dictionary<string, string>();
             buff.Add("LocalPort", "9999");
@@ -43,6 +43,7 @@ namespace HKLabs
             buff.Add("LocalPort", "7777");
             buff.Add("RemotPort", "9999");
             buff.Add("RemotHost", "127.0.0.1");
+            buff.Add("Text", "Udp3");
             udp3.Init(buff);
             udp3.Open();
             buff = new Dictionary<string, string>();
