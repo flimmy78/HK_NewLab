@@ -14,7 +14,7 @@ namespace HKLabs
         [STAThread]
         static void Main()
         {
-            int a = 0;
+            //int a = 0;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new  测试自动创建数据表());
