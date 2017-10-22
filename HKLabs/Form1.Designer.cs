@@ -234,6 +234,7 @@
             // light1
             // 
             this.light1.BackColor = System.Drawing.SystemColors.Control;
+            this.light1.Halo = true;
             this.light1.LedColor = System.Drawing.Color.Red;
             this.light1.Location = new System.Drawing.Point(326, 315);
             this.light1.Name = "light1";
@@ -268,7 +269,7 @@
             this.progressBar1.Size = new System.Drawing.Size(393, 21);
             this.progressBar1.TabIndex = 15;
             this.progressBar1.Text = "progressBar1";
-            this.progressBar1.Value = 4;
+            this.progressBar1.Value = 8;
             // 
             // radioButton1
             // 

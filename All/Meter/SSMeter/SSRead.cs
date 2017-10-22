@@ -159,12 +159,12 @@ namespace All.Meter
                 byte[] buff;
                 if (len > 0 && this.Read<byte[]>(len, out buff))
                 {
-                    SSMeter.SSMeter.DataStyle ds = SSMeter.SSMeter.DataStyle.Parse(buff);
+                    SSMeter.SSWriteMeter.WriteDataStyle ds = SSMeter.SSWriteMeter.WriteDataStyle.Parse(buff);
                     if (ds == null)
                     {
                         return;
                     }
-                    SSMeter.SSMeter.ResultStyle rs = new SSMeter.SSMeter.ResultStyle(ds.Random, false);
+                    SSMeter.SSWriteMeter.WriteResultStyle rs = new SSMeter.SSWriteMeter.WriteResultStyle(ds.Random, false);
                     if (ds.Value != null)
                     {
                         rs.Result = true;

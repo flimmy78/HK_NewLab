@@ -18,6 +18,11 @@ namespace All.Communicate
         public List<Meter.Meter> Meters
         { get; set; }
         /// <summary>
+        /// 与对象关联的用户自定义数据
+        /// </summary>
+        public object Tag
+        { get; set; }
+        /// <summary>
         /// 通讯是否已正常打开
         /// </summary>
         public abstract bool IsOpen

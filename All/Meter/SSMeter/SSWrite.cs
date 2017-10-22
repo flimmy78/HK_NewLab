@@ -41,12 +41,12 @@ namespace All.Meter
                         All.Class.Error.Add("当前写入数据,起始地址不存在,无法写入");
                         return false;
                     }
-                    SSMeter.SSMeter.DataStyle ds = new SSMeter.SSMeter.DataStyle(
+                    SSMeter.SSWriteMeter.WriteDataStyle ds = new SSMeter.SSWriteMeter.WriteDataStyle(
                         All.Class.TypeUse.GetType<T>(), address, value);
                     byte[] readBuff;
                     if (WriteAndRead<byte[], byte[]>(ds.GetBytes<T>(), 6, out readBuff, parm))
                     {
-                        SSMeter.SSMeter.ResultStyle rs = SSMeter.SSMeter.ResultStyle.Parse(readBuff);
+                        SSMeter.SSWriteMeter.WriteResultStyle rs = SSMeter.SSWriteMeter.WriteResultStyle.Parse(readBuff);
                         if (rs == null || rs.Random != ds.Random || !rs.Result)
                         {
                             return false;

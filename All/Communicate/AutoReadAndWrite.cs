@@ -168,6 +168,11 @@ namespace All.Communicate
                     }
                 }
             }
+            for (int i = 0; i < Communicates[index].Meters.Count; i++)
+            {
+                Communicates[index].Meters[i].Value.Close();
+            }
+            Communicates[index].Value.Close();
         }
         /// <summary>
         /// 初始化各类型数据到总数据列表

@@ -7,6 +7,18 @@ namespace All.Class
     public class Serialization
     {
         /// <summary>
+        /// 将单个数据转换为字节
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static byte[] ValueToBuff<T>(T value)
+        {
+            List<T> tmp = new List<T>();
+            tmp.Add(value);
+            return ValueToBuff<T>(tmp);
+        }
+        /// <summary>
         /// 将数组转化为字节
         /// </summary>
         /// <typeparam name="T"></typeparam>

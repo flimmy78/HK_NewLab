@@ -42,7 +42,11 @@ namespace All.Meter
         /// </summary>
         public Communicate.Communicate Parent
         { get; set; }
-
+        /// <summary>
+        /// 与对象关联的用户自定义数据
+        /// </summary>
+        public object Tag
+        { get; set; }
         bool conn = true;
         int tmpErrorCount = 0;
         /// <summary>
@@ -466,7 +470,7 @@ namespace All.Meter
         /// <returns></returns>
         protected bool WriteAndRead<T, U>(T sendBuff, int len, out U readBuff)
         {
-            return WriteAndRead<T, U>(sendBuff, len, out readBuff, null);
+            return WriteAndRead<T, U>(sendBuff, len, out readBuff, new Dictionary<string,string>());
         }
         /// <summary>
         /// 将数据写入通讯并延时读取返回

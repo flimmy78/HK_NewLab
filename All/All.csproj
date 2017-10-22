@@ -61,6 +61,9 @@
     <Compile Include="Class\Log.cs" />
     <Compile Include="Class\Net.cs" />
     <Compile Include="Class\Num.cs" />
+    <Compile Include="Class\Queue.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Class\Reflex.cs" />
     <Compile Include="Class\Region.cs" />
     <Compile Include="Class\SingleFileSave\Serialization.cs">
@@ -272,6 +275,12 @@
     <Compile Include="Meter\Plc\MitsubishiFx.cs" />
     <Compile Include="Meter\ModbusRtu.cs" />
     <Compile Include="Meter\Plc\MitsubishiFxCom.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Meter\SSMeter\SSLockClient.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Meter\SSMeter\SSLockMain.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Meter\SSMeter\SSMeter.cs" />
