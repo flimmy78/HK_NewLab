@@ -89,11 +89,26 @@ namespace All.Meter.AnGui
             /// </summary>
             public bool Result
             { get; set; }
+            bool over = false;
             /// <summary>
             /// 测试是否已结束
             /// </summary>
             public bool Over
-            { get; set; }
+            {
+                get { return over; }
+                set
+                {
+                    if (over != value && value && TestOver != null)
+                    {
+                        TestOver();
+                    }
+                    over = value;
+                }
+            }
+            /// <summary>
+            /// 测试结束
+            /// </summary>
+            public event Action TestOver;
             public ReadValue()
             {
                 this.Value = new List<StepValue>();
@@ -271,8 +286,8 @@ namespace All.Meter.AnGui
                     tmp.Result = (1 == (int)(float)(object)value[index + 7]);
                     reading.Value.Add(tmp);
                 }
-                reading.Over = (1 == (int)(float)(object)value[index]);
                 reading.Result = (1 == (int)(float)(object)value[index + 1]);
+                reading.Over = (1 == (int)(float)(object)value[index]);
             }
             return result;
         }
