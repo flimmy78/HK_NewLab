@@ -129,6 +129,27 @@ namespace System
             All.Class.FileIO.Write(fileName, All.Class.SingleFileSave.SSFile.Dictionary2Text(buff));
         }
         /// <summary>
+        /// 将字典转化为直接显示的数据
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <returns></returns>
+        public static string ToText(this Dictionary<string, string> buff)
+        {
+            if (buff == null)
+            {
+                return "";
+            }
+            StringBuilder sb = new StringBuilder();
+            buff.Keys.ToList().ForEach(key =>
+                {
+                    sb.Append(key);
+                    sb.Append("->");
+                    sb.Append(buff[key]);
+                    sb.Append("\r\n");
+                });
+            return sb.ToString();
+        }
+        /// <summary>
         /// 将数组转化为对应的16进制字符串
         /// </summary>
         /// <param name="buff"></param>

@@ -7,6 +7,13 @@ namespace All.Communicate
 {
     public class TcpClient:Communicate
     {
+        Dictionary<string, string> initParm = new Dictionary<string, string>();
+
+        public override Dictionary<string, string> InitParm
+        {
+            get { return initParm; }
+            set { initParm = value; }
+        }
 
         Base.TcpClient tcpClient;
         /// <summary>
@@ -49,11 +56,8 @@ namespace All.Communicate
             {
                 tcpClient.Close();
             }
-            if (buff.ContainsKey("Text"))
-            {
-                this.Text = buff["Text"];
-            }
             InitCommunite(buff);
+            base.Init(buff);
         }
         public override void Open()
         {

@@ -137,7 +137,7 @@ namespace All.Meter
             }
             if (initParm.ContainsKey("Text"))
             {
-                this.Text = InitParm["Text"];
+                this.Text = initParm["Text"];
             }
             if (initParm.ContainsKey("TimeOut"))
             {
@@ -392,7 +392,7 @@ namespace All.Meter
                 if (timeOut && !getData)//超时
                 {
                     result = false;
-                     All.Class.Log.Add(string.Format("{0}读取数据超时,要求长度:{1},实际长度:{2}", Text, len, this.Parent.DataRecive));
+                    All.Class.Log.Add(string.Format("{0}读取数据超时,要求长度:{1},实际长度:{2}", Text, len, this.Parent.DataRecive));
                 }
                 else//读取数据OK
                 {
@@ -484,10 +484,32 @@ namespace All.Meter
         /// <returns>发送与接收状态</returns>
         protected bool WriteAndRead<T, U>(T sendBuff, int len, out U readBuff,Dictionary<string,string> parm)
         {
-            bool result = Write<T>(sendBuff,parm);
+            bool resultWrite = Write<T>(sendBuff,parm);
             readBuff = default(U);
-            result = result && Read<U>(len, out readBuff);
-            return result;
+            if (!resultWrite)
+            {
+                if (parm == null || parm.Count == 0)
+                {
+                    All.Class.Log.Add(this.Parent.InitParm.ToText());
+                }
+                else
+                {
+                    All.Class.Log.Add(parm.ToText());
+                }
+            }
+            bool resultRead = Read<U>(len, out readBuff);
+            if (!resultRead)
+            {
+                if (parm == null || parm.Count == 0)
+                {
+                    All.Class.Log.Add(this.Parent.InitParm.ToText());
+                }
+                else
+                {
+                    All.Class.Log.Add(parm.ToText());
+                }
+            }
+            return resultWrite && resultRead;
         }
         /// <summary>
         /// 从xml中解析出设备,并初始化设备

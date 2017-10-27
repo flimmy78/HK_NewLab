@@ -65,6 +65,17 @@ namespace All.Meter.AnGui
                 /// </summary>
                 public bool Result
                 { get; set; }
+                public StepValue()
+                {
+                    this.Project = Projects.接地;
+                    this.OutValue = 0;
+                    this.Value = 0;
+                    this.ValueTwo = 0;
+                    this.ValueOther = 0;
+                    this.Time = 0;
+                    this.Active = false;
+                    this.Result = true;
+                }
                 public object Clone()
                 {
                     StepValue result = new StepValue();
@@ -89,26 +100,11 @@ namespace All.Meter.AnGui
             /// </summary>
             public bool Result
             { get; set; }
-            bool over = false;
             /// <summary>
             /// 测试是否已结束
             /// </summary>
             public bool Over
-            {
-                get { return over; }
-                set
-                {
-                    if (over != value && value && TestOver != null)
-                    {
-                        TestOver();
-                    }
-                    over = value;
-                }
-            }
-            /// <summary>
-            /// 测试结束
-            /// </summary>
-            public event Action TestOver;
+            { get; set; }
             public ReadValue()
             {
                 this.Value = new List<StepValue>();

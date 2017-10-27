@@ -20,7 +20,11 @@ namespace All.Meter
         {
             throw new Exception("只写数据类,不能进行读取接收,接收类请使用SSRead");
         }
-
+        public override void Init(Dictionary<string, string> initParm)
+        {
+            All.Class.Log.Add("SSWrite初始化成功,开始准备写入数据");
+            base.Init(initParm);
+        }
         public override bool WriteInternal<T>(List<T> value, Dictionary<string, string> parm)
         {
             lock (lockObject)

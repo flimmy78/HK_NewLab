@@ -8,6 +8,13 @@ namespace All.Communicate
 {
     public class Com:Communicate
     {
+        Dictionary<string, string> initParm = new Dictionary<string, string>();
+
+        public override Dictionary<string, string> InitParm
+        {
+            get { return initParm; }
+            set { initParm = value; }
+        }
         SerialPort serialPort;
 
         public SerialPort SerialPort
@@ -47,15 +54,12 @@ namespace All.Communicate
             {
                 serialPort.Close();
             }
-            if (buff.ContainsKey("Text"))
-            {
-                this.Text = buff["Text"];
-            }
             if (buff.ContainsKey("PortName") && buff["PortName"] != null)
             {
                 serialPort.PortName = buff["PortName"];
             }
             InitCommunite(buff);
+            base.Init(buff);
         }
         
         public override void Open()

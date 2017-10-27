@@ -98,6 +98,7 @@ namespace All.Meter
             }
             this.Parent.GetArgs += Parent_GetArgs;
             All.Class.Thread.CreateOrOpen(threadGuid, Loop, 100);
+            All.Class.Log.Add("SSLockMain.初始化成功,开始执行监听操作");
         }
         void Parent_GetArgs(object sender, Communicate.Base.Base.ReciveArgs reciveArgs)
         {
@@ -201,6 +202,10 @@ namespace All.Meter
                             switch (allClientRequestStatue[currentGUID])//分机请求状态
                             {
                                 case SSLockClient.SetStatueList.请求测试:
+                                    if ((int)currentGetStatue != (int)GetStatueList.等待主机执行互锁前切换动作)
+                                    {
+                                        All.Class.Log.Add("SSLockMain.状态->等待主机执行互锁前切换动作");
+                                    }
                                     currentGetStatue = GetStatueList.等待主机执行互锁前切换动作;
                                     if (NeedMainSwitch != null)
                                     {
@@ -208,7 +213,7 @@ namespace All.Meter
                                     }
                                     break;
                                 default:
-                                    All.Class.Error.Add("动作不能跳跃式完成,当前主机状态只能接收[请求测试]状态,请检查客户端发送状态逻辑");
+                                    All.Class.Error.Add(string.Format("动作不能跳跃式完成,当前主机状态只能接收[请求测试]状态,实际接收[{0}]状态,请检查客户端发送状态逻辑", allClientRequestStatue[currentGUID]));
                                     break;
                             }
                             break;
@@ -216,14 +221,20 @@ namespace All.Meter
                             switch (allClientRequestStatue[currentGUID])
                             {
                                 case SSLockClient.SetStatueList.开始测试:
+                                    if ((int)currentGetStatue != (int)GetStatueList.等待执行互锁动作)
+                                    {
+                                        All.Class.Log.Add("SSLockMain.状态->等待执行互锁动作");
+                                    }
                                     currentGetStatue = GetStatueList.等待执行互锁动作;
                                     if (NeedMainStart != null)
                                     {
                                         NeedMainStart(this,new EventArgs());
                                     }
                                     break;
+                                case SSLockClient.SetStatueList.请求测试:
+                                    break;
                                 default:
-                                    All.Class.Error.Add("动作不能跳跃式完成,当前主机状态只能接收[开始测试]状态,请检查客户端发送状态逻辑");
+                                    All.Class.Error.Add(string.Format("动作不能跳跃式完成,当前主机状态只能接收[开始测试]状态,实际接收[{0}]状态,请检查客户端发送状态逻辑",allClientRequestStatue[currentGUID]));
                                     break;
                             }
                             break;
@@ -242,13 +253,16 @@ namespace All.Meter
         /// </summary>
         private void ResetMain()
         {
-            Queue.Remove(currentGUID);
-            currentGUID = "";
-            if (currentGetStatue != GetStatueList.无请求 && NeedMainReset != null)
+            if (currentGUID != "")
             {
-                NeedMainReset(this,new EventArgs());
+                Queue.Remove(currentGUID);
+                currentGUID = "";
+                if (currentGetStatue != GetStatueList.无请求 && NeedMainReset != null)
+                {
+                    NeedMainReset(this, new EventArgs());
+                }
+                currentGetStatue = GetStatueList.无请求;
             }
-            currentGetStatue = GetStatueList.无请求;
         }
         /// <summary>
         /// 发送请求
@@ -293,54 +307,52 @@ namespace All.Meter
         {
             try
             {
-                lock (lockObject)
+                if (value == null || value.Count <= 0)
                 {
-                    if (value == null || value.Count <= 0)
-                    {
-                        All.Class.Error.Add("SSLockMain,当前不包含写入的数据");
-                        return false;
-                    }
-                    int tmpValue = 0;
-                    switch (All.Class.TypeUse.GetType<T>())
-                    {
-                        case Class.TypeUse.TypeList.Int:
-                            tmpValue = (int)(object)value[0];
-                            break;
-                        case Class.TypeUse.TypeList.Long:
-                            tmpValue = (int)(long)(object)value[0];
-                            break;
-                        case Class.TypeUse.TypeList.Byte:
-                            tmpValue = (int)(byte)(object)value[0];
-                            break;
-                        case Class.TypeUse.TypeList.UShort:
-                            tmpValue = (int)(ushort)(object)value[0];
-                            break;
-                        case Class.TypeUse.TypeList.String:
-                            tmpValue = Enum.GetNames(typeof(SetStatueList)).ToList().IndexOf((string)(object)value[0]);
-                            return false;
-                        default:
-                            All.Class.Error.Add(string.Format("SSLockMain,不支持当前的数据类型,{0}", typeof(T)));
-                            return false;
-                    }
-                    if (tmpValue < 0 || tmpValue >= Enum.GetNames(typeof(SetStatueList)).Length)
-                    {
-                        All.Class.Error.Add(string.Format("SSLockMain,不包含当前可写入的执行命令,{0}", value[0]));
-                        return false;
-                    }
-                    if (Queue[0] == currentGUID)
-                    {
-                        switch ((SetStatueList)tmpValue)
-                        {
-                            case SetStatueList.互锁切换执行完毕:
-                                allClientReturnStatue[currentGUID] = ReturnStatueList.允许;
-                                break;
-                            case SetStatueList.互锁操作执行完毕:
-                                allClientReturnStatue[currentGUID] = ReturnStatueList.测试完成;
-                                break;
-                        }
-                    }
-                    return true;
+                    All.Class.Error.Add("SSLockMain,当前不包含写入的数据");
+                    return false;
                 }
+                int tmpValue = 0;
+                switch (All.Class.TypeUse.GetType<T>())
+                {
+                    case Class.TypeUse.TypeList.Int:
+                        tmpValue = (int)(object)value[0];
+                        break;
+                    case Class.TypeUse.TypeList.Long:
+                        tmpValue = (int)(long)(object)value[0];
+                        break;
+                    case Class.TypeUse.TypeList.Byte:
+                        tmpValue = (int)(byte)(object)value[0];
+                        break;
+                    case Class.TypeUse.TypeList.UShort:
+                        tmpValue = (int)(ushort)(object)value[0];
+                        break;
+                    case Class.TypeUse.TypeList.String:
+                        tmpValue = Enum.GetNames(typeof(SetStatueList)).ToList().IndexOf((string)(object)value[0]);
+                        return false;
+                    default:
+                        All.Class.Error.Add(string.Format("SSLockMain,不支持当前的数据类型,{0}", typeof(T)));
+                        return false;
+                }
+                if (tmpValue < 0 || tmpValue >= Enum.GetNames(typeof(SetStatueList)).Length)
+                {
+                    All.Class.Error.Add(string.Format("SSLockMain,不包含当前可写入的执行命令,{0}", value[0]));
+                    return false;
+                }
+                All.Class.Log.Add(string.Format("SSLockMain,开始执行指定命令,{0}", (SetStatueList)tmpValue));
+                if (Queue[0] == currentGUID)
+                {
+                    switch ((SetStatueList)tmpValue)
+                    {
+                        case SetStatueList.互锁切换执行完毕:
+                            allClientReturnStatue[currentGUID] = ReturnStatueList.允许;
+                            break;
+                        case SetStatueList.互锁操作执行完毕:
+                            allClientReturnStatue[currentGUID] = ReturnStatueList.测试完成;
+                            break;
+                    }
+                }
+                return true;
             }
             catch (Exception e)
             {

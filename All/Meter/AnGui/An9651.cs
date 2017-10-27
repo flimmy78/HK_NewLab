@@ -204,7 +204,7 @@ namespace All.Meter
         {
             lock (lockObject)
             {
-                bool result = true;
+                bool result = false;
                 try
                 {
                     if (!parm.ContainsKey("Code"))
@@ -324,17 +324,16 @@ namespace All.Meter
                             break;
                     }
                     string readValue = "";
+                    All.Class.Log.Add(string.Format("{0}写入命令:{1}", this.Text, parm["Code"]));
                     if (WriteAndRead<string, string>(sendValue, len, out readValue))
                     {
+                        All.Class.Error.Add(readValue);
                         if (sendValue.Substring(0, 4) == readValue.Substring(0, 4))
                         {
                             result = true;
                         }
-                        else
-                        {
-                            result = false;
-                        }
                     }
+                    All.Class.Log.Add("readValue.TimeOut");
                 }
                 catch (Exception e)
                 {

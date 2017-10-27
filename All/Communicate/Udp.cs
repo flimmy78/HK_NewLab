@@ -7,6 +7,13 @@ namespace All.Communicate
 {
     public class Udp:Communicate
     {
+        Dictionary<string, string> initParm = new Dictionary<string, string>();
+
+        public override Dictionary<string, string> InitParm
+        {
+            get { return initParm; }
+            set { initParm = value; }
+        }
         Base.Udp udpClient;
         /// <summary>
         /// UDP端
@@ -48,10 +55,6 @@ namespace All.Communicate
             {
                 udpClient.Close();
             }
-            if (buff.ContainsKey("Text"))
-            {
-                this.Text = buff["Text"];
-            }
             if (!buff.ContainsKey("LocalPort"))
             {
                 AddError(new Exception(string.Format("{0}:Udp.Init Error,parm<buff> need LocalPort values", this.Text)));
@@ -59,6 +62,7 @@ namespace All.Communicate
             }
             udpClient.LocalPort = buff["LocalPort"].ToInt();
             InitCommunite(buff);
+            base.Init(buff);
         }
         public override void Open()
         {

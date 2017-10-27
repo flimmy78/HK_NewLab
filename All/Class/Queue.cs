@@ -82,7 +82,7 @@ namespace All.Class
         {
             if (!queue2Index.ContainsKey(item))
             {
-                Error.Add(string.Format("当前添加的元素{0},没有初始化", item));
+                Error.Add(string.Format("Request当前添加的元素{0},没有初始化", item));
                 return;
             }
             int index = queue2Index[item];
@@ -113,7 +113,7 @@ namespace All.Class
         {
             if (!queue2Index.ContainsKey(item))
             {
-                Error.Add(string.Format("当前查询的元素{0},没有初始化", item));
+                Error.Add(string.Format("Allow当前查询的元素{0},没有初始化", item));
                 return false;
             }
             int index = queue2Index[item];
@@ -136,7 +136,7 @@ namespace All.Class
         {
             if (!queue2Index.ContainsKey(item))
             {
-                Error.Add(string.Format("当前查询的元素{0},没有初始化", item));
+                Error.Add(string.Format("Search当前查询的元素{0},没有初始化", item));
                 return -1;
             }
             int index = queue2Index[item];
@@ -157,7 +157,7 @@ namespace All.Class
         {
             if (!queue2Index.ContainsKey(item))
             {
-                Error.Add(string.Format("当前查询的元素{0},没有初始化", item));
+                Error.Add(string.Format("Remove当前查询的元素{0},没有初始化", item));
                 return;
             }
             int index = queue2Index[item];
@@ -186,7 +186,7 @@ namespace All.Class
         {
             if (!queue2Index.ContainsKey(item))
             {
-                Error.Add(string.Format("当前查询的元素{0},没有初始化", item));
+                Error.Add(string.Format("GetCount当前查询的元素{0},没有初始化", item));
                 return 0;
             }
             int index = queue2Index[item];
@@ -219,7 +219,7 @@ namespace All.Class
         {
             if (!queue2Index.ContainsKey(item))
             {
-                Error.Add(string.Format("当前查询的元素{0},没有初始化", item));
+                Error.Add(string.Format("GetCurrent当前查询的元素{0},没有初始化", item));
                 return default(T);
             }
             int index = queue2Index[item];

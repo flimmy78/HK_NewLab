@@ -7,6 +7,13 @@ namespace All.Communicate
 {
     public class Api232 : Communicate
     {
+        Dictionary<string, string> initParm = new Dictionary<string, string>();
+
+        public override Dictionary<string, string> InitParm
+        {
+            get { return initParm; }
+            set { initParm = value; }
+        }
         #region//API232
         [DllImport("Api232.dll")]
         public static extern int sio_ioctl(int port, int baud, int mode);
@@ -120,11 +127,8 @@ namespace All.Communicate
             {
                 port = buff["PortName"].ToUpper().Replace("COM", "").Replace(":", "").ToInt();
             }
-            if (buff.ContainsKey("Text"))
-            {
-                this.Text = buff["Text"];
-            }
             InitCommunite(buff);
+            base.Init(buff);
         }
         public override void InitCommunite(Dictionary<string, string> buff)
         {

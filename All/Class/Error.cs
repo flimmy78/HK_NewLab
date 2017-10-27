@@ -12,7 +12,7 @@ namespace All.Class
         /// </summary>
         static List<string> exitsErrors = new List<string>();
         static List<string> buff = new List<string>();
-        static bool singleError = true;
+        static bool singleError = false;
         /// <summary>
         /// 是否开启单故障模式,单故障模式下,相同故障只保存一次
         /// </summary>

@@ -34,27 +34,32 @@ namespace All.Meter
                 {
                     byte[] sendBuff = new byte[] { 0x7B, 0x06, (byte)Address, 00, (byte)(0x06 + Address), 0x7D };
                     byte[] readBuff;
-                    int len = 20;
+                    int len = 6;
                     if (WriteAndRead<byte[], byte[]>(sendBuff, len,out readBuff))
                     {
-                        if (sendBuff[0] != readBuff[0] || len != readBuff[1] ||
-                            sendBuff[2] != readBuff[2] || sendBuff[3] != readBuff[3] ||
-                            sendBuff[5] != readBuff[len - 1])
+                        if (readBuff[0] != 0x7B ||
+                            readBuff[readBuff.Length - 2] != All.Class.Check.SumCheck(readBuff, 1, readBuff.Length - 3) ||
+                            readBuff[readBuff.Length - 1] != 0x7D)
                         {
                             All.Class.Error.Add("返回数据校验失败", Environment.StackTrace);
                             All.Class.Error.Add("发送数据", All.Class.Num.Hex2Str(sendBuff));
                             All.Class.Error.Add("返回数据", All.Class.Num.Hex2Str(readBuff));
                             return false;
                         }
+                        if (readBuff.Length != 18)
+                        {
+                            All.Class.Log.Add("读取安规失败");
+                            return false;
+                        }
                         switch (All.Class.TypeUse.GetType<T>())
                         {
                             case Class.TypeUse.TypeList.Float:
                             case Class.TypeUse.TypeList.Double:
-                                bool[] tmpResult = All.Class.Num.Byte2Bool(readBuff[17]);
+                                bool[] tmpResult = All.Class.Num.Byte2Bool(readBuff[15]);
 
                                 value.Add((T)(object)(float)AnGui.AnGui.Projects.耐压);
-                                value.Add((T)(object)(float)(readBuff[4] * 256 + readBuff[5]));
-                                value.Add((T)(object)(float)(0.001f * (readBuff[6] * 256 + readBuff[7])));
+                                value.Add((T)(object)(float)(readBuff[2] * 256 + readBuff[3]));
+                                value.Add((T)(object)(float)(0.001f * (readBuff[4] * 256 + readBuff[5])));
                                 value.Add((T)(object)(float)0);
                                 value.Add((T)(object)(float)0);
                                 value.Add((T)(object)(float)0);
@@ -62,8 +67,8 @@ namespace All.Meter
                                 value.Add((T)(object)(float)(tmpResult[0] ? 1 : 0));
 
                                 value.Add((T)(object)(float)AnGui.AnGui.Projects.绝缘);
-                                value.Add((T)(object)(float)(readBuff[10]*256+readBuff[11]));
-                                value.Add((T)(object)(float)(0.01f * (readBuff[12] * 65536 + readBuff[13] * 256 + readBuff[14])));
+                                value.Add((T)(object)(float)(readBuff[8] * 256 + readBuff[9]));
+                                value.Add((T)(object)(float)(0.01f * (readBuff[10] * 65536 + readBuff[11] * 256 + readBuff[12])));
                                 value.Add((T)(object)(float)0);
                                 value.Add((T)(object)(float)0);
                                 value.Add((T)(object)(float)0);
@@ -75,7 +80,7 @@ namespace All.Meter
                                 result = true;
                                 break;
                             case Class.TypeUse.TypeList.Byte:
-                                for (int i = 4; i < 18; i++)
+                                for (int i = 2; i < 16; i++)
                                 {
                                     value.Add((T)(object)(readBuff[i]));
                                 }
@@ -97,6 +102,28 @@ namespace All.Meter
                 }
                 return result;
             }
+        }
+        /// <summary>
+        /// 直接写入测试方式
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        public bool Write(AnGui.AnGui.Projects project)
+        {
+            Dictionary<string, string> parm = new Dictionary<string, string>();
+            switch (project)
+            {
+                case Projects.绝缘:
+                    parm.Add("Code", "IR");
+                    break;
+                case Projects.耐压:
+                    parm.Add("Code", "ACW");
+                    break;
+                default:
+                    All.Class.Error.Add("当前安规不支持指定的测试方式");
+                    return false;
+            }
+            return WriteInternal<bool>(null, parm);
         }
         /// <summary>
         /// 格式化值,达到4位数时,值须要遵守艾诺的奇葩算法
@@ -218,6 +245,7 @@ namespace All.Meter
                             All.Class.Error.Add(string.Format("数据写入参数命令不正确,不能识别的指令,{0}", parm["Code"]), Environment.StackTrace);
                             return false;
                     }
+                    All.Class.Log.Add(string.Format("{0}写入命令:{1}", this.Text, parm["Code"]));
                     if (sendValue == "")//添加校验
                     {
                         All.Class.Error.Add("不能发送", "An9632发送空指令字符,无法完成写入操作");
@@ -232,7 +260,7 @@ namespace All.Meter
                             All.Class.Error.Add("识别码错误", string.Format("AN9632的返回字符头码或结束码不正确:{0}", All.Class.Num.Hex2Str(readValue)));
                             return false;
                         }
-                        if (readValue[1] != Address)
+                        if (readValue[1] != len)
                         {
                             All.Class.Error.Add("地址码错误", string.Format("An9632返回字符地址码不正确:{0}", All.Class.Num.Hex2Str(readValue)));
                             return false;

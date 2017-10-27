@@ -273,11 +273,23 @@ namespace All.Meter.Elect
         public virtual bool Reading(out ReadValue reading)
         {
             List<float> value = new List<float>();
-            bool result = Read<float>(out value, null);
+            Dictionary<string, string> parm = new Dictionary<string, string>();
+            parm.Add("Code", "All");
+            bool result = Read<float>(out value, parm);
             reading = new ReadValue();
             //Vol*4,VolLine*4,Cur*4,Power*4,PowerNoUse*4,PowerAll*4,Factor*4,Hz*1,.....固定格式
-            if (result && value != null && value.Count == 29)
+            if (result)
             {
+                if (value == null)
+                {
+                    All.Class.Error.Add(string.Format("电量表读取数据为空,读取数据错误"));
+                    return false;
+                }
+                if (value.Count != 29)
+                {
+                    All.Class.Error.Add(string.Format("电量表要求读取后的数据为29个才能进行转换,当前数据为{0}", value.Count));
+                    return false;
+                }
                 int index = 0;
                 for (int i = 0; i < reading.Vol.Length; i++)
                 {

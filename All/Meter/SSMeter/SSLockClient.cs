@@ -56,6 +56,7 @@ namespace All.Meter
                 return;
             }
             All.Class.Thread.CreateOrOpen(threadGuid, UpdateStatue, 500);
+            All.Class.Log.Add("SSLockClient.初始化成功,开始执行监听操作");
         }
         /// <summary>
         /// 定时发送数据给主机来查询状态
@@ -92,21 +93,33 @@ namespace All.Meter
                         switch ((SSLockMain.ReturnStatueList)result[0])
                         {
                             case SSLockMain.ReturnStatueList.无请求:
-                                if (currentGetStatue != GetStatueList.无状态 && NeedClientReset != null)
+                                if ((int)currentGetStatue != (int)GetStatueList.无状态)
                                 {
-                                    NeedClientReset(this,new EventArgs());
+                                    currentGetStatue = GetStatueList.无状态;
+                                    All.Class.Log.Add("SSLockClient.状态->无状态/无请求");
+                                    if (NeedClientReset != null)
+                                    {
+                                        NeedClientReset(this, new EventArgs());
+                                    }
                                 }
-                                currentGetStatue = GetStatueList.无状态;
                                 break;
                             case SSLockMain.ReturnStatueList.允许:
-                                if (currentGetStatue != GetStatueList.允许执行 && NeedClientSwitch!=null)
+                                if ((int)currentGetStatue != (int)GetStatueList.允许执行)
                                 {
-                                    NeedClientSwitch(this,new EventArgs());
+                                    currentGetStatue = GetStatueList.允许执行;
+                                    All.Class.Log.Add("SSLockClient.状态->允许执行");
+                                    if (NeedClientSwitch != null)
+                                    {
+                                        NeedClientSwitch(this, new EventArgs());
+                                    }
                                 }
-                                currentGetStatue = GetStatueList.允许执行;
                                 break;
                             case SSLockMain.ReturnStatueList.等待:
-                                currentGetStatue = GetStatueList.等待执行;
+                                if ((int)currentGetStatue != (int)GetStatueList.等待执行)
+                                {
+                                    currentGetStatue = GetStatueList.等待执行;
+                                    All.Class.Log.Add("SSLockClient.状态->等待执行");
+                                }
                                 break;
                         }
                     }
@@ -178,43 +191,41 @@ namespace All.Meter
         {
             try
             {
-                lock (lockObject)
+                if (value == null || value.Count <= 0)
                 {
-                    if (value == null || value.Count <= 0)
-                    {
-                        All.Class.Error.Add("SSLockClient,当前不包含写入的数据");
-                        return false;
-                    }
-                    int tmpValue = 0;
-                    switch (All.Class.TypeUse.GetType<T>())
-                    {
-                        case Class.TypeUse.TypeList.Int:
-                            tmpValue = (int)(object)value[0];
-                            break;
-                        case Class.TypeUse.TypeList.Long:
-                            tmpValue = (int)(long)(object)value[0];
-                            break;
-                        case Class.TypeUse.TypeList.Byte:
-                            tmpValue = (int)(byte)(object)value[0];
-                            break;
-                        case Class.TypeUse.TypeList.UShort:
-                            tmpValue = (int)(ushort)(object)value[0];
-                            break;
-                        case Class.TypeUse.TypeList.String:
-                            tmpValue = Enum.GetNames(typeof(SetStatueList)).ToList().IndexOf((string)(object)value[0]);
-                            return false;
-                        default:
-                            All.Class.Error.Add(string.Format("SSLockClient,不支持当前的数据类型,{0}", typeof(T)));
-                            return false;
-                    }
-                    if (tmpValue < 0 || tmpValue >= Enum.GetNames(typeof(SetStatueList)).Length)
-                    {
-                        All.Class.Error.Add(string.Format("SSLockClient,不包含当前可写入的执行命令,{0}", value[0]));
-                        return false;
-                    }
-                    currentSetStatue = (SetStatueList)tmpValue;
-                    return Loop();
+                    All.Class.Error.Add("SSLockClient,当前不包含写入的数据");
+                    return false;
                 }
+                int tmpValue = 0;
+                switch (All.Class.TypeUse.GetType<T>())
+                {
+                    case Class.TypeUse.TypeList.Int:
+                        tmpValue = (int)(object)value[0];
+                        break;
+                    case Class.TypeUse.TypeList.Long:
+                        tmpValue = (int)(long)(object)value[0];
+                        break;
+                    case Class.TypeUse.TypeList.Byte:
+                        tmpValue = (int)(byte)(object)value[0];
+                        break;
+                    case Class.TypeUse.TypeList.UShort:
+                        tmpValue = (int)(ushort)(object)value[0];
+                        break;
+                    case Class.TypeUse.TypeList.String:
+                        tmpValue = Enum.GetNames(typeof(SetStatueList)).ToList().IndexOf((string)(object)value[0]);
+                        return false;
+                    default:
+                        All.Class.Error.Add(string.Format("SSLockClient,不支持当前的数据类型,{0}", typeof(T)));
+                        return false;
+                }
+                if (tmpValue < 0 || tmpValue >= Enum.GetNames(typeof(SetStatueList)).Length)
+                {
+                    All.Class.Error.Add(string.Format("SSLockClient,不包含当前可写入的执行命令,{0}", value[0]));
+                    return false;
+                }
+                All.Class.Log.Add(string.Format("SSLockClient,开始执行指定命令,{0}", (SetStatueList)tmpValue));
+                currentSetStatue = (SetStatueList)tmpValue;
+                return Loop();
             }
             catch (Exception e)
             {

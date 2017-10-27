@@ -67,6 +67,11 @@ namespace All.Meter
                             case "三":
                                 Phase = 3;
                                 break;
+                            case "0":
+                            case "ALL":
+                            case "所有":
+                                Phase = 0;
+                                break;
                         }
                     }
                     byte[] sendBuff = new byte[8];

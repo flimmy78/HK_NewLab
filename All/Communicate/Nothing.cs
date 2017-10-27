@@ -10,6 +10,13 @@ namespace All.Communicate
     /// </summary>
     public class Nothing:Communicate
     {
+        Dictionary<string, string> initParm = new Dictionary<string, string>();
+
+        public override Dictionary<string, string> InitParm
+        {
+            get { return initParm; }
+            set { initParm = value; }
+        }
         public override void Read<T>(out T value)
         {
             throw new NotImplementedException();
@@ -47,13 +54,6 @@ namespace All.Communicate
         public override bool IsOpen
         {
             get { return true; }
-        }
-        public override void Init(Dictionary<string, string> buff)
-        {
-            if (buff.ContainsKey("Text"))
-            {
-                this.Text = buff["Text"];
-            }
         }
         public override int DataRecive
         {

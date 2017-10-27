@@ -8,6 +8,11 @@ namespace All.Communicate
     public abstract class Communicate:Base.Base,IDisposable
     {
         /// <summary>
+        /// 仪表初始化设置
+        /// </summary>
+        public abstract Dictionary<string, string> InitParm
+        { get; set; }
+        /// <summary>
         /// 通讯名称
         /// </summary>
         public string Text
@@ -32,11 +37,6 @@ namespace All.Communicate
         /// </summary>
         public abstract int DataRecive
         { get; }
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <param name="buff"></param>
-        public abstract void Init(Dictionary<string, string> buff);
         /// <summary>
         /// 打开通讯
         /// </summary>
@@ -127,6 +127,18 @@ namespace All.Communicate
                 result.Open();
             }
             return result;
+        }
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="InitBuff"></param>
+        public virtual void Init(Dictionary<string, string> initParm)
+        {
+            if (initParm.ContainsKey("Text"))
+            {
+                this.Text = initParm["Text"];
+            }
+            this.InitParm = initParm;
         }
     }
 }

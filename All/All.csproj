@@ -260,6 +260,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Meter\AnGui\An9651.cs" />
+    <Compile Include="Meter\AnGui\An9671x.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Meter\AnGui\AnGui.cs" />
     <Compile Include="Meter\Barcode.cs" />
     <Compile Include="Meter\Board\I7017.cs" />

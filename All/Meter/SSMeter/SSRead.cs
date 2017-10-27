@@ -148,6 +148,7 @@ namespace All.Meter
             }
             #endregion
             this.Parent.GetArgs += Parent_GetArgs;
+            All.Class.Log.Add("SSRead初始化成功,开始监听端口");
             base.Init(initParm);
         }
         private void Parent_GetArgs(object sender, Communicate.Base.Base.ReciveArgs reciveArgs)
