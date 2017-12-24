@@ -160,22 +160,6 @@ namespace System
         }
         #endregion
         #region//类
-        /// <summary>
-        /// 获取当前类型的深度副本
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static object DeepClone(this object value)
-        {
-            try
-            {
-                return All.Class.SingleFileSave.SSFile.Byte2Object(All.Class.SingleFileSave.SSFile.Object2Byte(value));
-            }
-            catch
-            {
-                throw new Exception("请将要克隆的类标记为[Serializable]");
-            }
-        }
         #endregion
     }
 }

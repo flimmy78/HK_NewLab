@@ -9,11 +9,17 @@ using System.Drawing.Drawing2D;
 namespace All.Class
 {
     /// <summary>
-    /// API函数
+    /// 常用系统API函数
     /// </summary>
     public static class Api
     {
+        /// <summary>
+        /// True在Api中的函数指针
+        /// </summary>
         public static readonly IntPtr True = new IntPtr(1);
+        /// <summary>
+        /// False在Api中的函数指针
+        /// </summary>
         public static readonly IntPtr False = IntPtr.Zero;
         /// <summary>
         /// 按下键盘
@@ -70,7 +76,7 @@ namespace All.Class
         /// <param name="nWidthSrc">源对象的宽度</param>
         /// <param name="nHeightSrc">源对象的长度</param>
         /// <param name="dwRop">光栅的操作值</param>
-        /// <returns></returns>
+        /// <returns>绘画结果</returns>
         [DllImport("gdi32.dll")]
         public static extern bool StretchBlt
         (
@@ -98,7 +104,7 @@ namespace All.Class
         /// <param name="nXSrc">源图像的选取的左上角X坐标</param>
         /// <param name="nYSrc">源图像的选取的左上角Y坐标</param>
         /// <param name="dwRop">光栅的操作值</param>
-        /// <returns></returns>
+        /// <returns>Copy结果</returns>
         [DllImport("gdi32.dll")]
         public static extern bool BitBlt(
             IntPtr hdcDest, //目标设备的句柄 
@@ -111,6 +117,13 @@ namespace All.Class
             int nYSrc, // 源对象的左上角的Y坐标 
             int dwRop // 光栅的操作值 
             );
+        /// <summary>
+        /// 从指定的
+        /// </summary>
+        /// <param name="hDC"></param>
+        /// <param name="nWidth"></param>
+        /// <param name="nHeight"></param>
+        /// <returns></returns>
         [DllImport("gdi32.dll")]
         public static extern IntPtr CreateCompatibleBitmap(IntPtr hDC, int nWidth, int nHeight);
 

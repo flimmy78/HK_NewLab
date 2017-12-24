@@ -21,6 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <DocumentationFile>bin\Debug\All.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,6 +47,7 @@
     <Compile Include="Attribute\Save.cs" />
     <Compile Include="Class\Api.cs" />
     <Compile Include="Class\Check.cs" />
+    <Compile Include="Class\Clone.cs" />
     <Compile Include="Class\Code.cs" />
     <Compile Include="Class\DataExtenSion.cs" />
     <Compile Include="Class\Email.cs" />
@@ -66,6 +68,7 @@
     </Compile>
     <Compile Include="Class\Reflex.cs" />
     <Compile Include="Class\Region.cs" />
+    <Compile Include="Class\SingleFileSave\Csv.cs" />
     <Compile Include="Class\SingleFileSave\Serialization.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -176,6 +179,12 @@
     <Compile Include="Control\Mine\DateTime.Designer.cs">
       <DependentUpon>DateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Control\Mine\Delay.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\Mine\Delay.Designer.cs">
+      <DependentUpon>Delay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\Mine\GridJiLiang.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -269,6 +278,7 @@
     <Compile Include="Meter\Elect\Elect.cs" />
     <Compile Include="Meter\Elect\Qz3432b.cs" />
     <Compile Include="Meter\HKBoard\HaierRemoteControl.cs" />
+    <Compile Include="Meter\HP34970.cs" />
     <Compile Include="Meter\McgsModbusRtu.cs" />
     <Compile Include="Meter\Meter.cs" />
     <Compile Include="Meter\AnGui\Mn42xx.cs" />
@@ -280,6 +290,8 @@
     <Compile Include="Meter\Plc\MitsubishiFxCom.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Meter\Plc\MitsubishiFxNet.cs" />
+    <Compile Include="Meter\Plc\MitsubishiQNet.cs" />
     <Compile Include="Meter\SSMeter\SSLockClient.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -321,6 +333,12 @@
     </Compile>
     <Compile Include="Window\Best\AboutWindow.Designer.cs">
       <DependentUpon>AboutWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Normal\DelayWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Window\Normal\DelayWindow.Designer.cs">
+      <DependentUpon>DelayWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Window\User\AddUser.cs">
       <SubType>Form</SubType>
@@ -440,6 +458,9 @@
     <EmbeddedResource Include="Window\Normal\BaseWindowNormal.resx">
       <DependentUpon>BaseWindowNormal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Window\Normal\DelayWindow.resx">
+      <DependentUpon>DelayWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Window\User\AddUser.resx">
       <DependentUpon>AddUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -474,6 +495,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Infomation\说明.docx" />
+    <None Include="Infomation\说明.xlsx" />
     <None Include="Resources\question2.png" />
   </ItemGroup>
   <ItemGroup>

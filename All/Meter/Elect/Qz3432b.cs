@@ -23,6 +23,7 @@ namespace All.Meter
             get { return address; }
             set { address = value; }
         }
+        int phase = 1;
         public override void Init(Dictionary<string, string> initParm)
         {
             if (!initParm.ContainsKey("Address"))
@@ -32,6 +33,10 @@ namespace All.Meter
             else
             {
                 address = All.Class.Num.ToByte(initParm["Address"]);
+            }
+            if (initParm.ContainsKey("Code"))
+            {
+                phase = initParm["Code"].ToInt();
             }
             base.Init(initParm);
         }
@@ -50,7 +55,6 @@ namespace All.Meter
                 value = new List<T>();
                 try
                 {
-                    int Phase = 1;//全体数据
                     if (parm != null && parm.ContainsKey("Code"))
                     {
                         switch (parm["Code"].ToUpper())
@@ -59,18 +63,18 @@ namespace All.Meter
                             case "1":
                             case "单相":
                             case "单":
-                                Phase = 1;
+                                phase = 1;
                                 break;
                             case "THREEPHASE":
                             case "3":
                             case "三相":
                             case "三":
-                                Phase = 3;
+                                phase = 3;
                                 break;
                             case "0":
                             case "ALL":
                             case "所有":
-                                Phase = 0;
+                                phase = 0;
                                 break;
                         }
                     }
@@ -93,7 +97,7 @@ namespace All.Meter
                         switch (All.Class.TypeUse.GetType<T>())
                         {
                             case Class.TypeUse.TypeList.Float:
-                                switch (Phase)
+                                switch (phase)
                                 {
                                     case 0://全体数据
                                         //相电压
@@ -172,7 +176,7 @@ namespace All.Meter
                                 }
                                 break;
                             case Class.TypeUse.TypeList.Double:
-                                switch (Phase)
+                                switch (phase)
                                 {
                                     case 0:
                                         //相电压

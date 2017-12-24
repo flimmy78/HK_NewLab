@@ -16,11 +16,11 @@ namespace All.Control.Metro
         {
             InitializeComponent();
         }
-        public void ChangeFront(All.Class.Style.FrontColors color)
+        public virtual void ChangeFront(All.Class.Style.FrontColors color)
         {
             this.Invalidate();
         }
-        public void ChangeBack(All.Class.Style.BackColors color)
+        public virtual void ChangeBack(All.Class.Style.BackColors color)
         {
             this.BackColor = All.Class.Style.BackColor;
             this.ForeColor = All.Class.Style.FontColor;

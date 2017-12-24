@@ -14,10 +14,10 @@ namespace HKLabs
         [STAThread]
         static void Main()
         {
-            //int a = 0;
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new  测试互锁动作());
+            Application.Run(new  测试多播委托());
         }
 
     }

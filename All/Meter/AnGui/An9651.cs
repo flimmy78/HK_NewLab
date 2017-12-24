@@ -333,7 +333,10 @@ namespace All.Meter
                             result = true;
                         }
                     }
-                    All.Class.Log.Add("readValue.TimeOut");
+                    else
+                    {
+                        All.Class.Log.Add(sendValue);
+                    }
                 }
                 catch (Exception e)
                 {

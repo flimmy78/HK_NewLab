@@ -606,9 +606,66 @@ namespace All.Class
                 {
                     if (buff[i + j])
                     {
-                        result[k] += (byte)(1 << j);// Math.Pow(2, j);
+                        result[k] += (byte)(1 << j);
                     }
                 }
+            }
+            return result;
+        }
+        /// <summary>
+        /// 将字符串解析为对应的Bool值,0代表False,其他代表True
+        /// </summary>
+        /// <param name="value"></param>
+        public static bool[] String2Bool(string value)
+        {
+            return String2Bool(value, 0, value.Length);
+        }
+        /// <summary>
+        /// 将字符串解析为对应的Bool值,0代表False,其他代表True
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="start"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static bool[] String2Bool(string value, int start, int len)
+        {
+            if (value == null || value.Length <= 0)
+            {
+                return null;
+            }
+            List<bool> result = new List<bool>();
+            for (int i = start; i < value.Length && i < start + len; i++)
+            {
+                result.Add(value.Substring(i, 1) != "0");
+            }
+            return result.ToArray();
+        }
+        /// <summary>
+        /// 将Bool数组转化为1和0表示的字符串
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <returns></returns>
+        public static string Bool2String(bool[] buff)
+        {
+            return Bool2String(buff, 0, buff.Length);
+        }
+        /// <summary>
+        /// 将Bool数组转化为1和0表示的字符串
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <param name="start"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static string Bool2String(bool[] buff, int start, int len)
+        {
+            if (buff == null || buff.Length <= 0)
+            {
+                return "";
+            }
+            string result = "";
+            for (int i = start; i < buff.Length && i < start + len; i++)
+            {
+                result = string.Format("{0}{1}", result, buff[i] ? 1 : 0);
             }
             return result;
         }
@@ -688,6 +745,39 @@ namespace All.Class
                 }
             }
             return result;
+        }
+        /// <summary>
+        /// 将Byte转换为Ushort
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <returns></returns>
+        public static ushort[] Byte2Ushort(byte[] buff)
+        {
+            return Byte2Ushort(buff, 0, buff.Length);
+        }
+        /// <summary>
+        /// 将Byte转换为Ushort
+        /// </summary>
+        /// <param name="buff"></param>
+        /// <param name="start"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static ushort[] Byte2Ushort(byte[] buff, int start, int len)
+        {
+            if ((len % 2) != 0)
+            {
+                len = len - 1;
+            }
+            if (len <= 0)
+            {
+                return null;
+            }
+            List<ushort> result = new List<ushort>();
+            for (int i = start; i < buff.Length - 1; i = i + 2)
+            {
+                result.Add((ushort)((buff[i] << 8) + buff[i + 1]));
+            }
+            return result.ToArray();
         }
         /// <summary>
         /// 将BYTE转化为BOOL

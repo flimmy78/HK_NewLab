@@ -222,28 +222,31 @@ namespace All.Control.Metro
                 }
                 //画标签的框
                 Rectangle rect0 = new Rectangle(this.GetTabRect(0).X, this.GetTabRect(0).Y, this.GetTabRect(0).Width - 1, this.GetTabRect(0).Height);
-                rect = new Rectangle(this.GetTabRect(this.SelectedIndex).X + 1, this.GetTabRect(this.SelectedIndex).Y, this.GetTabRect(this.SelectedIndex).Width - 2, this.GetTabRect(this.SelectedIndex).Height);
-                //if (normal)
-                //{
-                //    if (this.TabCount > 0)
-                //    {
-                g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, rect0.Y + rect.Height, rect.X, rect.Y + rect.Height);
-                g.DrawLine(All.Class.Style.BoardPen, rect.X + rect.Width, rect.Height + rect.Y, this.Width - rect0.X * 2, rect.Height + rect.Y);
-                //    }
-                //}
-                //else
-                //{
-                //    if (this.TabCount > 1)
-                //    {
-                        //g.DrawLine(All.Class.Style.BoardPen, rect0.X + rect0.Width, rect0.Y + rect0.Height, rect.X, rect.Y + rect.Height);
-                        //g.DrawLine(All.Class.Style.BoardPen, rect.X + rect.Width, rect.Height + rect.Y, this.Width - rect0.X * 2, rect.Height + rect.Y);
-                //    }
-                //}
-                g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, rect0.Y + rect.Height,
-                    rect0.X + 1, this.Height - rect0.Y * 2 );
-                g.DrawLine(All.Class.Style.BoardPen, this.Width - rect0.X * 2, rect0.Y + rect0.Height, 
-                    this.Width - rect0.X * 2, this.Height - rect.Y * 2);
-                g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, this.Height - rect0.Y-1, this.Width - rect0.X * 2, this.Height - rect.Y-1);
+                if (this.SelectedIndex >= 0)
+                {
+                    rect = new Rectangle(this.GetTabRect(this.SelectedIndex).X + 1, this.GetTabRect(this.SelectedIndex).Y, this.GetTabRect(this.SelectedIndex).Width - 2, this.GetTabRect(this.SelectedIndex).Height);
+                    //if (normal)
+                    //{
+                    //    if (this.TabCount > 0)
+                    //    {
+                    g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, rect0.Y + rect.Height, rect.X, rect.Y + rect.Height);
+                    g.DrawLine(All.Class.Style.BoardPen, rect.X + rect.Width, rect.Height + rect.Y, this.Width - rect0.X * 2, rect.Height + rect.Y);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (this.TabCount > 1)
+                    //    {
+                    //g.DrawLine(All.Class.Style.BoardPen, rect0.X + rect0.Width, rect0.Y + rect0.Height, rect.X, rect.Y + rect.Height);
+                    //g.DrawLine(All.Class.Style.BoardPen, rect.X + rect.Width, rect.Height + rect.Y, this.Width - rect0.X * 2, rect.Height + rect.Y);
+                    //    }
+                    //}
+                    g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, rect0.Y + rect.Height,
+                        rect0.X + 1, this.Height - rect0.Y * 2);
+                    g.DrawLine(All.Class.Style.BoardPen, this.Width - rect0.X * 2, rect0.Y + rect0.Height,
+                        this.Width - rect0.X * 2, this.Height - rect.Y * 2);
+                    g.DrawLine(All.Class.Style.BoardPen, rect0.X + 1, this.Height - rect0.Y - 1, this.Width - rect0.X * 2, this.Height - rect.Y - 1);
+                }
             }
             e.Graphics.DrawImageUnscaled(backImage, 0, 0);
             base.OnPaint(e);

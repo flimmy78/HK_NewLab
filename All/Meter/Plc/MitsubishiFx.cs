@@ -5,6 +5,9 @@ using System.Text;
 
 namespace All.Meter
 {
+    /// <summary>
+    /// 三菱PLC编程口通讯
+    /// </summary>
     public class MitsubishiFx:Meter
     {
         Dictionary<string, string> initParm;

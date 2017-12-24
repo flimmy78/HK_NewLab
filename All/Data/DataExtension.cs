@@ -243,7 +243,7 @@ namespace System
         /// <param name="rowIndex"></param>
         /// <param name="colIndex"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this DataRow dr, int rowIndex, int colIndex)
+        public static DateTime ToDateTime(this DataRow dr, int colIndex)
         {
             if (dr[colIndex] != DBNull.Value)
             {
@@ -259,7 +259,7 @@ namespace System
         /// <param name="rowIndex"></param>
         /// <param name="colIndex"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this DataRow dr, int rowIndex, string colName)
+        public static DateTime ToDateTime(this DataRow dr, string colName)
         {
             if (dr[colName] != DBNull.Value)
             {

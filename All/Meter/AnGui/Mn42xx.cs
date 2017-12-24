@@ -16,7 +16,7 @@ namespace All.Meter
         public override bool Read<T>(out List<T> value, Dictionary<string, string> parm)
         {
             value = new List<T>();
-            return true;
+            return false;
         }
         public override bool WriteInternal<T>(List<T> value, Dictionary<string, string> parm)
         {

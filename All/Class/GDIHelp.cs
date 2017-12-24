@@ -60,6 +60,17 @@ namespace All.Class
             }
         }
         /// <summary>
+        /// 32位真彩色转16位彩色
+        /// </summary>
+        /// <returns></returns>
+        public static short Color2Short(Color color)
+        {
+            byte b = (byte)(color.B >> 3);
+            byte g = (byte)(color.G >> 2);
+            byte r = (byte)(color.R >> 3);
+            return (short)((r << 11) | (g << 5) | b);
+        }
+        /// <summary>
         /// 获取居中位置的设置
         /// </summary>
         /// <returns></returns>

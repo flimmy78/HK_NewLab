@@ -5,6 +5,9 @@ using System.Text;
 
 namespace All.Meter.Plc
 {
+    /// <summary>
+    /// 三菱通讯口通讯方法
+    /// </summary>
     public class MitsubishiFxCom:Meter
     {
         bool check = false;

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace All.Attribute
 {
+    /// <summary>
+    /// 标记属性在数据库中的索引状态
+    /// </summary>
     public enum Statue
     {
         /// <summary>

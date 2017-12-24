@@ -4,14 +4,17 @@ using System.Text;
 
 namespace All.Class
 {
+    /// <summary>
+    /// 将All.Class.TypeUse.TypeList中指定类型数据与可以传输的序列化数据(即数组)相互转换
+    /// </summary>
     public class Serialization
     {
         /// <summary>
         /// 将单个数据转换为字节
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">数据类型,只支持All.Class.TypeUse.TypeList中指定的数据类型</typeparam>
+        /// <param name="value">数据值</param>
+        /// <returns>返回序列化后的数据</returns>
         public static byte[] ValueToBuff<T>(T value)
         {
             List<T> tmp = new List<T>();
@@ -19,11 +22,11 @@ namespace All.Class
             return ValueToBuff<T>(tmp);
         }
         /// <summary>
-        /// 将数组转化为字节
+        /// 将数组数据转化为字节
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">数据类型,只支持All.Class.TypeUse.TypeList中指定的数据类型</typeparam>
+        /// <param name="value">数组数据</param>
+        /// <returns>返回序列化后的数据</returns>
         public static byte[] ValueToBuff<T>(List<T> value)
         {
             if (value == null)
@@ -109,10 +112,12 @@ namespace All.Class
             return result.ToArray();
         }
         /// <summary>
-        /// 将字节转化为数组
+        /// 将序列化后的数据还原为All.Class.TypeUse.TypeList指定类型的数组
         /// </summary>
-        /// <param name="buff"></param>
-        /// <returns></returns>
+        /// <param name="buff">序列化后的数组</param>
+        /// <param name="start">序列化数据开始的位置</param>
+        /// <param name="len">序列化数据的长度</param>
+        /// <returns>充列化数据还原后的数组</returns>
         public static object BuffToValue(byte[] buff, int start, int len)
         {
 

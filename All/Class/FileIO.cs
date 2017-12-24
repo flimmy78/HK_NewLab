@@ -94,6 +94,18 @@ namespace All.Class
             return ReadFile(fileName, Encoding.UTF8);
         }
         /// <summary>
+        /// 将指定字符串以指定编码方式写入文件
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="value"></param>
+        /// <param name="fileMode"></param>
+        /// <param name="encoding"></param>
+        public static void Write(string fileName,string value, FileMode fileMode, Encoding encoding)
+        {
+            byte[] buff = encoding.GetBytes(value);
+            Write(fileName, buff, fileMode);
+        }
+        /// <summary>
         /// 将数据写入文件
         /// </summary>
         /// <param name="fileName"></param>

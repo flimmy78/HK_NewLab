@@ -65,7 +65,9 @@ namespace All.Meter
                         switch (tmpCode)
                         {
                             case 1:
+                            case 2:
                             case 3:
+                            case 4:
                                 sendBuff[1] = tmpCode;
                                 break;
                             default:
@@ -90,7 +92,6 @@ namespace All.Meter
                     sendBuff[2] = (byte)(tmpAddress >> 8);
                     sendBuff[3] = (byte)(tmpAddress & 0xFF);
 
-
                     if (!parm.ContainsKey("End"))
                     {
                         All.Class.Error.Add("数据读取参数中不包含读取结束", Environment.StackTrace);
@@ -102,14 +103,14 @@ namespace All.Meter
                     switch (sendBuff[1])
                     {
                         case 1:
+                        case 2:
                             returnCount = (ushort)Math.Ceiling(tmpLen / 8.0f) + 5;
                             break;
                         case 3:
+                        case 4:
                             returnCount = tmpLen * 2 + 5;
                             break;
                     }
-
-
                     All.Class.Check.Crc16(sendBuff, 6, out crcLo, out crcHi);
                     sendBuff[6] = crcLo;
                     sendBuff[7] = crcHi;
@@ -138,6 +139,7 @@ namespace All.Meter
                                 switch (readBuff[1])
                                 {
                                     case 1:
+                                    case 2:
                                         bool[] tmpBuff = All.Class.Num.Byte2Bool(readBuff, 3, returnCount - 5);
                                         for (int i = 0; i < tmpLen && i < tmpBuff.Length; i++)
                                         {
@@ -154,6 +156,7 @@ namespace All.Meter
                                 switch (readBuff[1])
                                 {
                                     case 3:
+                                    case 4:
                                         for (int i = 3; i < returnCount - 2; i = i + 2)
                                         {
                                             value.Add((T)(object)(ushort)(readBuff[i] * 256 + readBuff[i + 1]));
@@ -213,8 +216,27 @@ namespace All.Meter
                         case 6:
                             sendBuff = new byte[8];
                             break;
+                        case 15:
+                            sendBuff = new byte[(int)Math.Ceiling(value.Count / 8f) + 9];
+                            break;
                         case 16:
-                            sendBuff = new byte[value.Count * 2 + 9];
+                            switch (Class.TypeUse.GetType<T>())
+                            {
+                                case Class.TypeUse.TypeList.Byte:
+                                    if ((value.Count % 2) != 0)
+                                    {
+                                        All.Class.Error.Add("ModBus写入的数据数量不正确,当写入Byte时,要求写入偶数个数据", Environment.StackTrace);
+                                    }
+                                    sendBuff = new byte[value.Count + 9];
+                                    break;
+                                case Class.TypeUse.TypeList.Int:
+                                case Class.TypeUse.TypeList.UShort:
+                                    sendBuff = new byte[value.Count * 2 + 9];
+                                    break;
+                                default:
+                                    All.Class.Error.Add("ModBus写入的数据类型不正确,ModBus批量写入保持寄存器,只能为Int,Ushort,Byte类型", Environment.StackTrace);
+                                    break;
+                            }
                             break;
                         default:
                             All.Class.Error.Add("数据读取指令不正确,须要先测试", Environment.StackTrace);
@@ -267,6 +289,49 @@ namespace All.Meter
                                     break;
                             }
                             break;
+                        case 15:
+                            sendBuff[4] = (byte)(value.Count >> 8);
+                            sendBuff[5] = (byte)(value.Count & 0xFF);
+                            sendBuff[6] = (byte)((int)Math.Ceiling(value.Count / 8f));
+                            bool[] tmpBool = new bool[value.Count];
+                            switch (Class.TypeUse.GetType<T>())
+                            {
+                                case Class.TypeUse.TypeList.Boolean:
+                                    for (int i = 0; i < value.Count; i++)
+                                    {
+                                        tmpBool[i] = (bool)(object)value[i];
+                                    }
+                                    break;
+                                case Class.TypeUse.TypeList.Byte:
+                                    for (int i = 0; i < value.Count; i++)
+                                    {
+                                        tmpBool[i] = (0 != (byte)(object)value[i]);
+                                    }
+                                    break;
+                                case Class.TypeUse.TypeList.Int:
+                                    for (int i = 0; i < value.Count; i++)
+                                    {
+                                        tmpBool[i] = (0 != (int)(object)value[i]);
+                                    }
+                                    break;
+                                case Class.TypeUse.TypeList.Long:
+                                    for (int i = 0; i < value.Count; i++)
+                                    {
+                                        tmpBool[i] = (0 != (long)(object)value[i]);
+                                    }
+                                    break;
+                                case Class.TypeUse.TypeList.UShort:
+                                    for (int i = 0; i < value.Count; i++)
+                                    {
+                                        tmpBool[i] = (0 != (ushort)(object)value[i]);
+                                    }
+                                    break;
+                                default:
+                                    All.Class.Error.Add("ModBus写入的数据类型不正确,ModBus批量写入线圈的数据类型错误", Environment.StackTrace);
+                                    break;
+                            }
+                            Array.Copy(All.Class.Num.Bool2Byte(tmpBool), 0, sendBuff, 7, sendBuff[6]);
+                            break;
                         case 6:
                             if (Class.TypeUse.GetType<T>() != All.Class.TypeUse.TypeList.UShort)
                             {
@@ -277,18 +342,40 @@ namespace All.Meter
                             sendBuff[5] = (byte)(All.Class.Num.ToUshort(value[0].ToString()) & 0xFF);
                             break;
                         case 16:
-                            if (Class.TypeUse.GetType<T>() != All.Class.TypeUse.TypeList.UShort)
+                            switch (Class.TypeUse.GetType<T>())
                             {
-                                All.Class.Error.Add("ModBus写入的数据类型不正确,ModBus批量数据只能为Ushort类型", Environment.StackTrace);
-                                return false;
-                            }
-                            sendBuff[4] = (byte)(value.Count >> 8);
-                            sendBuff[5] = (byte)(value.Count & 0xFF);
-                            sendBuff[6] = (byte)(value.Count * 2);
-                            for (int i = 0; i < value.Count; i++)
-                            {
-                                sendBuff[7 + i * 2] = (byte)(((ushort)(object)value[i]) >> 8);
-                                sendBuff[8 + i * 2] = (byte)(((ushort)(object)value[i]) & 0xFF);
+                                case Class.TypeUse.TypeList.Byte:
+                                    sendBuff[4] = (byte)((value.Count/2) >> 8);
+                                    sendBuff[5] = (byte)((value.Count/2) & 0xFF);
+                                    sendBuff[6] = (byte)(value.Count);
+                                    for (int i = 0; i < value.Count; i++)
+                                    {
+                                        sendBuff[7 + i] = (byte)(object)value[i];
+                                    }
+                                    break;
+                                case Class.TypeUse.TypeList.Int:
+                                    sendBuff[4] = (byte)(value.Count >> 8);
+                                    sendBuff[5] = (byte)(value.Count & 0xFF);
+                                    sendBuff[6] = (byte)(value.Count * 2);
+                                    for (int i = 0; i < value.Count; i++)
+                                    {
+                                        sendBuff[7 + i * 2] = (byte)((((int)(object)value[i]) >> 8) & 0xFF);
+                                        sendBuff[8 + i * 2] = (byte)(((int)(object)value[i]) & 0xFF);
+                                    }
+                                    break;
+                                case Class.TypeUse.TypeList.UShort:
+                                    sendBuff[4] = (byte)(value.Count >> 8);
+                                    sendBuff[5] = (byte)(value.Count & 0xFF);
+                                    sendBuff[6] = (byte)(value.Count * 2);
+                                    for (int i = 0; i < value.Count; i++)
+                                    {
+                                        sendBuff[7 + i * 2] = (byte)(((ushort)(object)value[i]) >> 8);
+                                        sendBuff[8 + i * 2] = (byte)(((ushort)(object)value[i]) & 0xFF);
+                                    }
+                                    break;
+                                default:
+                                    All.Class.Error.Add("ModBus写入的数据类型不正确,ModBus批量数据只能为Ushort类型", Environment.StackTrace);
+                                    return false;
                             }
                             break;
                         default:

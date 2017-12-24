@@ -13,10 +13,10 @@ namespace All.Class.SingleFileSave
         /// <summary>
         /// 将指定数据写入指定ini文件
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="title"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="fileName">文件名称</param>
+        /// <param name="section">写入小节名称通常包含在[]之间</param>
+        /// <param name="key">写入字段名称</param>
+        /// <param name="value">写入值</param>
         public static void Write(string fileName, string section, string key, string value)
         {
             All.Class.Api.WritePrivateProfileString(section, key, value, fileName);
@@ -24,11 +24,11 @@ namespace All.Class.SingleFileSave
         /// <summary>
         /// 从文件读取指定数据
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="section"></param>
-        /// <param name="key"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
+        /// <param name="fileName">文件名称</param>
+        /// <param name="section">读取小节名称</param>
+        /// <param name="key">读取字段名称</param>
+        /// <param name="defaultValue">当读取字段不存在时,返回的默认值</param>
+        /// <returns>返回读取后的数据</returns>
         public static string Read(string fileName, string section, string key, string defaultValue)
         {
             StringBuilder result = new StringBuilder(255);
@@ -40,10 +40,11 @@ namespace All.Class.SingleFileSave
             return result.ToString().Trim();
         }
         /// <summary>
-        /// 将字典转化为标准字符串
+        /// 将字典数据,转换为按ini存储的字符串样式
         /// </summary>
-        /// <param name="buff"></param>
-        /// <returns></returns>
+        /// <param name="section">储存的小节名称</param>
+        /// <param name="buff">存储数据的字典</param>
+        /// <returns>返回ini格式的数据</returns>
         public static string Dictionary2Text(string section, Dictionary<string, string> buff)
         {
             StringBuilder result = new StringBuilder(500);
@@ -54,6 +55,12 @@ namespace All.Class.SingleFileSave
             });
             return result.ToString().Trim();
         }
+        /// <summary>
+        /// 从ini格式的文本字符串中,将数据解析为1对1的字典数据
+        /// </summary>
+        /// <param name="section">存储数据的小节名称</param>
+        /// <param name="value">ini格式的文本字符串</param>
+        /// <returns>1对1的字典数据</returns>
         public static Dictionary<string, string> Text2Dictionary(string section, string value)
         {
             Dictionary<string, string> buff = new Dictionary<string, string>();

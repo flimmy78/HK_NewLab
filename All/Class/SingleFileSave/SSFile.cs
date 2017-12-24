@@ -9,13 +9,19 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace All.Class.SingleFileSave
 {
     /// <summary>
-    /// XML文件格式保存文本
+    /// 自定义的XML文件格式保存文本
     /// </summary>
     public class SSFile
     {
+        /// <summary>
+        /// 序列化数据中间类,数据序列化与数据反解析
+        /// </summary>
         [Serializable]
         public class Nodes//此处因为用到序列化,所以必须为public
         {
+            /// <summary>
+            /// 单一数据序列化
+            /// </summary>
             [Serializable]
             public class Node
             {
@@ -29,11 +35,19 @@ namespace All.Class.SingleFileSave
                 /// </summary>
                 public string Value
                 { get; set; }
+                /// <summary>
+                /// 初始化一个标题为"",数据也为""的待序列化数据
+                /// </summary>
                 public Node()
                 {
                     Title = "";
                     Value = "";
                 }
+                /// <summary>
+                /// 初始化一个指定标题和指定数据的待序列化的数据
+                /// </summary>
+                /// <param name="title">数据标题</param>
+                /// <param name="value">数据值</param>
                 public Node(string title, string value)
                 {
                     this.Title = title;
@@ -41,18 +55,21 @@ namespace All.Class.SingleFileSave
                 }
             }
             /// <summary>
-            /// 所有数据
+            /// 所有待序列化的数据
             /// </summary>
             public List<Node> AllNode
             { get; set; }
+            /// <summary>
+            /// 初始化一个待序列化的数据集合
+            /// </summary>
             public Nodes()
             {
                 AllNode = new List<Node>();
             }
             /// <summary>
-            /// 序列化为字符串
+            /// 将所有数据集合序列化为字符串
             /// </summary>
-            /// <returns></returns>
+            /// <returns>序列化后的值</returns>
             public override string ToString()
             {
                 string result = "";
@@ -67,9 +84,9 @@ namespace All.Class.SingleFileSave
                 return result;
             }
             /// <summary>
-            /// 字符串解析为值
+            /// 将序列化的字符串解析还原为数据集合
             /// </summary>
-            /// <param name="value"></param>
+            /// <param name="value">待解析的字符串</param>
             public void Init(string value)
             {
                 XmlSerializer xs = new XmlSerializer(typeof(Nodes));
@@ -87,10 +104,10 @@ namespace All.Class.SingleFileSave
             }
         }
         /// <summary>
-        /// 将字典转化为标准字符串
+        /// 将字典数据转化为标准字符串
         /// </summary>
-        /// <param name="buff"></param>
-        /// <returns></returns>
+        /// <param name="buff">待转化的字典</param>
+        /// <returns>转换后的字符串</returns>
         public static string Dictionary2Text(Dictionary<string, string> buff)
         {
             Nodes nodes = new Nodes();
@@ -103,10 +120,10 @@ namespace All.Class.SingleFileSave
             return nodes.ToString();
         }
         /// <summary>
-        /// 将字符串转化为字典
+        /// 将序列化后的字符串还原为字典
         /// </summary>
-        /// <param name="buff"></param>
-        /// <returns></returns>
+        /// <param name="value">要还原的字符串</param>
+        /// <returns>还原后的字典</returns>
         public static Dictionary<string, string> Text2Dictionary(string value)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
@@ -130,10 +147,10 @@ namespace All.Class.SingleFileSave
             return result;
         }
         /// <summary>
-        /// 将任意类型转化为数组
+        /// 将任意类型序列化为字节数组
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">任意类型的数据</param>
+        /// <returns>序列化后的字节数组</returns>
         public static byte[] Object2Byte(object value)
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -144,31 +161,43 @@ namespace All.Class.SingleFileSave
             }
         }
         /// <summary>
-        /// 将数组还原为类型
+        /// 将序列化后的数组还原为原类型
         /// </summary>
-        /// <param name="buff"></param>
-        /// <returns></returns>
+        /// <param name="buff">序列化的数组</param>
+        /// <returns>序列化后还原的数据类型</returns>
         public static object Byte2Object(byte[] buff)
         {
             return Byte2Object(buff, 0, buff.Length);
         }
         /// <summary>
-        /// 将数组还原为类型
+        /// 将序列化后的数组还原为原类型
         /// </summary>
-        /// <param name="buff"></param>
-        /// <param name="start"></param>
-        /// <param name="len"></param>
-        /// <returns></returns>
+        /// <param name="buff">序列化的数组</param>
+        /// <param name="start">序列化数据起始点</param>
+        /// <param name="len">序列化数据的长度</param>
+        /// <returns>序列化后还原的数据类型</returns>
         public static object Byte2Object(byte[] buff,int start,int len)
         {
             BinaryFormatter bf = new BinaryFormatter();
             using (MemoryStream ms = new MemoryStream())
             {
-                bf.Serialize(ms, buff);
+                ms.Write(buff, start, len);
                 ms.Flush();
                 ms.Position = 0;
                 return bf.Deserialize(ms);
             }
+        }
+        /// <summary>
+        /// 将序列化后的数组还原为原类型
+        /// </summary>
+        /// <typeparam name="T">原数据类型</typeparam>
+        /// <param name="buff">序列化的数组</param>
+        /// <param name="start">序列化数据起始点</param>
+        /// <param name="len">序列化数据的长度</param>
+        /// <returns>序列化后还原的数据类型</returns>
+        public static T Byte2Object<T>(byte[] buff, int start, int len)
+        {
+            return (T)Byte2Object(buff, start, len);
         }
     }
 }

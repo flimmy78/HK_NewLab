@@ -61,6 +61,27 @@ namespace All.Meter.Elect
                 return result;
             }
             /// <summary>
+            /// 取三相表中指定相的数据
+            /// </summary>
+            /// <param name="value"></param>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            public static SinglePhase Parse(ThreePhase value, int index)
+            {
+                int phase = 0;
+                if (index >= 0 && index <= 2)
+                {
+                    phase = index;
+                }
+                SinglePhase result = new SinglePhase();
+                result.Vol = value.Vol[phase];
+                result.Cur = value.Cur[phase];
+                result.Power = value.Power[phase];
+                result.Factor = value.Factor[phase];
+                result.Hz = value.Hz;
+                return result;
+            }
+            /// <summary>
             /// 取所有数据中的三相数据
             /// </summary>
             /// <param name="value"></param>
@@ -147,6 +168,31 @@ namespace All.Meter.Elect
                     if (Power != null && Power.Length > 0)
                     {
                         Power.ToList().ForEach(value => result += value);
+                    }
+                    return result;
+                }
+            }
+            /// <summary>
+            /// 电流最大的一相
+            /// </summary>
+            public SinglePhase MaxCurPhase
+            {
+                get 
+                {
+                    SinglePhase result = SinglePhase.Parse(this);
+                    if (Cur != null && Cur.Length > 0)
+                    {
+                        float tmpCur = Cur[0];
+                        int index = 0;
+                        for (int i = 0; i < Cur.Length; i++)
+                        {
+                            if (Cur[i] > tmpCur)
+                            {
+                                tmpCur = Cur[i];
+                                index = i;
+                            }
+                        }
+                        result = SinglePhase.Parse(this, index);
                     }
                     return result;
                 }

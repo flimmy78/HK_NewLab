@@ -72,39 +72,60 @@ namespace All.Control.Mine
         public bool Symbol
         {
             get { return symbol; }
-            set { symbol = value; flush(); }
+            set { symbol = value; Init(); }
         }
+        private Color shadowColor
+        {
+            get
+            {
+                Color result = Color.FromArgb(20, foreColor.R, foreColor.G, foreColor.B);
+                if ((backColor.R + backColor.G + backColor.B) > 128 * 3)
+                {
+                    result = Color.FromArgb(60, foreColor.R, foreColor.G, foreColor.B);
+                }
+                return result;
+            }
+        }
+        System.Drawing.Color foreColor = Color.Red;
         /// <summary>
         /// 字体颜色
         /// </summary>
         [Description("字体颜色")]
         [Category("Shuai")]
-        public override System.Drawing.Color ForeColor
+        public new System.Drawing.Color ForeColor
         {
-            get { return base.ForeColor; }
+            get { return foreColor; }
             set
             {
-                base.ForeColor = value;
-                for (int i = 0; i < seven.Length; i++)
+                foreColor = value;
+                if (seven != null)
                 {
-                    seven[i].ForeColor = value;
+                    for (int i = 0; i < seven.Length; i++)
+                    {
+                        seven[i].ForeColor = value;
+                    }
                 }
             }
         }
+        System.Drawing.Color backColor = Color.Black;
+
         /// <summary>
         /// 背景色
         /// </summary>
         [Description("背景色")]
         [Category("Shuai")]
-        public override System.Drawing.Color BackColor
+        public new System.Drawing.Color BackColor
         {
-            get { return base.BackColor; }
+            get { return backColor; }
             set
             {
-                base.BackColor = value;
-                for (int i = 0; i < seven.Length; i++)
+                backColor = value;
+                if (seven != null)
                 {
-                    seven[i].BackColor = value;
+                    for (int i = 0; i < seven.Length; i++)
+                    {
+                        seven[i].BackColor = value;
+                    }
                 }
             }
         }
@@ -113,6 +134,7 @@ namespace All.Control.Mine
             InitializeComponent();
             SetStyle(ControlStyles.UserPaint | ControlStyles.SupportsTransparentBackColor | ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
             this.UpdateStyles();
+            Init();
         }
         protected override void OnSizeChanged(EventArgs e)
         {
@@ -120,8 +142,80 @@ namespace All.Control.Mine
             base.OnSizeChanged(e);
         }
         private void flush()
-        { 
-
+        {
+            if (seven != null)
+            {
+                if (value.ToString().Length <= seven.Length)
+                {
+                    int count = 0;
+                    for (int i = value.ToString().Length - 1, j = seven.Length - 1; i >= 0 && j >= 0; i--, j--)
+                    {
+                        seven[j].ForeColor = foreColor;
+                        switch (value.ToString().Substring(i, 1))
+                        {
+                            case "0":
+                                seven[j].Value = 0;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "1":
+                                seven[j].Value = 1;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "2":
+                                seven[j].Value = 2;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "3":
+                                seven[j].Value = 3;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "4":
+                                seven[j].Value = 4;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "5":
+                                seven[j].Value = 5;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "6":
+                                seven[j].Value = 6;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "7":
+                                seven[j].Value = 7;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "8":
+                                seven[j].Value = 8;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case "9":
+                                seven[j].Value = 9;
+                                seven[j].Simplor = Seven.simplorList.Value;
+                                break;
+                            case ".":
+                                seven[j].Value = 0;
+                                seven[j].Simplor = Seven.simplorList.Point;
+                                break;
+                            case "+":
+                                seven[j].Value = 0;
+                                seven[j].Simplor = Seven.simplorList.Add;
+                                break;
+                            case "-":
+                                seven[j].Value = 0;
+                                seven[j].Simplor = Seven.simplorList.Del;
+                                break;
+                        }
+                        count++;
+                    }
+                    for (int i = 0; i < seven.Length - count; i++)
+                    {
+                        seven[i].ForeColor = shadowColor;
+                        seven[i].Value = 0;
+                        seven[i].Simplor = Seven.simplorList.Value;
+                    }
+                }
+            }
         }
         private void Init()
         {
@@ -132,11 +226,11 @@ namespace All.Control.Mine
                     seven[i].Dispose();
                 }
             }
-            seven = new Seven[maxLen + 1 + (point ? 1 : 0)];
+            seven = new Seven[maxLen + (symbol ? 1 : 0) + (point ? 1 : 0)];
             for (int i = 0; i < seven.Length; i++)
             {
                 seven[i] = new Seven();
-                seven[i].Width = this.Width / seven.Length - 5;
+                seven[i].Width = this.Width / seven.Length - 8;
                 seven[i].Height = this.Height;
                 seven[i].Left = this.Width / seven.Length * i;
                 seven[i].FontSize = this.Height / 10;
