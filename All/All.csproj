@@ -47,7 +47,9 @@
     <Compile Include="Attribute\Save.cs" />
     <Compile Include="Class\Api.cs" />
     <Compile Include="Class\Check.cs" />
-    <Compile Include="Class\Clone.cs" />
+    <Compile Include="Class\Clone.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Class\Code.cs" />
     <Compile Include="Class\DataExtenSion.cs" />
     <Compile Include="Class\Email.cs" />
@@ -278,7 +280,9 @@
     <Compile Include="Meter\Elect\Elect.cs" />
     <Compile Include="Meter\Elect\Qz3432b.cs" />
     <Compile Include="Meter\HKBoard\HaierRemoteControl.cs" />
-    <Compile Include="Meter\HP34970.cs" />
+    <Compile Include="Meter\HP34970.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Meter\McgsModbusRtu.cs" />
     <Compile Include="Meter\Meter.cs" />
     <Compile Include="Meter\AnGui\Mn42xx.cs" />
@@ -290,8 +294,12 @@
     <Compile Include="Meter\Plc\MitsubishiFxCom.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Meter\Plc\MitsubishiFxNet.cs" />
-    <Compile Include="Meter\Plc\MitsubishiQNet.cs" />
+    <Compile Include="Meter\Plc\MitsubishiFxNet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Meter\Plc\MitsubishiQNet.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Meter\SSMeter\SSLockClient.cs">
       <SubType>Code</SubType>
     </Compile>
