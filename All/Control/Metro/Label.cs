@@ -7,7 +7,7 @@ using System.Text;
 
 namespace All.Control.Metro
 {
-    public partial class Label : System.Windows.Forms.Label,Class.Style.ChangeTheme
+    public partial class Label : System.Windows.Forms.Label,All.Class.Style.ChangeTheme
     {
         public Label()
         {

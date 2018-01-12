@@ -96,6 +96,7 @@
     <Compile Include="Communicate\Nothing.cs" />
     <Compile Include="Communicate\TcpClient.cs" />
     <Compile Include="Communicate\Udp.cs" />
+    <Compile Include="Control\Class\GridSplitLine.cs" />
     <Compile Include="Control\Interface\ControlExtension.cs" />
     <Compile Include="Control\Metro\Button.cs">
       <SubType>Component</SubType>
@@ -174,6 +175,12 @@
     </Compile>
     <Compile Include="Control\Metro\TrackBar.Designer.cs">
       <DependentUpon>TrackBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Mine\Cuver.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\Mine\Cuver.Designer.cs">
+      <DependentUpon>Cuver.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\Mine\DateTime.cs">
       <SubType>Component</SubType>

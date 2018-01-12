@@ -234,7 +234,7 @@ namespace All.Control.Mine
         /// <param name="g"></param>
         private void DrawBack(Graphics g)
         {
-            Class.GDIHelp.Init(g);
+            All.Class.GDIHelp.Init(g);
             using (Pen p = new Pen(All.Class.Style.BoardColor, 3))
             {
                 p.EndCap = LineCap.ArrowAnchor;
@@ -266,7 +266,7 @@ namespace All.Control.Mine
             {
                 return;
             }
-            Class.GDIHelp.Init(g);
+            All.Class.GDIHelp.Init(g);
             int lineWidth = 10;
             int index = -1;
             StringFormat sf = new StringFormat();
@@ -291,7 +291,7 @@ namespace All.Control.Mine
         /// <param name="g"></param>
         private void DrawChannel(Graphics g)
         {
-            Class.GDIHelp.InitAntiAlias(g);
+            All.Class.GDIHelp.InitAntiAlias(g);
             float[] yMin = new float[this.channels.Count];
             float[] yMax = new float[this.channels.Count];
 

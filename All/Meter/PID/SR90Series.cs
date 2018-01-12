@@ -131,6 +131,9 @@ namespace All.Meter
         Dictionary<string, int> writeItem = new Dictionary<string, int>();
         int address = 0;
         int dp = 0;//小数点
+        string check = "None";
+        byte stx = 0x02;
+        byte etx = 0x03;
         Dictionary<string, string> initParm = new Dictionary<string, string>();
         public override Dictionary<string, string> InitParm
         {
@@ -150,6 +153,39 @@ namespace All.Meter
             if (initParm.ContainsKey("DP"))
             {
                 dp = All.Class.Num.ToInt(initParm["DP"]);
+            }
+            if (initParm.ContainsKey("STX"))
+            {
+                switch (initParm["STX"])
+                {
+                    case "40":
+                        stx = 0x40;
+                        etx = 0x3A;
+                        break;
+                    case "02":
+                        stx = 0x02;
+                        etx = 0x03;
+                        break;
+                    default:
+                        All.Class.Error.Add("SR90系列仪表未能识别的STX字符");
+                        break;
+                }
+            }
+            if (initParm.ContainsKey("Check"))
+            {
+                switch (initParm["Check"])
+                {
+                    case "Xor":
+                        check = "Xor";
+                        break;
+                    case "Add":
+                    default:
+                        All.Class.Error.Add("SR90系列仪表当前校验方式没有添加");
+                        break;
+                    case "None":
+                        check = "None";
+                        break;
+                }
             }
             string[] item = Enum.GetNames(typeof(ReadItem));
             for (int i = 0; i < item.Length; i++)
@@ -213,11 +249,27 @@ namespace All.Meter
                         }
                         dp = (int)Math.Pow(10, (int)tmpDp);
                     }
-                    byte[] sendBuff = new byte[12];
-                    sendBuff[0] = 0x02;
+                    int sendCount = 12;
+                    if (check != "None")
+                    {
+                        sendCount += 2;
+                    }
+                    byte[] sendBuff = new byte[sendCount];
+
+                    sendBuff[0] = stx;
                     Array.Copy(Encoding.ASCII.GetBytes(string.Format("{0:D2}1R{1:X4}0", address, item)), 0, sendBuff, 1, 9);
-                    sendBuff[10] = 0x03;
-                    sendBuff[11] = 0x0D;
+                    sendBuff[10] = etx;
+
+                    switch (check)
+                    {
+                        case "None":
+                            sendBuff[11] = 0x0D;
+                            break;
+                        case "Xor":
+                            Array.Copy(Encoding.ASCII.GetBytes(string.Format("{0:X2}", All.Class.Check.Xor(sendBuff, 1, 10))), 0, sendBuff, 11, 2);
+                            sendBuff[13] = 0x0D;
+                            break;
+                    }
                     byte[] readBuff;
                     if (WriteAndRead<byte[], byte[]>(sendBuff, 14, out readBuff, parm))
                     {

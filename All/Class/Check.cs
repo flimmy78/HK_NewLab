@@ -66,6 +66,26 @@ namespace All.Class
             return (byte)(result & 0xFF);
         }
         /// <summary>
+        /// 计算xor校验
+        /// </summary>
+        /// <param name="buff">要计算的数组</param>
+        /// <param name="start">开始的位置</param>
+        /// <param name="len">计算长度</param>
+        /// <returns>计算结果</returns>
+        public static byte Xor(byte[] buff, int start, int len)
+        {
+            if (buff == null || start < 0 || len < 0 || (start + len) > buff.Length)
+            {
+                return 0;
+            }
+            int sum = 0;
+            for (int i = start, j = 0; j < len; i++, j++)
+            {
+                sum = sum ^ buff[i];
+            }
+            return (byte)(sum & 0xFF);
+        }
+        /// <summary>
         /// 计算CRC校验
         /// </summary>
         /// <param name="buff">指定要计算数据</param>

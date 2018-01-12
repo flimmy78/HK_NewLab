@@ -153,7 +153,7 @@ namespace All.Control.Mine
                     case "8":
                     case "9":
                         //seven[i].Simplor = Seven.simplorList.Value;
-                        seven[i].Value = Class.Num.ToByte(tmpTime.Substring(i, 1));
+                        seven[i].Value = tmpTime.Substring(i, 1).ToByte();
                         break;
                     case "-":
                         //seven[i].Simplor = Seven.simplorList.Del;

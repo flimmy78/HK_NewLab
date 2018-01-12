@@ -406,10 +406,10 @@ namespace All.Control.Metro
                         tmpMaxiColor = Color.Silver;//All.Class.Style.BoardColor;
                         switch (All.Class.Style.Back)
                         {
-                            case Class.Style.BackColors.White:
+                            case All.Class.Style.BackColors.White:
                                 tmpScrollColor = ControlPaint.Light(All.Class.Style.FontColor);
                                 break;
-                            case Class.Style.BackColors.Black:
+                            case All.Class.Style.BackColors.Black:
                                 tmpScrollColor = ControlPaint.Dark(All.Class.Style.FontColor);
                                 break;
                         }

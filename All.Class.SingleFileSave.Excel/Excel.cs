@@ -868,7 +868,7 @@ namespace All.Class.SingleFileSave
                 using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
                 {
                     NPOI.SS.UserModel.IWorkbook work = null;
-                    if (fileName.EndsWith("xlsx"))
+                    if (fileName.EndsWith("xlsx") || fileName.EndsWith("xlsm"))
                     {
                         work = new NPOI.XSSF.UserModel.XSSFWorkbook(fs);
                     }

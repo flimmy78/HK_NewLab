@@ -181,7 +181,7 @@ namespace All.Control.Metro
                 {
                     rect = new Rectangle(this.GetTabRect(i).X + 1, this.GetTabRect(i).Y, this.GetTabRect(i).Width - 2, this.GetTabRect(i).Height);
                     tmpfontColor = (this.SelectedIndex == i ? (
-                        All.Class.Style.Back == Class.Style.BackColors.Black ?
+                        All.Class.Style.Back == All.Class.Style.BackColors.Black ?
                         All.Class.Style.TitleColor : All.Class.Style.BoardColor) : All.Class.Style.FontColor);
                     tmpFont = (this.SelectedIndex == i ? tabSelectFont : tabOtherFont);
                     switch (i)
