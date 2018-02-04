@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 namespace All.Meter
 {
@@ -74,7 +73,7 @@ namespace All.Meter
                     switch (Class.TypeUse.GetType<T>())
                     {
                         case Class.TypeUse.TypeList.String:
-                            value.Add((T)(object)All.Class.Num.GetVisableStr(Encoding.ASCII.GetString(readBuff)));
+                            value.Add((T)(object)All.Class.Num.GetVisableStr(Encoding.ASCII.GetString(readBuff,0,readBuff.Length)));
                             break;
                         case Class.TypeUse.TypeList.Byte:
                             for (int i = 0; i < readBuff.Length; i++)

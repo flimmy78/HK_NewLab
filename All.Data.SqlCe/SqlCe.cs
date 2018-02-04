@@ -246,7 +246,7 @@ namespace All.Data
             {
                 return 0;
             }
-            string sql = string.Format("insert into {0} {1} values {2}", tableName, allColumns, allDatas);
+            string sql = string.Format("insert into [{0}] {1} values {2}", tableName, allColumns, allDatas);
             lock (lockObject)
             {
                 int result = 0;

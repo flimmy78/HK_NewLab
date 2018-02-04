@@ -194,6 +194,41 @@ namespace All.Meter
             ushort value = 0;
             return Read<ushort>(out value, 0);
         }
+        public override bool WriteInternal<T>(T value, int start)
+        {
+            List<T> buff = new List<T>();
+            buff.Add(value);
+
+            Dictionary<string, string> parm = new Dictionary<string, string>();
+            parm.Add("Start", start.ToString());
+            parm.Add("End", start.ToString());
+            switch (All.Class.TypeUse.GetType<T>())
+            {
+                case Class.TypeUse.TypeList.Boolean:
+                    parm.Add("Code", "5");
+                    break;
+                default:
+                    parm.Add("Code", "6");
+                    break;
+            }
+            return WriteInternal<T>(buff, parm);
+        }
+        public override bool WriteInternal<T>(List<T> value, int start, int end)
+        {
+            Dictionary<string, string> buff = new Dictionary<string, string>();
+            buff.Add("Start", start.ToString());
+            buff.Add("End", end.ToString());
+            switch (All.Class.TypeUse.GetType<T>())
+            {
+                case Class.TypeUse.TypeList.Boolean:
+                    buff.Add("Code", "15");
+                    break;
+                default:
+                    buff.Add("Code", "16");
+                    break;
+            }
+            return WriteInternal<T>(value, buff);
+        }
         public override bool WriteInternal<T>(List<T> value, Dictionary<string, string> parm)
         {
             lock (lockObject)
@@ -207,7 +242,15 @@ namespace All.Meter
                     int returnCount = 8;
                     if (!parm.ContainsKey("Code"))
                     {
-                        parm.Add("Code", "16");
+                        switch (All.Class.TypeUse.GetType<T>())
+                        {
+                            case Class.TypeUse.TypeList.Boolean:
+                                parm.Add("Code", "15");
+                                break;
+                            default:
+                                parm.Add("Code", "16");
+                                break;
+                        }
                     }
                     byte tmpCode = All.Class.Num.ToByte(parm["Code"]);
                     switch (tmpCode)

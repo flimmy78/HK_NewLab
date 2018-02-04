@@ -272,6 +272,11 @@ namespace All.Data
                     continue;//注释等其他东西忽略
                 }
                 Dictionary<string, string> connAttribute = All.Class.XmlHelp.GetAttribute(tmpConn);
+                if (connAttribute == null)
+                {
+                    All.Class.Error.Add("当前xml文件不能正确的解析");
+                    continue;//解析有错误
+                }
                 if (connAttribute.ContainsKey("Name") && connAttribute["Name"].ToUpper() == text.ToUpper())
                 {
                     try

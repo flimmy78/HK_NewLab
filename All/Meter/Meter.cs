@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace All.Meter
@@ -346,7 +345,7 @@ namespace All.Meter
                 {
                     this.Parent.Open();
                 }
-                int startTime = Environment.TickCount;
+                int startTime = 0;
                 bool timeOut = false;
                 bool getData = false;
                 if (len > 0)
@@ -354,8 +353,9 @@ namespace All.Meter
                     do
                     {
                         readLen = this.Parent.DataRecive;
-                        System.Threading.Thread.Sleep(30);
-                        if ((Environment.TickCount - startTime) > TimeOut)
+                        System.Threading.Thread.Sleep(50);
+                        startTime++;
+                        if (startTime * 50 > TimeOut)
                         {
                             timeOut = true;
                         }
@@ -372,8 +372,9 @@ namespace All.Meter
                         do
                         {
                             readLen = this.Parent.DataRecive;
-                            System.Threading.Thread.Sleep(30);
-                            if ((Environment.TickCount - startTime) > TimeOut)
+                            System.Threading.Thread.Sleep(50);
+                            startTime++;
+                            if (startTime * 50 > TimeOut)
                             {
                                 timeOut = true;
                             }
@@ -410,7 +411,7 @@ namespace All.Meter
                             switch (Class.TypeUse.GetType<T>())
                             {
                                 case All.Class.TypeUse.TypeList.String:
-                                    readBuff = (T)(object)Encoding.UTF8.GetString(readTmpBuff);
+                                    readBuff = (T)(object)Encoding.UTF8.GetString(readTmpBuff, 0, readTmpBuff.Length);
                                     break;
                                 case All.Class.TypeUse.TypeList.Bytes:
                                     readBuff = (T)(object)readTmpBuff;

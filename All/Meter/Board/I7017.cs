@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 namespace All.Meter
 {
@@ -84,11 +83,11 @@ namespace All.Meter
                     string sendBuff = string.Format("#{0:D2}", address);
                     if (cr)
                     {
-                        sendBuff = string.Format("{0}{1}", sendBuff, Encoding.ASCII.GetString(new byte[] { 0x0D }));
+                        sendBuff = string.Format("{0}\r", sendBuff);
                     }
                     if (lf)
                     {
-                        sendBuff = string.Format("{0}{1}", sendBuff, Encoding.ASCII.GetString(new byte[] { 0x0A }));
+                        sendBuff = string.Format("{0}\n", sendBuff);
                     }
                     string readBuff;
                     if (WriteAndRead<string, string>(sendBuff, 43, out readBuff))

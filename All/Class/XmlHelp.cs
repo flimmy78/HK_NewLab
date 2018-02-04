@@ -31,6 +31,7 @@ namespace All.Class
         public static XmlNode GetXmlNode(FileStream fileStream)
         {
             XmlDocument tmp = new XmlDocument();
+            tmp.Normalize();
             XmlNode tmpNode = null;
             try
             {

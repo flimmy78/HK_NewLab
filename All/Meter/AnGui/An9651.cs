@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-
+using System.Linq;
 namespace All.Meter
 {
     public class An9651:AnGui.AnGui
@@ -336,6 +335,7 @@ namespace All.Meter
                     else
                     {
                         All.Class.Log.Add(sendValue);
+						result = false;
                     }
                 }
                 catch (Exception e)
